@@ -1,0 +1,358 @@
+{
+    "groups": [
+        {
+            "name": "meta",
+            "description": "Commands related to sushii itself",
+            "commands": [
+                {
+                    "name": "ping",
+                    "description": "Pong",
+                    "required_permissions": []
+                },
+                {
+                    "name": "prefix",
+                    "description": "Set the bot prefix for this guild. Use without an argument to get the current prefix",
+                    "usage": "(prefix)",
+                    "examples": [
+                        {
+                            "command": "prefix"
+                        },
+                        {
+                            "content": "The current guild prefix is: `s!!`",
+                            "bot": true
+                        },
+                        {
+                            "command": "prefix $"
+                        },
+                        {
+                            "content": "Updated prefix to `*`",
+                            "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "invite",
+                    "description": "Get the invite link for sushii to add to another server"
+                },
+                {
+                    "name": "about",
+                    "description": "Get information about sushii"
+                }
+            ]
+        },
+        {
+            "name": "moderation",
+            "description": "Moderation commands",
+            "commands": [
+                {
+                    "name": "prune",
+                    "description": "Delete bulk messages between 1 and 99 messages.",
+                    "usage": "[num messages]",
+                    "aliases": ["p"],
+                    "examples": [
+                        {
+                            "command": "prune 30"
+                        },
+                        {
+                            "command": "p 5"
+                        }
+                    ]
+                },
+                {
+                    "name": "ban",
+                    "description": "Ban one or more users. IDs or mentions can be separated with a  space or comma. Users do not need to be in the guild.",
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "ban 963258741258369 741258963258741 raiders"
+                        }
+                    ]
+                },
+                {
+                    "name": "unban",
+                    "description": "Unban one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "unban 963258741258369 741258963258741 accidental ban"
+                        }
+                    ]
+                },
+                {
+                    "name": "kick",
+                    "description": "Kick one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "kick 963258741258369 741258963258741 raiders"
+                        }
+                    ]
+                },
+                {
+                    "name": "mute",
+                    "description": "Mute one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "usage": "[one or more user IDs or mentions] (duration) (reason)",
+                    "examples": [
+                        {
+                            "command": "mute 963258741258369 741258963258741 spamming"
+                        },
+                        {
+                            "command": "mute 963258741258369 741258963258741 1 day spamming"
+                        }
+                    ]
+                },
+                {
+                    "name": "mute setduration",
+                    "aliases": [
+                        "mute s",
+                        "mute set",
+                        "mute setd",
+                        "mute setdur",
+                        "mute settime"
+                    ],
+                    "description": "Change the duration of an existing mute. Use indefinite (or indef, inf, none) to remove duration.",
+                    "usage": "[user ID or mention] (new duration or indefinite)",
+                    "examples": [
+                        {
+                            "command": "mute setduration 963258741258369 3 days"
+                        },
+                        {
+                            "command": "mute s 741258963258741 indefinite"
+                        }
+                    ]
+                },
+                {
+                    "name": "mute addduration",
+                    "aliases": [
+                        "mute a",
+                        "mute add",
+                        "mute addd",
+                        "mute adddur",
+                        "mute addtime",
+                        "mute extend"
+                    ],
+                    "description": "Add to the duration of an existing mute.",
+                    "usage": "[user ID or mention] (duration)",
+                    "examples": [
+                        {
+                            "command": "mute addduration 963258741258369 1 day"
+                        },
+                        {
+                            "command": "mute a 741258963258741 30 min"
+                        }
+                    ]
+                },
+                {
+                    "name": "unmute",
+                    "description": "Unmute one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "unmute 963258741258369 741258963258741 accidental mute"
+                        }
+                    ]
+                },
+                {
+                    "name": "listmutes",
+                    "description": "List currently ongoing mutes in the guild, with the user, mute duration, and duration left."
+                },
+                {
+                    "name": "warn",
+                    "description": "Warn one or more users. This is mainly useful for keeping track of misbehavior by users via the history command, as warning does not notify the user as of now. IDs or mentions can be separated with a space or comma.",
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "warn 963258741258369 741258963258741 spamming"
+                        }
+                    ]
+                },
+                {
+                    "name": "history",
+                    "description": "Show the case history for a given user. The actions warn,  mute, kick, ban will be shown.",
+                    "usage": "[ID or mention]",
+                    "examples": [
+                        {
+                            "command": "history 963258741258369"
+                        }
+                    ]
+                },
+                {
+                    "name": "reason",
+                    "description": "Set the reason for a moderation case. This will also set the moderator who performed this action. If a range is provided (eg. 12-15), it will update all cases (inclusive) 12, 13, 14, 15 with the given reason for easier bulk actions. Using latest will update the most recent case, and latest~n will update the most recent n cases.",
+                    "usage": "[latest or latest~n or case ID or case ID range] [reason]",
+                    "examples": [
+                        {
+                            "command": "reason latest spamming"
+                        },
+                        {
+                            "content": "Finished updating latest 1 case with reason: `spamming`",
+                            "bot": true
+                        },
+                        {
+                            "command": "reason latest~3 spamming"
+                        },
+                        {
+                            "content": "Finished updating latest 3 cases with reason: `spamming`",
+                            "bot": true
+                        },
+                        {
+                            "command": "reason 12 spamming"
+                        },
+                        {
+                            "content": "Finished updating 1 case with reason: `spamming`",
+                            "bot": true
+                        },
+                        {
+                            "command": "reason 12-15 spamming"
+                        },
+                        {
+                            "content": "Finished updating 4 cases with reason: `spamming`",
+                            "bot": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "roles",
+            "description": "Self assigned role settings",
+            "commands": [
+                {
+                    "name": "roles set",
+                    "description": "Set the roles configuration. Supports both JSON and TOML formats.",
+                    "usage": "[config]"
+                },
+                {
+                    "name": "roles get",
+                    "description": "Get the current role configuration"
+                },
+                {
+                    "name": "roles setchannel",
+                    "description": "Set the channel for role assignments"
+                },
+                {
+                    "name": "roles sendinfo",
+                    "aliases": ["roles sendhelp"],
+                    "description": "Send roles help message to role channel for members as a  reference for all available role groups, role names, and limits"
+                },
+                {
+                    "name": "roles listids",
+                    "description": "List all the current guild roles and IDs"
+                }
+            ]
+        },
+        {
+            "name": "settings",
+            "description": "Guild settings",
+            "commands": [
+                {
+                    "name": "settings list",
+                    "description": "Lists guild settings"
+                },
+                {
+                    "name": "settings joinmsg set",
+                    "description": "Set the message sent on new member join to the configured msgchannel.  You can use the following replacements: <username>, <mention>, <server>",
+                    "usage": "[message]"
+                },
+                {
+                    "name": "settings joinmsg on/off/toggle",
+                    "description": "Enable or disable message on new member join",
+                    "examples": [
+                        {
+                            "command": "settings joinmsg on"
+                        },
+                        {
+                            "command": "settings joinmsg off"
+                        },
+                        {
+                            "command": "settings joinmsg toggle"
+                        }
+                    ]
+                },
+                {
+                    "name": "settings joinreact set",
+                    "description": "Set the reaction to new member join message",
+                    "usage": "[reaction]",
+                    "examples": [
+                        {
+                            "command": "settings joinreact set 👋"
+                        }
+                    ]
+                },
+                {
+                    "name": "settings joinreact on/off/toggle",
+                    "description": "Enable or disable reaction to new member join message"
+                },
+                {
+                    "name": "settings leavemsg set",
+                    "description": "Set the message on member leave to the configured msgchannel"
+                },
+                {
+                    "name": "settings leavemsg on/off/toggle",
+                    "description": "Enable or disable message sent on member leave"
+                },
+                {
+                    "name": "settings msgchannel set",
+                    "description": "Set the channel to send join / leave messages"
+                },
+                {
+                    "name": "settings msglog set/on/off/toggle",
+                    "description": "Channel to send message delete/edit logs"
+                },
+                {
+                    "name": "settings modlog set",
+                    "description": "Set the channel to send moderation logs"
+                },
+                {
+                    "name": "settings modlog on/off/toggle",
+                    "description": "Enable or disable moderation logs"
+                },
+                {
+                    "name": "settings memberlog set/on/off/toggle",
+                    "description": "Set the channel to send member join/leave logs"
+                },
+                {
+                    "name": "settings memberlog on/off/toggle",
+                    "description": "Enable or disable member join/leave logs"
+                },
+                {
+                    "name": "settings mute role",
+                    "description": "Set the mute role",
+                    "usage": "[role name or ID or mention]",
+                    "examples": [
+                        {
+                            "command": "settings mute role mute"
+                        }
+                    ]
+                },
+                {
+                    "name": "settings mute defaultduration",
+                    "description": "Set the default duration for mutes when muting by manually adding a role to a member, or if a duration is not provided when using the mute command. The default duration is 1 day (24 hours). You can disable the default duration by using 0 or \"indefinite\" as the duration. This would make mutes not automatically expire.",
+                    "usage": "[duration or indefinite]",
+                    "examples": [
+                        {
+                            "command": "settings mute defaultduration 6 hours",
+                            "content": "Set the default mute duration to `30m`",
+                            "bot": true
+                        },
+                        {
+                            "command": "settings mute defaultduration 0"
+                        },
+                        {
+                            "content": "Default mute duration set to indefinite (will not expire)",
+                            "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "settings mutedm set",
+                    "description": "Set the message sent to DM members when they are muted"
+                },
+                {
+                    "name": "settings mutedm set/on/off/toggle",
+                    "description": "Enable or disable sending messages to DM members on mute"
+                }
+            ]
+        }
+    ]
+}
