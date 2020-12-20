@@ -1,8 +1,14 @@
-import type { AppProps } from "next/app";
 import "../styles/index.css";
+import type { AppProps } from "next/app";
+import Footer from "../components/Footer";
 
-function App({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
+function MyApp({ Component, pageProps }: AppProps) {
+    return (
+        <>
+            <Component {...pageProps} />
+            <Footer />
+        </>
+    );
 }
 
-export default App;
+export default MyApp;

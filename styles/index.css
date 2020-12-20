@@ -1,7 +1,9 @@
+@import "./fonts";
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
 body {
-    color: rgb(255, 0, 0);
+    @apply text-gray-200 bg-gray-1000;
 }
