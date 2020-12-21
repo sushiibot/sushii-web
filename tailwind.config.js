@@ -49,6 +49,9 @@ module.exports = {
                 "monospace",
             ],
         },
+        zIndex: {
+            "-10": "-10",
+        },
     },
     variants: {
         extend: {
