@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className="border-t border-gray-800">
+        <div className="border-t border-gray-800 mt-4">
             <footer className="max-w-screen-lg mx-auto p-4 py-6">
                 <p className="text-md font-medium uppercase tracking-widest mb1">
                     sushii 2

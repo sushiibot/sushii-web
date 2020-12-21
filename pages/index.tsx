@@ -42,7 +42,7 @@ export default function Home() {
                         icon={IconType.Rank}
                     >
                         Gain XP when messaging and see how you rank in server
-                        activity across different time periods -- day, week,
+                        activity across different time periods — day, week,
                         month, and all time.
                     </FeatureBlock>
                     <FeatureBlock
