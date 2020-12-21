@@ -33,7 +33,8 @@ export default function Home() {
                 </section>
                 <section className="mt-24 flex flex-wrap">
                     <FeatureBlock title="Moderation Tools" icon={IconType.Chat}>
-                        Log moderation actions, assign reasons, view a user's
+                        Timed mutes, bulk bans, flexible moderation action
+                        logging, assignable moderation reasons, view a user's
                         moderation history, and more
                     </FeatureBlock>
                     <FeatureBlock
@@ -48,9 +49,9 @@ export default function Home() {
                         title="Advanced Role Management"
                         icon={IconType.Roles}
                     >
-                        Let users assign their own configured roles, with
-                        configured multiple role groups, role limits, and
-                        primary/secondary roles for role a primary colour
+                        Let users assign their own roles, with configurable role
+                        groups, group role limits, and primary/secondary roles
+                        for role a primary colour
                     </FeatureBlock>
                 </section>
             </div>

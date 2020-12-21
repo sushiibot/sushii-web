@@ -5,9 +5,11 @@ export default function Command(props: CommandProps) {
     const { name, usage, aliases, description, examples } = props;
 
     return (
-        <li className="my-3 mb-4">
+        <li className="my-3 mb-4 group">
             <p>
-                <span className="font-medium text-blue-300">{name}</span>
+                <span className="font-medium text-blue-300 group-hover:text-blue-400">
+                    {name}
+                </span>
                 <span className="text-red-300"> {usage}</span>
             </p>
             {aliases?.length && (
@@ -24,7 +26,7 @@ export default function Command(props: CommandProps) {
                 </div>
             )}
 
-            <div className="w-100 border-l-2 mt-2 ml-4 px-2 bg-gray-900 rounded">
+            <div className="w-100 mt-2 ml-4 px-2 bg-gray-900 rounded border-l-2 group-hover:border-blue-400 transition duration-75">
                 <div className="">
                     <p className="m-0 p-3 measure">{description}</p>
                 </div>
