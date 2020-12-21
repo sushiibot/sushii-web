@@ -2,10 +2,21 @@ import "../styles/index.css";
 import type { AppProps } from "next/app";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <div className="flex flex-col min-h-screen">
+            <Head>
+                <link rel="icon" href="/favicon.ico" />
+                <meta content="sushii 2" property="og:title" />
+                <meta
+                    content="Moderation bot for Discord"
+                    property="og:description"
+                />
+                <meta content="/images/sushii2.png" property="og:image" />
+                <meta name="theme-color" content="#3b82f6" />
+            </Head>
             <Nav />
             <Component {...pageProps} />
             <Footer />

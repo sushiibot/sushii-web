@@ -7,7 +7,6 @@ export default function Home() {
         <div className="max-w-screen-lg w-100 mx-auto flex-grow">
             <Head>
                 <title>sushii 2</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <div className="pt-36 px-4">
