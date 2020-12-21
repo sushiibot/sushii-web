@@ -8,7 +8,7 @@ export default function Command(props: CommandProps) {
         <li className="my-3 mb-4">
             <p>
                 <span className="font-medium text-blue-300">{name}</span>
-                <span className="text-red-200"> {usage}</span>
+                <span className="text-red-300"> {usage}</span>
             </p>
             {aliases?.length && (
                 <div className="mt-2 mb-2">

@@ -12,19 +12,19 @@ export default function Home() {
 
             <div className="pt-36 px-4">
                 <section className="flex flex-wrap flex-grow items-center justify-items-center">
-                    <div className="w-full md:w-1/2 md:pl-20 p-2">
+                    <div className="w-full lg:w-1/2 md:pl-20 p-2">
                         <h1 className="text-5xl font-medium">sushii 2</h1>
                         <h2 className="text-xl mt-2 mb-8">
                             Moderation bot for Discord.
                         </h2>
                         <a
-                            className="p-2 px-4 rounded-lg transition-all relative top-0 hover:-top-0.5 bg-gradient-to-br from-purple-400 via-blue-500 to-teal-500"
+                            className="inline-block p-2 px-4 mr-4 mb-2 rounded-lg transition-all relative top-0 hover:-top-0.5 bg-gradient-to-br from-purple-400 via-blue-500 to-teal-500"
                             href="/invite"
                         >
-                            Add Me
+                            Add me to Discord
                         </a>
                         <Link href="/commands">
-                            <a className="p-2 px-4 rounded-lg transition-all relative top-0 hover:-top-0.5 ml-4 bg-clip-text text-transparent bg-gradient-to-br from-purple-300 via-blue-300 to-teal-400">
+                            <a className="inline-block p-2 px-4 rounded-lg transition-all relative top-0 hover:-top-0.5 bg-clip-text text-transparent bg-gradient-to-br from-purple-300 via-blue-300 to-teal-400">
                                 View commands
                             </a>
                         </Link>
