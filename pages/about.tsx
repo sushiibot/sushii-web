@@ -1,6 +1,11 @@
+import Head from "next/head";
+
 export default function About() {
     return (
         <div className="flex-grow">
+            <Head>
+                <title>About | sushii 2</title>
+            </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
                 <h1 className="text-4xl mt-4">About</h1>
                 <p className="max-w-lg mt-4">

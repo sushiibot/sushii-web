@@ -1,6 +1,7 @@
 import commandsList from "../commands.json";
 import Command from "../components/Command";
 import { CommandsList } from "../typings";
+import Head from "next/head";
 
 // Make TS happy with JSON file types
 const commands: CommandsList = commandsList;
@@ -8,6 +9,9 @@ const commands: CommandsList = commandsList;
 export default function Commands() {
     return (
         <div className="flex-grow">
+            <Head>
+                <title>Commands | sushii 2</title>
+            </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
                 <h1 className="text-4xl my-4">Commands</h1>
                 <p className="leading-relaxed max-w-screen-sm">

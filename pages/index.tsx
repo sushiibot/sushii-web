@@ -19,7 +19,9 @@ export default function Home() {
                         </h2>
                         <a
                             className="inline-block p-2 px-4 mr-4 mb-2 rounded-lg transition-all relative top-0 hover:-top-0.5 bg-gradient-to-br from-purple-400 via-blue-500 to-teal-500"
-                            href="/invite"
+                            href={process.env.NEXT_PUBLIC_INVITE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             Add me to Discord
                         </a>
