@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import FeatureBlock, { IconType } from "../components/FeatureBlock";
 
 export default function Home() {
@@ -9,9 +10,9 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="pt-40 px-4">
+            <div className="pt-36 px-4">
                 <section className="flex flex-wrap flex-grow items-center justify-items-center">
-                    <div className="w-full md:w-1/2 md:pl-6 p-2">
+                    <div className="w-full md:w-1/2 md:pl-20 p-2">
                         <h1 className="text-5xl font-medium">sushii 2</h1>
                         <h2 className="text-xl mt-2 mb-8">
                             Moderation bot for Discord.
@@ -22,16 +23,14 @@ export default function Home() {
                         >
                             Add Me
                         </a>
-                        <a
-                            className="p-2 px-4 rounded-lg transition-all relative top-0 hover:-top-0.5 border-2 box-border border-white ml-4"
-                            href="/commands"
-                        >
-                            View Commands
-                        </a>
+                        <Link href="/commands">
+                            <a className="p-2 px-4 rounded-lg transition-all relative top-0 hover:-top-0.5 ml-4 bg-clip-text text-transparent bg-gradient-to-br from-purple-300 via-blue-300 to-teal-400">
+                                View commands
+                            </a>
+                        </Link>
                     </div>
-                    <div className="w-100 w-50-l pa2"></div>
                 </section>
-                <section className="my-20 flex flex-wrap">
+                <section className="mt-24 flex flex-wrap">
                     <FeatureBlock title="Moderation Tools" icon={IconType.Chat}>
                         Log moderation actions, assign reasons, view a user's
                         moderation history, and more

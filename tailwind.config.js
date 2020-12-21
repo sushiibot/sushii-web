@@ -32,14 +32,28 @@ module.exports = {
             maxWidth: {
                 "1/2": "50%",
             },
+            fontSize: {
+                xxs: ".6rem",
+            },
         },
         fontFamily: {
             sans: ["Poppins", "sans-serif"],
+            mono: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+            ],
         },
     },
     variants: {
         extend: {
             inset: ["hover"],
+            translate: ["active"],
         },
     },
     plugins: [require("@tailwindcss/typography")],

@@ -11,7 +11,8 @@ export default function DiscordMessage({
         <li className="flex p-2 hover:bg-discord-darken">
             <img
                 src={avatarUrl}
-                className="rounded-full h-10 w-10 mt-1 cursor-pointer"
+                className="rounded-full h-10 w-10 mt-1 cursor-pointer
+                    hover:opacity-90 hover:shadow-sm transform active:translate-y-px"
                 title="meowmeow"
             />
             <div className="ml-3 flex-grow">
@@ -22,12 +23,12 @@ export default function DiscordMessage({
                                 <span className="text-red-200 hover:underline cursor-pointer">
                                     sushii2
                                 </span>
-                                <span className="ml-1 inline-block align-middle text-xs px-1 rounded bg-discord-bot-badge">
+                                <span className="ml-1 inline-block align-middle text-xxs px-1 rounded bg-discord-bot-badge">
                                     BOT
                                 </span>
                             </>
                         ) : (
-                            <span className="text-blue-300 hover:underline cursor-pointer">
+                            <span className="text-teal-200 hover:underline cursor-pointer">
                                 User
                             </span>
                         )}

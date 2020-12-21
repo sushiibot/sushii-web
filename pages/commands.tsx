@@ -34,7 +34,7 @@ export default function Commands() {
                     functionality.
                 </p>
                 {commands.groups.map((group, i) => (
-                    <div key={i}>
+                    <div key={i} className="my-4">
                         <h2 className="uppercase text-2xl font-light tracking-widest">
                             <a
                                 href={`#${group.name}`}
@@ -42,14 +42,11 @@ export default function Commands() {
                             >
                                 #
                             </a>
-                            <span
-                                id={`#${group.name}`}
-                                className="anchor-target"
-                            ></span>
+                            <span id={group.name} />
                             {group.name}
                         </h2>
-                        <p>{group.description}</p>
-                        <li className="list-none p-2 border rounded-md">
+                        <p className="mt-2 mb-4">{group.description}</p>
+                        <li className="list-none px-4 border rounded-md border-gray-800">
                             {group.commands.map((cmd, i) => (
                                 <Command key={i} {...cmd} />
                             ))}
