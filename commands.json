@@ -41,6 +41,27 @@
             ]
         },
         {
+            "name": "users",
+            "description": "Commands related to users",
+            "commands": [
+                {
+                    "name": "rank",
+                    "description": "Show your XP and rank in the server",
+                    "usage": "(user ID or mention)"
+                },
+                {
+                    "name": "rep",
+                    "description": "Give a rep to someone, 12 hour cooldown",
+                    "usage": "[user ID or mention]"
+                },
+                {
+                    "name": "fishy",
+                    "description": "Give a fishies to someone or yourself, 12 hour cooldown. Fishies for others result in larger catches.",
+                    "usage": "[\"self\" or user ID or mention]"
+                }
+            ]
+        },
+        {
             "name": "moderation",
             "description": "Moderation commands",
             "commands": [
