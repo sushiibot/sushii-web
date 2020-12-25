@@ -21,7 +21,9 @@ export default function LeaderboardUser({ node, i }: any) {
             variants={item}
         >
             <div className="flex-shrink-0 w-72 truncate text-gray-700">
-                <span className="group-hover:text-gray-800">#{i + 1}</span>
+                <span className="text-gray-400 group-hover:text-gray-800">
+                    #{i + 1}
+                </span>
                 <img
                     className="w-16 rounded-full inline-block mx-4 whitespace-nowrap overflow-hidden"
                     style={{ textIndent: "100%" }}

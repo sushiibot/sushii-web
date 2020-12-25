@@ -32,7 +32,11 @@ function createApolloClient(context?: ResolverContext) {
             typePolicies: {
                 Query: {
                     fields: {
-                        userGuildXpConnection: relayStylePagination(),
+                        // Bottom of this page
+                        // https://www.apollographql.com/docs/react/pagination/key-args/#the-connection-directive
+                        userXpLeaderboardConnection: relayStylePagination([
+                            "guildId",
+                        ]),
                     },
                 },
             },

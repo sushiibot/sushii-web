@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-
 import LeaderboardList, {
     LEADERBOARD_QUERY,
+    LeaderboardQueryVars,
     GuildLeaderboardProps,
 } from "../../components/LeaderboardList";
 import { initializeApollo, addApolloState } from "../../lib/apolloClient";
@@ -24,8 +24,14 @@ export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const apolloClient = initializeApollo();
 
-    const leaderboardQueryVars = {
-        guildId: context.params?.guildId,
+    const guildId =
+        typeof context.params?.guildId === "string"
+            ? context.params?.guildId
+            : undefined; // Uhh should prob handle this idk, default to global
+
+    const leaderboardQueryVars: LeaderboardQueryVars = {
+        guildId,
+        timeframe: "ALL_TIME",
         first: "50",
     };
 

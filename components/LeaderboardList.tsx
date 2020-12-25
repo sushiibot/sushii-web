@@ -3,8 +3,18 @@ import LeaderboardUser from "./LeaderboardUser";
 import { motion, Variants } from "framer-motion";
 
 export const LEADERBOARD_QUERY = gql`
-    query guildLeaderboard($guildId: BigInt!, $first: BigInt!, $after: String) {
-        userGuildXpConnection(guildId: $guildId, first: $first, after: $after) {
+    query guildLeaderboard(
+        $guildId: BigInt
+        $timeframe: TimeFrame!
+        $first: BigInt!
+        $after: String
+    ) {
+        userXpLeaderboardConnection(
+            guildId: $guildId
+            timeframe: $timeframe
+            first: $first
+            after: $after
+        ) {
             totalCount
             edges {
                 node {
@@ -39,12 +49,14 @@ export interface GuildLeaderboardProps {
     guildId?: string;
 }
 
-interface LeaderboardQueryVars {
+export interface LeaderboardQueryVars {
     guildId?: string;
+    timeframe: "ALL_TIME" | "MONTH" | "WEEK" | "DAY";
     first?: string;
 }
 
 export const defaultLeaderboardQueryVars: LeaderboardQueryVars = {
+    timeframe: "ALL_TIME",
     first: "50",
 };
 
@@ -84,7 +96,7 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
     if (error) return <div>Error: {error.message}</div>;
     if (loading && !loadingMorePosts) return <div>Loading</div>;
 
-    const { totalCount, edges } = data.userGuildXpConnection;
+    const { totalCount, edges } = data.userXpLeaderboardConnection;
     const areMorePosts = edges.length < totalCount;
 
     return (

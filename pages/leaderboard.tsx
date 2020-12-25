@@ -1,7 +1,11 @@
 import Head from "next/head";
-
-import LeaderboardList from "../components/LeaderboardList";
-import { initializeApollo } from "../lib/apolloClient";
+import { GetServerSideProps } from "next";
+import LeaderboardList, {
+    LEADERBOARD_QUERY,
+    LeaderboardQueryVars,
+    GuildLeaderboardProps,
+} from "../components/LeaderboardList";
+import { initializeApollo, addApolloState } from "../lib/apolloClient";
 
 /*
 export async function getStaticProps() {
@@ -20,12 +24,30 @@ export default function Leaderboard() {
     return (
         <div className="flex-grow">
             <Head>
-                <title>Leaderboard | sushii 2</title>
+                <title>Global Leaderboard | sushii 2</title>
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
-                <h1 className="text-4xl mt-4">Leaderboard</h1>
+                <h1 className="text-4xl mt-4">Global Leaderboard</h1>
                 <LeaderboardList />
             </section>
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const apolloClient = initializeApollo();
+
+    const leaderboardQueryVars: LeaderboardQueryVars = {
+        timeframe: "ALL_TIME",
+        first: "50",
+    };
+
+    await apolloClient.query({
+        query: LEADERBOARD_QUERY,
+        variables: leaderboardQueryVars,
+    });
+
+    return addApolloState(apolloClient, {
+        props: {},
+    });
+};
