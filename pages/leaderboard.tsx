@@ -1,9 +1,6 @@
 import Head from "next/head";
 
-import LeaderboardList, {
-    LEADERBOARD_QUERY,
-    leaderboardQueryVars,
-} from "../components/LeaderboardList";
+import LeaderboardList from "../components/LeaderboardList";
 import { initializeApollo } from "../lib/apolloClient";
 
 /*

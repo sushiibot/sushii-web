@@ -9,6 +9,8 @@ import {
 } from "@apollo/client";
 import { relayStylePagination } from "@apollo/client/utilities";
 
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 const GRAPHQL_API_URL =
@@ -57,6 +59,17 @@ export function initializeApollo(
     if (!apolloClient) apolloClient = _apolloClient;
 
     return _apolloClient;
+}
+
+export function addApolloState(
+    client: ApolloClient<NormalizedCacheObject>,
+    pageProps: any
+) {
+    if (pageProps?.props) {
+        pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+    }
+
+    return pageProps;
 }
 
 export function useApollo(initialState: any) {

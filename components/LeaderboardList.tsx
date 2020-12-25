@@ -35,8 +35,16 @@ export const LEADERBOARD_QUERY = gql`
     }
 `;
 
-export const leaderboardQueryVars = {
-    guildId: "187450744427773963",
+export interface GuildLeaderboardProps {
+    guildId?: string;
+}
+
+interface LeaderboardQueryVars {
+    guildId?: string;
+    first?: string;
+}
+
+export const defaultLeaderboardQueryVars: LeaderboardQueryVars = {
     first: "50",
 };
 
@@ -45,11 +53,16 @@ const list: Variants = {
     visible: { opacity: 1, transition: { staggerChildren: 0.025 } },
 };
 
-export default function PostList() {
+export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
+    const variables: LeaderboardQueryVars = {
+        ...defaultLeaderboardQueryVars,
+        guildId,
+    };
+
     const { loading, error, data, fetchMore, networkStatus } = useQuery(
         LEADERBOARD_QUERY,
         {
-            variables: leaderboardQueryVars,
+            variables,
             // Setting this value to true will make the component rerender when
             // the "networkStatus" changes, so we are able to know if it is fetching
             // more data
