@@ -1,37 +1,40 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { useMemo } from "react";
 import {
+    HttpLink,
+    Reference,
     ApolloClient,
     InMemoryCache,
     NormalizedCacheObject,
 } from "@apollo/client";
+import { relayStylePagination } from "@apollo/client/utilities";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
+
+const GRAPHQL_API_URL =
+    process.env.NODE_ENV === "development" ? "http://127.0.0.1:8080" : "";
 
 export type ResolverContext = {
     req?: IncomingMessage;
     res?: ServerResponse;
 };
 
-function createIsomorphLink(context: ResolverContext = {}) {
-    if (typeof window === "undefined") {
-        const { SchemaLink } = require("@apollo/client/link/schema");
-        const { schema } = require("./schema");
-        return new SchemaLink({ schema, context });
-    } else {
-        const { HttpLink } = require("@apollo/client");
-        return new HttpLink({
-            uri: "/api/graphql",
-            credentials: "same-origin",
-        });
-    }
-}
-
 function createApolloClient(context?: ResolverContext) {
     return new ApolloClient({
         ssrMode: typeof window === "undefined",
-        link: createIsomorphLink(context),
-        cache: new InMemoryCache(),
+        link: new HttpLink({
+            uri: GRAPHQL_API_URL,
+            credentials: "same-origin",
+        }),
+        cache: new InMemoryCache({
+            typePolicies: {
+                Query: {
+                    fields: {
+                        userGuildXpConnection: relayStylePagination(),
+                    },
+                },
+            },
+        }),
     });
 }
 
