@@ -26,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
                 <Footer />
                 <svg
-                    className="fixed top-0 left-0 object-fill -z-10 opacity-30"
+                    className="fixed top-0 left-0 object-cover -z-10 opacity-30"
                     xmlns="http://www.w3.org/2000/svg"
                     width="100%"
                     height="100%"

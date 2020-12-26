@@ -36,6 +36,7 @@ function createApolloClient(context?: ResolverContext) {
                         // https://www.apollographql.com/docs/react/pagination/key-args/#the-connection-directive
                         userXpLeaderboardConnection: relayStylePagination([
                             "guildId",
+                            "timeframe",
                         ]),
                     },
                 },

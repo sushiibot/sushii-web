@@ -1,6 +1,8 @@
 import { gql, useQuery, NetworkStatus } from "@apollo/client";
 import LeaderboardUser from "./LeaderboardUser";
 import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import LeaderboardUserPlaceholder from "./LeaderboardUserPlaceholder";
 
 export const LEADERBOARD_QUERY = gql`
     query guildLeaderboard(
@@ -60,14 +62,26 @@ export const defaultLeaderboardQueryVars: LeaderboardQueryVars = {
     first: "50",
 };
 
-const list: Variants = {
+const animation_list: Variants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.025 } },
 };
 
+const TIMEFRAME_STRS: { [key: string]: LeaderboardQueryVars["timeframe"] } = {
+    "All Time": "ALL_TIME",
+    Month: "MONTH",
+    Week: "WEEK",
+    Day: "DAY",
+};
+
 export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
+    const [timeframe, setTimeframe] = useState<
+        LeaderboardQueryVars["timeframe"]
+    >("ALL_TIME");
+
     const variables: LeaderboardQueryVars = {
         ...defaultLeaderboardQueryVars,
+        timeframe,
         guildId,
     };
 
@@ -93,26 +107,62 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
         });
     };
 
-    if (error) return <div>Error: {error.message}</div>;
-    if (loading && !loadingMorePosts) return <div>Loading</div>;
-
-    const { totalCount, edges } = data.userXpLeaderboardConnection;
-    const areMorePosts = edges.length < totalCount;
+    const { totalCount, edges } = data?.userXpLeaderboardConnection || {};
 
     return (
         <section>
-            <motion.ul initial="hidden" animate="visible" variants={list}>
-                {edges.map(({ node, cursor }: any, i: number) => (
-                    <LeaderboardUser key={cursor} node={node} i={i} />
+            <div className="flex flex-wrap justify-evenly my-4">
+                {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (
+                    <div>
+                        <button
+                            className={
+                                "px-4 py-2 mb-2 rounded-full hover:bg-gray-800 hover:text-white " +
+                                (value === timeframe
+                                    ? "bg-gray-900 text-blue-400"
+                                    : "text-gray-400")
+                            }
+                            onClick={() => setTimeframe(value)}
+                        >
+                            {name}
+                        </button>
+                    </div>
                 ))}
-            </motion.ul>
-            {areMorePosts && (
-                <button
-                    onClick={() => loadMorePosts()}
-                    disabled={loadingMorePosts}
-                >
-                    {loadingMorePosts ? "Loading..." : "Show More"}
-                </button>
+            </div>
+            {!!error && !data ? (
+                <div>Error: {error.message}</div>
+            ) : (
+                <div>
+                    <motion.ul
+                        initial="hidden"
+                        animate="visible"
+                        variants={animation_list}
+                    >
+                        {loading && !loadingMorePosts
+                            ? Array(10)
+                                  .fill(null)
+                                  .map((_, i) => (
+                                      <LeaderboardUserPlaceholder
+                                          key={i}
+                                          i={i}
+                                      />
+                                  ))
+                            : edges.map(({ node, cursor }: any, i: number) => (
+                                  <LeaderboardUser
+                                      key={cursor}
+                                      node={node}
+                                      i={i}
+                                  />
+                              ))}
+                    </motion.ul>
+                    {edges !== undefined && edges.length < totalCount && (
+                        <button
+                            onClick={() => loadMorePosts()}
+                            disabled={loadingMorePosts}
+                        >
+                            {loadingMorePosts ? "Loading..." : "Show More"}
+                        </button>
+                    )}
+                </div>
             )}
         </section>
     );
