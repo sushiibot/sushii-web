@@ -128,42 +128,48 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
                     </div>
                 ))}
             </div>
-            {!!error && !data ? (
-                <div>Error: {error.message}</div>
-            ) : (
-                <div>
-                    <motion.ul
-                        initial="hidden"
-                        animate="visible"
-                        variants={animation_list}
-                    >
-                        {loading && !loadingMorePosts
-                            ? Array(10)
-                                  .fill(null)
-                                  .map((_, i) => (
-                                      <LeaderboardUserPlaceholder
-                                          key={i}
-                                          i={i}
-                                      />
-                                  ))
-                            : edges.map(({ node, cursor }: any, i: number) => (
-                                  <LeaderboardUser
-                                      key={cursor}
-                                      node={node}
-                                      i={i}
-                                  />
-                              ))}
-                    </motion.ul>
-                    {edges !== undefined && edges.length < totalCount && (
-                        <button
-                            onClick={() => loadMorePosts()}
-                            disabled={loadingMorePosts}
+            {
+                // error persists after requesting another timeframe for some reason, so
+                // only show error if data is also null
+                !!error && !data ? (
+                    <div>Error: {error.message}</div>
+                ) : (
+                    <div>
+                        <motion.ul
+                            initial="hidden"
+                            animate="visible"
+                            variants={animation_list}
                         >
-                            {loadingMorePosts ? "Loading..." : "Show More"}
-                        </button>
-                    )}
-                </div>
-            )}
+                            {loading && !loadingMorePosts
+                                ? Array(10)
+                                      .fill(null)
+                                      .map((_, i) => (
+                                          <LeaderboardUserPlaceholder
+                                              key={i}
+                                              i={i}
+                                          />
+                                      ))
+                                : edges.map(
+                                      ({ node, cursor }: any, i: number) => (
+                                          <LeaderboardUser
+                                              key={cursor}
+                                              node={node}
+                                              i={i}
+                                          />
+                                      )
+                                  )}
+                        </motion.ul>
+                        {edges !== undefined && edges.length < totalCount && (
+                            <button
+                                onClick={() => loadMorePosts()}
+                                disabled={loadingMorePosts}
+                            >
+                                {loadingMorePosts ? "Loading..." : "Show More"}
+                            </button>
+                        )}
+                    </div>
+                )
+            }
         </section>
     );
 }
