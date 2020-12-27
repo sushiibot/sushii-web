@@ -14,7 +14,9 @@ export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 const GRAPHQL_API_URL =
-    process.env.NODE_ENV === "development" ? "http://127.0.0.1:8080" : "";
+    process.env.NODE_ENV === "development"
+        ? "http://127.0.0.1:8080"
+        : "https://api.sushii.xyz";
 
 export type ResolverContext = {
     req?: IncomingMessage;
@@ -26,7 +28,6 @@ function createApolloClient(context?: ResolverContext) {
         ssrMode: typeof window === "undefined",
         link: new HttpLink({
             uri: GRAPHQL_API_URL,
-            credentials: "same-origin",
         }),
         cache: new InMemoryCache({
             typePolicies: {
