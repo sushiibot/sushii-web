@@ -25,7 +25,7 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
     return (
         <AnimatePresence>
             <motion.li
-                className="flex flex-wrap items-center w-full my-4 p-2 rounded-lg group hover:bg-gray-100 hover:bg-opacity-90"
+                className="flex flex-wrap items-center w-full my-4 p-2 px-4 rounded-lg group hover:bg-gray-100 hover:bg-opacity-90"
                 variants={item}
             >
                 <div className="flex-shrink-0 w-72 truncate text-gray-700">
