@@ -15,7 +15,7 @@ export default function Nav() {
     return (
         <div className="border-b border-gray-800">
             <header className="max-w-screen-lg mx-auto px-4">
-                <nav className="py-6 transition-colors text-md font-medium lowercase tracking-widest">
+                <nav className="py-6 transition-colors text-md font-medium lowercase tracking-widest overflow-x-scroll">
                     {links.map(({ href, label }) => (
                         <Link key={`${href}${label}`} href={href}>
                             <a
