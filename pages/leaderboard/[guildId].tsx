@@ -20,6 +20,7 @@ export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
     );
 }
 
+/*
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const apolloClient = initializeApollo();
 
@@ -43,3 +44,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         props: { guildId: context.params?.guildId },
     });
 };
+*/

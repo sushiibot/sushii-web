@@ -33,6 +33,8 @@ export default function Leaderboard() {
     );
 }
 
+/*
+// Cannot use for next export, can't use on netlify
 export const getServerSideProps: GetServerSideProps = async () => {
     const apolloClient = initializeApollo();
 
@@ -50,3 +52,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
         props: {},
     });
 };
+*/
