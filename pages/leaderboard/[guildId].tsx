@@ -6,8 +6,15 @@ import LeaderboardList, {
     GuildLeaderboardProps,
 } from "../../components/LeaderboardList";
 import { initializeApollo, addApolloState } from "../../lib/apolloClient";
+import { useRouter } from "next/router";
 
-export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
+export default function Leaderboard() {
+    const router = useRouter();
+    const guildId =
+        typeof router.query.guildId === "string"
+            ? router.query.guildId
+            : undefined;
+
     return (
         <div className="flex-grow">
             <Head>

@@ -117,7 +117,7 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
             <LeaderboardGuild guildId={guildId} />
             <div className="flex flex-wrap justify-evenly my-4">
                 {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (
-                    <div>
+                    <div key={name}>
                         <button
                             className={
                                 "px-4 py-2 my-2 rounded-full hover:bg-gray-800 hover:text-white " +
