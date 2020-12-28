@@ -14,7 +14,6 @@ export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
                 <title>Leaderboard | sushii 2</title>
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
-                <h1 className="text-4xl mt-4">{guildId} Leaderboard</h1>
                 <LeaderboardList guildId={guildId} />
             </section>
         </div>

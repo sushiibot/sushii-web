@@ -3,6 +3,7 @@ import LeaderboardUser from "./LeaderboardUser";
 import { motion, Variants } from "framer-motion";
 import { useState } from "react";
 import LeaderboardUserPlaceholder from "./LeaderboardUserPlaceholder";
+import LeaderboardGuild from "./LeaderboardGuild";
 
 export const LEADERBOARD_QUERY = gql`
     query guildLeaderboard(
@@ -22,7 +23,8 @@ export const LEADERBOARD_QUERY = gql`
                 node {
                     userId
                     xp
-                    xp
+                    xpDiff
+                    timeframeGainedLevels
                     xpProgress {
                         level
                         nextLevelXpRequired
@@ -111,15 +113,16 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
 
     return (
         <section>
+            <LeaderboardGuild guildId={guildId} />
             <div className="flex flex-wrap justify-evenly my-4">
                 {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (
                     <div>
                         <button
                             className={
-                                "px-4 py-2 mb-2 rounded-full hover:bg-gray-800 hover:text-white " +
+                                "px-4 py-2 my-2 rounded-full hover:bg-gray-800 hover:text-white " +
                                 (value === timeframe
-                                    ? "bg-gray-900 text-blue-400"
-                                    : "text-gray-400")
+                                    ? "border border-gray-900 bg-gray-900 text-blue-400"
+                                    : "border border-gray-900 text-gray-400")
                             }
                             onClick={() => setTimeframe(value)}
                         >
@@ -154,6 +157,7 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
                                           <LeaderboardUser
                                               key={cursor}
                                               node={node}
+                                              guildId={guildId}
                                               i={i}
                                           />
                                       )

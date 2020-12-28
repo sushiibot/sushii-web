@@ -27,7 +27,6 @@ export default function Leaderboard() {
                 <title>Global Leaderboard | sushii 2</title>
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
-                <h1 className="text-4xl mt-4">Global Leaderboard</h1>
                 <LeaderboardList />
             </section>
         </div>
