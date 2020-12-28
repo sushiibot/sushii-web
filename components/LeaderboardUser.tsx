@@ -35,7 +35,7 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
                     <img
                         className="w-16 rounded-full inline-block mx-4 whitespace-nowrap overflow-hidden"
                         style={{ textIndent: "100%" }}
-                        src={avatarUrl}
+                        src={avatarUrl.replace("?size=1024", "?size=128")}
                         alt={`${name}'s avatar`}
                     />
                     <span className="text-gray-700 group-hover:text-gray-500">
