@@ -33,6 +33,7 @@ export default function Leaderboard() {
     );
 }
 
+/*
 export const getServerSideProps: GetServerSideProps = async () => {
     const apolloClient = initializeApollo();
 
@@ -50,3 +51,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
         props: {},
     });
 };
+*/

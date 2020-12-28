@@ -1,8 +1,8 @@
 [build]
-  command = "yarn run build"
+  command = "yarn build && yarn export"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+# [[plugins]]
+#  package = "@netlify/plugin-nextjs"
 
 [[redirects]]
   from = "/leaderboard/*"
