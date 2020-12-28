@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import { useState } from "react";
 import LeaderboardUserPlaceholder from "./LeaderboardUserPlaceholder";
 import LeaderboardGuild from "./LeaderboardGuild";
+import NextReset from "./NextReset";
 
 export const LEADERBOARD_QUERY = gql`
     query guildLeaderboard(
@@ -131,6 +132,7 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
                     </div>
                 ))}
             </div>
+            <NextReset timeframe={timeframe} />
             {
                 // error persists after requesting another timeframe for some reason, so
                 // only show error if data is also null
