@@ -2,24 +2,29 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { MenuToggle } from "./MenuToggle";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const linksVariants = {
+const linksVariants: Variants = {
     open: {
-        transition: { staggerChildren: 0.05, delayChildren: 0 },
+        height: "auto",
+        transition: { staggerChildren: 0.05 },
     },
     closed: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 },
+        height: 0,
+        transition: {
+            staggerChildren: 0.05,
+            staggerDirection: -1,
+        },
     },
 };
 
-const linkVariants = {
+const linkVariants: Variants = {
     open: {
         y: 0,
         opacity: 1,
     },
     closed: {
-        y: 20,
+        x: -20,
         opacity: 0,
     },
 };
@@ -56,39 +61,67 @@ export default function Nav() {
                         </Link>
                         <MenuToggle toggle={() => toggleVisible()} />
                     </div>
-                    <motion.ul
-                        className={
-                            "flex flex-wrap sm:items-center flex-col sm:flex-row \
+                    <div className="hidden sm:inline-block">
+                        <ul
+                            className={
+                                "flex flex-wrap sm:items-center flex-col sm:flex-row \
                             transition-colors text-md font-medium \
-                            lowercase tracking-widest" +
-                            (visible ? " mt-4 sm:mt-0" : "")
-                        }
-                        variants={linksVariants}
-                    >
-                        {links.map(({ href, label }, i) => (
-                            <motion.li
-                                key={`${href}${label}`}
-                                variants={linkVariants}
-                            >
-                                <Link href={href}>
-                                    <a
-                                        className={
-                                            "text-gray-200 hover:text-blue-400 mx-2 sm:mx-4" +
-                                            (pathname == href
-                                                ? " text-blue-400"
-                                                : " ") +
-                                            (visible
-                                                ? " inline-block py-2 sm:py-0"
-                                                : " hidden sm:inline-block")
-                                        }
-                                        onClick={() => setVisible(false)}
-                                    >
-                                        {label}
-                                    </a>
-                                </Link>
-                            </motion.li>
-                        ))}
-                    </motion.ul>
+                            lowercase tracking-widest mt-4 sm:mt-0"
+                            }
+                        >
+                            {links.map(({ href, label }, i) => (
+                                <li
+                                    className="hidden sm:inline-block"
+                                    key={`${href}${label}`}
+                                >
+                                    <Link href={href}>
+                                        <a
+                                            className={
+                                                "text-gray-200 hover:text-blue-400 inline-block py-0 mx-4" +
+                                                (pathname == href
+                                                    ? " text-blue-400"
+                                                    : " ")
+                                            }
+                                        >
+                                            {label}
+                                        </a>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="block sm:hidden">
+                        <motion.ul
+                            className={
+                                "flex flex-col \
+                                transition-colors text-md font-medium \
+                                lowercase tracking-widest"
+                            }
+                            variants={linksVariants}
+                        >
+                            {links.map(({ href, label }, i) => (
+                                <motion.li
+                                    className="block sm:hidden"
+                                    key={`${href}${label}`}
+                                    variants={linkVariants}
+                                >
+                                    <Link href={href}>
+                                        <a
+                                            className={
+                                                "text-gray-200 hover:text-blue-400 ml-8 inline-block py-2" +
+                                                (pathname == href
+                                                    ? " text-blue-400"
+                                                    : " ")
+                                            }
+                                            onClick={() => setVisible(false)}
+                                        >
+                                            {label}
+                                        </a>
+                                    </Link>
+                                </motion.li>
+                            ))}
+                        </motion.ul>
+                    </div>
                 </motion.nav>
             </header>
         </div>
