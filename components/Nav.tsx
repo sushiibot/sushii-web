@@ -7,11 +7,19 @@ import { motion, Variants } from "framer-motion";
 const linksVariants: Variants = {
     open: {
         height: "auto",
-        transition: { staggerChildren: 0.05 },
+        marginTop: "0.5rem",
+        transition: {
+            duration: 0.2,
+            ease: "easeOut",
+            staggerChildren: 0.05,
+        },
     },
     closed: {
         height: 0,
+        marginTop: "0rem",
         transition: {
+            duration: 0.2,
+            ease: "easeOut",
             staggerChildren: 0.05,
             staggerDirection: -1,
         },
@@ -20,12 +28,18 @@ const linksVariants: Variants = {
 
 const linkVariants: Variants = {
     open: {
-        y: 0,
+        x: 0,
         opacity: 1,
+        transition: {
+            duration: 0.1,
+        },
     },
     closed: {
         x: -20,
         opacity: 0,
+        transition: {
+            duration: 0.1,
+        },
     },
 };
 
@@ -54,10 +68,12 @@ export default function Nav() {
                 >
                     <div className="flex items-center justify-between">
                         <Link href="/">
-                            <img
-                                className="h-8 w-8 inline-block"
-                                src="/images/sushii2.png"
-                            />
+                            <a>
+                                <img
+                                    className="h-8 w-8 inline-block"
+                                    src="/images/sushii2.png"
+                                />
+                            </a>
                         </Link>
                         <MenuToggle toggle={() => toggleVisible()} />
                     </div>
@@ -108,7 +124,7 @@ export default function Nav() {
                                     <Link href={href}>
                                         <a
                                             className={
-                                                "text-gray-200 hover:text-blue-400 ml-8 inline-block py-2" +
+                                                "text-gray-200 hover:text-blue-400 ml-2 inline-block py-2" +
                                                 (pathname == href
                                                     ? " text-blue-400"
                                                     : " ")
