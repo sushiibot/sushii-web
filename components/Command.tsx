@@ -1,5 +1,6 @@
 import DiscordMessages from "./DiscordMessages";
 import { Command as CommandProps } from "../typings";
+import ReactMarkdown from "react-markdown";
 
 export default function Command(props: CommandProps) {
     const { name, usage, aliases, description, examples } = props;
@@ -27,9 +28,9 @@ export default function Command(props: CommandProps) {
             )}
 
             <div className="w-100 mt-2 ml-4 px-2 bg-gray-900 rounded border-l-2 group-hover:border-blue-400 transition duration-75">
-                <div className="">
-                    <p className="m-0 p-3 measure">{description}</p>
-                </div>
+                <ReactMarkdown className="m-0 p-3 prose">
+                    {description}
+                </ReactMarkdown>
                 {examples && (
                     <div className="pb-2">
                         <p className="text-gray-200 m-0 p-3">Examples</p>

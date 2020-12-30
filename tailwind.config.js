@@ -58,7 +58,23 @@ module.exports = {
                             fontWeight: 400,
                         },
                         code: {
-                            color: colors.gray[400],
+                            color: colors.gray[300],
+                            background: colors.gray[800],
+                            padding: ".1rem .25rem",
+                            borderRadius: ".2rem",
+                        },
+                        "code::before": {
+                            content: "",
+                        },
+                        "code::after": {
+                            content: "",
+                        },
+                    },
+                },
+                discord: {
+                    css: {
+                        code: {
+                            background: colors.gray[800],
                         },
                     },
                 },

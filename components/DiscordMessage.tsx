@@ -1,4 +1,5 @@
 import { Message as MessageProps } from "../typings";
+import ReactMarkdown from "react-markdown";
 
 export default function DiscordMessage({
     command,
@@ -6,6 +7,8 @@ export default function DiscordMessage({
     bot,
 }: MessageProps) {
     const avatarUrl = bot ? "/images/sushii2.png" : "/images/meowmeow.jpg";
+
+    const msg_content = command ? `s!!${command}` : content;
 
     return (
         <li className="flex p-2 hover:bg-discord-darken">
@@ -37,10 +40,9 @@ export default function DiscordMessage({
                         Today at 12:30 PM
                     </span>
                 </p>
-                <div className="markdown">
-                    {command && <p>s!!{command}</p>}
-                    {content && <p>{content}</p>}
-                </div>
+                <ReactMarkdown className="prose-discord">
+                    {msg_content}
+                </ReactMarkdown>
             </div>
         </li>
     );

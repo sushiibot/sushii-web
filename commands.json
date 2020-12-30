@@ -111,7 +111,7 @@
                 },
                 {
                     "name": "mute",
-                    "description": "Mute one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "description": "Mute one or more users. IDs or mentions can be separated with a  space or comma. Sends user a DM with reason and duration if `mutedm` setting is enabled.",
                     "usage": "[one or more user IDs or mentions] (duration) (reason)",
                     "examples": [
                         {
@@ -165,7 +165,7 @@
                 },
                 {
                     "name": "unmute",
-                    "description": "Unmute one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "description": "Unmute one or more users. IDs or mentions can be separated with a  space or comma. Sends user a DM `mutedm` setting is enabled.",
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -179,7 +179,7 @@
                 },
                 {
                     "name": "warn",
-                    "description": "Warn one or more users. This is mainly useful for keeping track of misbehavior by users via the history command, as warning does not notify the user as of now. IDs or mentions can be separated with a space or comma.",
+                    "description": "Warn one or more users. Sends user a DM with reason if `warndm` setting is enabled.  IDs or mentions can be separated with a space or comma.",
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {

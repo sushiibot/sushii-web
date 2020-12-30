@@ -17,8 +17,16 @@ export interface Command {
     aliases?: string[];
 }
 
-export interface Message {
-    command?: string;
-    content?: string;
+export interface MessageBase {
     bot?: boolean;
 }
+
+export interface MessageCommand extends MessageBase {
+    command: string;
+}
+
+export interface MessageContent extends MessageBase {
+    content: string;
+}
+
+type Message = MessageCommand & MessageContent;
