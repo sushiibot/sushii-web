@@ -35,6 +35,34 @@ module.exports = {
             fontSize: {
                 xxs: ".6rem",
             },
+            typography: {
+                DEFAULT: {
+                    css: {
+                        color: colors.gray[200],
+                        a: {
+                            color: colors.blue[400],
+                            "&:hover": {
+                                color: colors.blue[300],
+                            },
+                        },
+                        h1: {
+                            color: colors.gray[200],
+                            fontWeight: 400,
+                        },
+                        h2: {
+                            color: colors.gray[200],
+                            fontWeight: 400,
+                        },
+                        h3: {
+                            color: colors.gray[200],
+                            fontWeight: 400,
+                        },
+                        code: {
+                            color: colors.gray[400],
+                        },
+                    },
+                },
+            },
         },
         fontFamily: {
             sans: ["Poppins", "sans-serif"],

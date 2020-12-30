@@ -16,8 +16,8 @@
         "next": "latest",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-nprogress": "^0.1.6",
-        "remove": "^0.1.5"
+        "react-markdown": "^5.0.3",
+        "swr": "^0.3.11"
     },
     "devDependencies": {
         "@netlify/plugin-nextjs": "^1.0.3",
