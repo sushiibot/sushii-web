@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { motion, Variants } from "framer-motion";
-import { useState } from "react";
+import Head from "next/head";
 
 export const LEADERBOARD_GUILD_QUERY = gql`
     query guildLeaderboard($guildId: BigInt!) {
@@ -55,6 +54,11 @@ export default function LeaderboardGuild({ guildId }: LeaderboardGuildProps) {
                     alt="Banner URL"
                 />
             ) */}
+            {data?.guild.name && (
+                <Head>
+                    <title>{data.guild.name} Leaderboard | sushii 2</title>
+                </Head>
+            )}
             <div className="flex items-center">
                 <img
                     className="w-20 h-20 mr-4 rounded-full"
