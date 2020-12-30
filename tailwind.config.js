@@ -74,7 +74,10 @@ module.exports = {
                 discord: {
                     css: {
                         code: {
+                            color: colors.gray[300],
                             background: colors.gray[800],
+                            padding: ".1rem .25rem",
+                            borderRadius: ".2rem",
                         },
                     },
                 },
