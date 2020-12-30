@@ -5,12 +5,40 @@ import Nav from "../components/Nav";
 import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../lib/apolloClient";
+import { useNProgress } from "@tanem/react-nprogress";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Progress from "../components/Progress";
 
 function App({ Component, pageProps }: AppProps) {
     const client = useApollo(pageProps.initialApolloState);
+    const router = useRouter();
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const handleRouteChangeStart = () => {
+            setIsLoading(true);
+        };
+
+        const handleRouteChangeComplete = () => {
+            setIsLoading(false);
+        };
+
+        router.events.on("routeChangeStart", handleRouteChangeStart);
+        router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+        // If the component is unmounted, unsubscribe
+        // from the event with the `off` method:
+        return () => {
+            router.events.off("routeChangeStart", handleRouteChangeStart);
+            router.events.off("routeChangeComplete", handleRouteChangeComplete);
+        };
+    }, []);
 
     return (
         <ApolloProvider client={client}>
+            <Progress isAnimating={isLoading} key={router.pathname} />
             <div className="flex flex-col min-h-screen">
                 <Head>
                     <link rel="icon" href="/favicon.ico" />

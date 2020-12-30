@@ -10,11 +10,14 @@
     },
     "dependencies": {
         "@apollo/client": "^3.3.6",
+        "@tanem/react-nprogress": "^3.0.52",
         "framer-motion": "^3.1.1",
         "graphql": "^15.4.0",
         "next": "latest",
         "react": "^16.13.1",
-        "react-dom": "^16.13.1"
+        "react-dom": "^16.13.1",
+        "react-nprogress": "^0.1.6",
+        "remove": "^0.1.5"
     },
     "devDependencies": {
         "@netlify/plugin-nextjs": "^1.0.3",
