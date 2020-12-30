@@ -352,7 +352,9 @@
                     "usage": "[duration or indefinite]",
                     "examples": [
                         {
-                            "command": "settings mute defaultduration 6 hours",
+                            "command": "settings mute defaultduration 6 hours"
+                        },
+                        {
                             "content": "Set the default mute duration to `30m`",
                             "bot": true
                         },

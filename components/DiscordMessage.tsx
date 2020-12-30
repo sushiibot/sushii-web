@@ -8,7 +8,15 @@ export default function DiscordMessage({
 }: MessageProps) {
     const avatarUrl = bot ? "/images/sushii2.png" : "/images/meowmeow.jpg";
 
-    const msg_content = command ? `s!!${command}` : content;
+    let msg_content = "";
+
+    if (command) {
+        msg_content = `s!!${command}`;
+    }
+
+    if (content) {
+        msg_content = content;
+    }
 
     return (
         <li className="flex p-2 hover:bg-discord-darken">
