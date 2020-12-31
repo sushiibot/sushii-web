@@ -11,6 +11,7 @@ module.exports = {
             colors: {
                 teal: colors.teal,
                 orange: colors.orange,
+                amber: colors.amber,
                 gray: {
                     1000: "#0a0e14",
                     900: "#161d28",

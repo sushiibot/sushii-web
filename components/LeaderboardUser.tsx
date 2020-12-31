@@ -22,22 +22,56 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
         ? "from-teal-400 to-blue-500"
         : "from-purple-400 via-pink-500 to-red-500";
 
+    let topUserStyle = {};
+
+    switch (i) {
+        case 0:
+            topUserStyle = {
+                backgroundImage:
+                    "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+                color: "transparent",
+                fontWeight: 500,
+            };
+            break;
+        case 1:
+            topUserStyle = {
+                backgroundImage:
+                    "linear-gradient(135deg, #93a5cf 0%, #e4efe9 100%)",
+                color: "transparent",
+                fontWeight: 500,
+            };
+            break;
+        case 2:
+            topUserStyle = {
+                backgroundImage:
+                    "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+                color: "transparent",
+                fontWeight: 500,
+            };
+            break;
+    }
+
     return (
         <motion.li
             className="flex flex-wrap items-center w-full my-4 p-2 px-4 rounded-lg group hover:bg-gray-100 hover:bg-opacity-90"
             variants={item}
         >
             <div className="flex-shrink-0 w-72 truncate text-gray-700">
-                <span className="text-gray-400 group-hover:text-gray-800">
-                    #{i + 1}
-                </span>
+                <div className="inline-block bg-gray-900 px-2 py-1 rounded-md">
+                    <span
+                        className="text-gray-600 group-hover:text-gray-500 bg-clip-text"
+                        style={topUserStyle}
+                    >
+                        #{i + 1}
+                    </span>
+                </div>
                 <img
                     className="w-16 rounded-full inline-block mx-4 whitespace-nowrap overflow-hidden"
                     style={{ textIndent: "100%" }}
                     src={avatarUrl.replace("?size=1024", "?size=128")}
                     alt={`${name}'s avatar`}
                 />
-                <span className="text-gray-700 group-hover:text-gray-500">
+                <span className="text-gray-700 group-hover:text-gray-400">
                     <span className="text-gray-200 group-hover:text-gray-800">
                         {name}
                     </span>
