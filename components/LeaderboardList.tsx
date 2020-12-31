@@ -154,16 +154,14 @@ export default function LeaderboardList({ guildId }: GuildLeaderboardProps) {
                                               i={i}
                                           />
                                       ))
-                                : edges.map(
-                                      ({ node, cursor }: any, i: number) => (
-                                          <LeaderboardUser
-                                              key={cursor}
-                                              node={node}
-                                              guildId={guildId}
-                                              i={i}
-                                          />
-                                      )
-                                  )}
+                                : edges.map(({ node }: any, i: number) => (
+                                      <LeaderboardUser
+                                          key={node.userId}
+                                          node={node}
+                                          guildId={guildId}
+                                          i={i}
+                                      />
+                                  ))}
                         </motion.ul>
                         {edges !== undefined && edges.length < totalCount && (
                             <button
