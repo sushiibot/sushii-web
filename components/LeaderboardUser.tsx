@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 const item = {
     hidden: { x: -10, opacity: 0 },
     visible: { x: 0, opacity: 1 },
-    exit: { x: 10, opacity: 0 },
 };
 
 export default function LeaderboardUser({ node, i, guildId }: any) {
@@ -27,7 +26,6 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
         <motion.li
             className="flex flex-wrap items-center w-full my-4 p-2 px-4 rounded-lg group hover:bg-gray-100 hover:bg-opacity-90"
             variants={item}
-            exit="exit"
         >
             <div className="flex-shrink-0 w-72 truncate text-gray-700">
                 <span className="text-gray-400 group-hover:text-gray-800">
