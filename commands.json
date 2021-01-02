@@ -62,6 +62,38 @@
             ]
         },
         {
+            "name": "notifications",
+            "description": "Get notifications when other users send messages containing a given keyword",
+            "commands": [
+                {
+                    "name": "notification add",
+                    "description": "Adds a notification.  To add a global notification, add `global` in front (e.g. `global yourkeyword`). Global keywords will notify you in all servers you and sushii are in.",
+                    "aliases": ["noti add"],
+                    "usage": "(global) [keyword]",
+                    "examples": [
+                        {
+                            "command": "noti add cat"
+                        },
+                        {
+                            "command": "noti add global cat"
+                        }
+                    ]
+                },
+                {
+                    "name": "notification list",
+                    "description": "Shows all your active notifications",
+                    "aliases": ["noti list"],
+                    "usage": "[keyword]"
+                },
+                {
+                    "name": "notification delete",
+                    "description": "Deletes a notification",
+                    "aliases": ["noti delete"],
+                    "usage": "[keyword]"
+                }
+            ]
+        },
+        {
             "name": "moderation",
             "description": "Moderation commands",
             "commands": [
