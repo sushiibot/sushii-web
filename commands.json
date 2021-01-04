@@ -67,15 +67,12 @@
             "commands": [
                 {
                     "name": "notification add",
-                    "description": "Adds a notification.  To add a global notification, add `global` in front (e.g. `global yourkeyword`). Global keywords will notify you in all servers you and sushii are in.",
+                    "description": "Adds a notification. sushii will send you a DM whenever someone sends a message with the keyword",
                     "aliases": ["noti add"],
-                    "usage": "(global) [keyword]",
+                    "usage": "[keyword]",
                     "examples": [
                         {
                             "command": "noti add cat"
-                        },
-                        {
-                            "command": "noti add global cat"
                         }
                     ]
                 },
