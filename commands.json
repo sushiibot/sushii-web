@@ -91,6 +91,45 @@
             ]
         },
         {
+            "name": "last.fm",
+            "description": "Look up what you are listening to on a connected Last.fm account. You must have a [Last.fm](https://www.last.fm/) account to use these commands.",
+            "commands": [
+                {
+                    "name": "fm set",
+                    "description": "Set your Last.fm username.",
+                    "usage": "[Last.fm username]"
+                },
+                {
+                    "name": "fm np",
+                    "description": "Show your now playing or last played track. Mention or pass an ID to see what another user's latest track",
+                    "aliases": ["fm"],
+                    "usage": "[mention or ID]"
+                },
+                {
+                    "name": "fm recent",
+                    "description": "Show your recently played tracks"
+                },
+                {
+                    "name": "fm topartists",
+                    "description": "Show your most played artists. Defaults to overal",
+                    "usage": "(overall | week | month | 3month | 6month | year)",
+                    "aliases": ["fm ta"],
+                    "examples": [
+                        {
+                            "command": "fm ta week"
+                        },
+                        {
+                            "command": "p 5"
+                        }
+                    ]
+                },
+                {
+                    "name": "fm loved",
+                    "description": "Show your loved tracks"
+                }
+            ]
+        },
+        {
             "name": "moderation",
             "description": "Moderation commands",
             "commands": [
