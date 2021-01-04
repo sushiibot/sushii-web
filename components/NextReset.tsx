@@ -24,11 +24,23 @@ export default function NextReset({ timeframe }: NextResetProps) {
         let nextReset;
 
         switch (timeframe) {
+            case "MONTH":
+                lastReset.setUTCMonth(0);
+                if (now.getUTCMonth() == 11) {
+                    nextReset = new Date(now.getUTCFullYear() + 1, 0, 1);
+                } else {
+                    nextReset = new Date(
+                        Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1)
+                    );
+                }
+                break;
             case "WEEK":
                 nextReset = new Date(
-                    now.getUTCFullYear(),
-                    now.getUTCMonth(),
-                    now.getUTCDate() - now.getUTCDay() + 7
+                    Date.UTC(
+                        now.getUTCFullYear(),
+                        now.getUTCMonth(),
+                        now.getUTCDate() - now.getUTCDay() + 7
+                    )
                 );
                 break;
             case "DAY":
@@ -37,18 +49,6 @@ export default function NextReset({ timeframe }: NextResetProps) {
                 nextReset = new Date(now.getTime() + 24 * 60 * 60 * 1000);
                 // Reset time
                 nextReset.setUTCHours(0, 0, 0, 0);
-                break;
-            case "MONTH":
-                lastReset.setUTCMonth(0);
-                if (now.getUTCMonth() == 11) {
-                    nextReset = new Date(now.getUTCFullYear() + 1, 0, 1);
-                } else {
-                    nextReset = new Date(
-                        now.getUTCFullYear(),
-                        now.getUTCMonth() + 1,
-                        1
-                    );
-                }
                 break;
         }
 
