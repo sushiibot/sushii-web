@@ -12,7 +12,9 @@ export default function Home() {
             <div className="pt-36 px-4">
                 <section className="flex flex-wrap flex-grow items-center justify-items-center">
                     <div className="w-full lg:w-1/2 md:pl-20 p-2">
-                        <h1 className="text-5xl font-medium">sushii 2</h1>
+                        <h1 className="text-5xl font-medium">
+                            sushii 2 preview
+                        </h1>
                         <h2 className="text-xl mt-2 mb-8">
                             Moderation bot for Discord.
                         </h2>
