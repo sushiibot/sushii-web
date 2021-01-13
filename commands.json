@@ -58,6 +58,16 @@
                     "name": "fishy",
                     "description": "Give a fishies to someone or yourself, 12 hour cooldown. Fishies for others result in larger catches.",
                     "usage": "[\"self\" or user ID or mention]"
+                },
+                {
+                    "name": "userinfo",
+                    "description": "Look up information relating to a user or member. This also works for users not in the same server. Defaults to your own info.",
+                    "usage": "(user ID or mention)"
+                },
+                {
+                    "name": "avatar",
+                    "description": "Get the avatar of a given user. Defaults to your own avatar.",
+                    "usage": "(user ID or mention)"
                 }
             ]
         },
@@ -87,6 +97,32 @@
                     "description": "Deletes a notification",
                     "aliases": ["noti delete"],
                     "usage": "[keyword]"
+                }
+            ]
+        },
+        {
+            "name": "reminders",
+            "description": "Let sushii notify you in the future for a given reminder",
+            "commands": [
+                {
+                    "name": "remind",
+                    "description": "Add a reminder. You can provide the duration in any part of the reminder description.",
+                    "aliases": ["reminder", "remi"],
+                    "usage": "[duration and reminder]",
+                    "examples": [
+                        {
+                            "command": "remind 12hr go fishing"
+                        },
+                        {
+                            "content": "Ok! I'll remind you here in 12h (`2021-01-13 12:01:07` UTC)",
+                            "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "remind list",
+                    "description": "Shows all your pending reminders",
+                    "aliases": ["reminder list", "remi list"]
                 }
             ]
         },
@@ -126,6 +162,10 @@
                 {
                     "name": "fm loved",
                     "description": "Show your loved tracks"
+                },
+                {
+                    "name": "fm profile",
+                    "description": "Show your Last.fm profile"
                 }
             ]
         },
@@ -297,6 +337,16 @@
                         {
                             "content": "Finished updating 4 cases with reason: `spamming`",
                             "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "slowmode",
+                    "description": "Sets slowmode for a given channel",
+                    "usage": "[slowmode duration in seconds] [channel]",
+                    "examples": [
+                        {
+                            "command": "slowmode 2 #general"
                         }
                     ]
                 }
