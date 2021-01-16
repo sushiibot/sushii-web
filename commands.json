@@ -61,7 +61,7 @@
                 },
                 {
                     "name": "userinfo",
-                    "description": "Look up information relating to a user or member. This also works for users not in the same server. Defaults to your own info.",
+                    "description": "Look up information relating to a user and member if available. This also works for users not in the same server. Defaults to your own info.",
                     "usage": "(user ID or mention)"
                 },
                 {
