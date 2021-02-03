@@ -49,6 +49,12 @@ function App({ Component, pageProps }: AppProps) {
                     />
                     <meta content="/images/sushii2.png" property="og:image" />
                     <meta name="theme-color" content="#3b82f6" />
+                    <script
+                        async
+                        defer
+                        data-domain="2.sushii.xyz"
+                        src="https://analytics.sushii.xyz/js/plausible.js"
+                    ></script>
                 </Head>
                 <Nav />
                 <Component {...pageProps} />
