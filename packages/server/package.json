@@ -1,0 +1,36 @@
+{
+    "name": "sushii-web-server",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc -b",
+        "start": "node dist/index.js",
+        "dev": "nodemon --signal SIGINT --watch 'dist/**/*.js' -x \"node --inspect=9678 -r @app/config/env -r source-map-support/register\" dist/index.js",
+        "schema:export": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS -r @app/config/env\" ts-node scripts/schema-export.ts",
+        "cloudflare:import": "(echo \"export const cloudflareIps: string[] = [\"; (curl -Ls https://www.cloudflare.com/ips-v4 | sort | sed -e \"s/^/  \\\"/\" -e \"s/$/\\\",/\"); echo \"];\") > src/cloudflare.ts",
+        "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS -r @app/config/env\" jest"
+    },
+    "dependencies": {
+        "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+        "@graphile/pg-pubsub": "^4.11.0",
+        "chalk": "^4.1.0",
+        "connect-redis": "^5.1.0",
+        "csurf": "^1.11.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "graphile-build": "^4.11.0",
+        "graphile-build-pg": "^4.11.2",
+        "graphile-utils": "^4.11.2",
+        "helmet": "^4.4.1",
+        "morgan": "^1.10.0",
+        "next": "^10.0.6",
+        "pg": "^8.5.1",
+        "postgraphile": "^4.11.0"
+    },
+    "devDependencies": {
+        "@types/connect-redis": "^0.0.16",
+        "@types/express-session": "^1.17.3",
+        "@types/node": "^14.14.26"
+    }
+}
