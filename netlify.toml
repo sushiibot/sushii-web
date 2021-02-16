@@ -8,3 +8,9 @@
   from = "/leaderboard/*"
   to = "/leaderboard/[guildId].html"
   status = 200
+
+[[redirects]]
+  from = "https://2.sushii.xyz/*"
+  to = "https://sushii.xyz/:splat"
+  status = 301
+  force = true
