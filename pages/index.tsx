@@ -6,17 +6,15 @@ export default function Home() {
     return (
         <div className="max-w-screen-lg w-100 mx-auto flex-grow">
             <Head>
-                <title>sushii 2</title>
+                <title>sushii</title>
             </Head>
 
             <div className="pt-36 px-4">
                 <section className="flex flex-wrap flex-grow items-center justify-items-center">
                     <div className="w-full lg:w-1/2 md:pl-20 p-2">
-                        <h1 className="text-5xl font-medium">
-                            sushii 2 preview
-                        </h1>
+                        <h1 className="text-5xl font-medium">sushii</h1>
                         <h2 className="text-xl mt-2 mb-8">
-                            Moderation bot for Discord.
+                            Multi-purpose bot for Discord.
                         </h2>
                         <a
                             className="inline-block p-2 px-4 mr-4 mb-2 rounded-lg transition-all relative top-0 hover:-top-0.5 bg-gradient-to-br from-purple-400 via-blue-500 to-teal-500"
