@@ -52,7 +52,7 @@ function App({ Component, pageProps }: AppProps) {
                     <script
                         async
                         defer
-                        data-domain="2.sushii.xyz"
+                        data-domain="sushii.xyz"
                         src="https://analytics.sushii.xyz/js/plausible.js"
                     ></script>
                 </Head>
