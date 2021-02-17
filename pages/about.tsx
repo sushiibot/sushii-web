@@ -4,16 +4,14 @@ export default function About() {
     return (
         <div className="flex-grow">
             <Head>
-                <title>About | sushii 2</title>
+                <title>About | sushii</title>
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
                 <h1 className="text-4xl mt-4">About</h1>
                 <p className="max-w-lg mt-4">
-                    sushii 2 is the rewritten version of sushii with a focus on
-                    moderation tools. It is still a work in progress as it is
-                    rebuilt from the ground up. While it is currently a
-                    secondary bot running alongside the original sushii, it will
-                    eventually replace the original sushii bot.
+                    sushii with a bot with a focus on moderation tools. It has
+                    replaced the older bot, rebuilt from the ground up. Still a
+                    work in progress to improve UX and features!
                 </p>
                 <h2 className="text-2xl mt-4">Technologies</h2>
                 <p className="max-w-lg mt-4">
