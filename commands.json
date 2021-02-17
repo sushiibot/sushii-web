@@ -341,6 +341,17 @@
                     ]
                 },
                 {
+                    "name": "deletecase",
+                    "aliases": ["casedelete", "clearcase", "uncase"],
+                    "description": "Delete a moderation case.",
+                    "usage": "[case number]",
+                    "examples": [
+                        {
+                            "command": "deletecase 1234"
+                        }
+                    ]
+                },
+                {
                     "name": "slowmode",
                     "description": "Sets slowmode for a given channel",
                     "usage": "[slowmode duration in seconds] [channel]",
@@ -492,6 +503,22 @@
                 {
                     "name": "settings mutedm set/on/off/toggle",
                     "description": "Enable or disable sending messages to DM members on mute"
+                },
+                {
+                    "name": "settings disablechannel",
+                    "aliases": ["settings disablechannels"],
+                    "usage": "[channels]",
+                    "description": "Disable command and tag usage in given channels"
+                },
+                {
+                    "name": "settings enablechannel",
+                    "aliases": ["settings enablechannels"],
+                    "description": "Re-enable command and tag usage in given channels"
+                },
+                {
+                    "name": "settings disabledchannels",
+                    "aliases": ["listdisabledchannels", "channels"],
+                    "description": "List the currently disabled channels"
                 }
             ]
         }
