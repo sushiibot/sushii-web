@@ -71,7 +71,7 @@ export default function Nav() {
                             <a>
                                 <img
                                     className="h-8 w-8 inline-block mr-4"
-                                    src="/images/sushii2.png"
+                                    src="/images/sushii.png"
                                 />
                             </a>
                         </Link>

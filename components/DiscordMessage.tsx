@@ -6,7 +6,9 @@ export default function DiscordMessage({
     content,
     bot,
 }: MessageProps) {
-    const avatarUrl = bot ? "/images/sushii2.png" : "/images/meowmeow.jpg";
+    const avatarUrl = bot
+        ? "/images/sushii_avatar.png"
+        : "/images/meowmeow.jpg";
 
     let msg_content = "";
 
@@ -32,7 +34,7 @@ export default function DiscordMessage({
                         {bot ? (
                             <>
                                 <span className="text-red-200 hover:underline cursor-pointer">
-                                    sushii2
+                                    sushii
                                 </span>
                                 <span className="ml-1 inline-block align-middle text-xxs px-1 rounded bg-discord-bot-badge">
                                     BOT
