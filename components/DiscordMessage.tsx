@@ -13,7 +13,7 @@ export default function DiscordMessage({
     let msg_content = "";
 
     if (command) {
-        msg_content = `s!!${command}`;
+        msg_content = `-${command}`;
     }
 
     if (content) {

@@ -6,8 +6,7 @@
             "commands": [
                 {
                     "name": "ping",
-                    "description": "Pong",
-                    "required_permissions": []
+                    "description": "Pong"
                 },
                 {
                     "name": "prefix",
@@ -18,11 +17,11 @@
                             "command": "prefix"
                         },
                         {
-                            "content": "The current guild prefix is: `s!!`",
+                            "content": "The current guild prefix is: `-`",
                             "bot": true
                         },
                         {
-                            "command": "prefix $"
+                            "command": "prefix *"
                         },
                         {
                             "content": "Updated prefix to `*`",
@@ -176,6 +175,7 @@
                 {
                     "name": "prune",
                     "description": "Delete bulk messages between 1 and 99 messages.",
+                    "required_permissions": ["MANAGE_MESSAGES"],
                     "usage": "[num messages]",
                     "aliases": ["p"],
                     "examples": [
@@ -190,6 +190,7 @@
                 {
                     "name": "ban",
                     "description": "Ban one or more users. IDs or mentions can be separated with a  space or comma. Users do not need to be in the guild.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -200,6 +201,7 @@
                 {
                     "name": "unban",
                     "description": "Unban one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -210,6 +212,7 @@
                 {
                     "name": "kick",
                     "description": "Kick one or more users. IDs or mentions can be separated with a  space or comma.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -240,6 +243,7 @@
                         "mute settime"
                     ],
                     "description": "Change the duration of an existing mute. Use indefinite (or indef, inf, none) to remove duration.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[user ID or mention] (new duration or indefinite)",
                     "examples": [
                         {
@@ -261,6 +265,7 @@
                         "mute extend"
                     ],
                     "description": "Add to the duration of an existing mute.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[user ID or mention] (duration)",
                     "examples": [
                         {
@@ -274,6 +279,7 @@
                 {
                     "name": "unmute",
                     "description": "Unmute one or more users. IDs or mentions can be separated with a  space or comma. Sends user a DM `mutedm` setting is enabled.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -283,11 +289,13 @@
                 },
                 {
                     "name": "listmutes",
-                    "description": "List currently ongoing mutes in the guild, with the user, mute duration, and duration left."
+                    "description": "List currently ongoing mutes in the guild, with the user, mute duration, and duration left.",
+                    "required_permissions": ["BAN_MEMBERS"]
                 },
                 {
                     "name": "warn",
                     "description": "Warn one or more users. Sends user a DM with reason if `warndm` setting is enabled.  IDs or mentions can be separated with a space or comma.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[one or more user IDs or mentions] (reason)",
                     "examples": [
                         {
@@ -298,6 +306,7 @@
                 {
                     "name": "history",
                     "description": "Show the case history for a given user. The actions warn,  mute, kick, ban will be shown.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[ID or mention]",
                     "examples": [
                         {
@@ -308,6 +317,7 @@
                 {
                     "name": "reason",
                     "description": "Set the reason for a moderation case. This will also set the moderator who performed this action. If a range is provided (eg. 12-15), it will update all cases (inclusive) 12, 13, 14, 15 with the given reason for easier bulk actions. Using latest will update the most recent case, and latest~n will update the most recent n cases.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[latest or latest~n or case ID or case ID range] [reason]",
                     "examples": [
                         {
@@ -344,6 +354,7 @@
                     "name": "deletecase",
                     "aliases": ["casedelete", "clearcase", "uncase"],
                     "description": "Delete a moderation case.",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[case number]",
                     "examples": [
                         {
@@ -354,6 +365,7 @@
                 {
                     "name": "slowmode",
                     "description": "Sets slowmode for a given channel",
+                    "required_permissions": ["BAN_MEMBERS"],
                     "usage": "[slowmode duration in seconds] [channel]",
                     "examples": [
                         {
@@ -370,24 +382,29 @@
                 {
                     "name": "roles set",
                     "description": "Set the roles configuration. Supports both JSON and TOML formats.",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "usage": "[config]"
                 },
                 {
                     "name": "roles get",
-                    "description": "Get the current role configuration"
+                    "description": "Get the current role configuration",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "roles setchannel",
-                    "description": "Set the channel for role assignments"
+                    "description": "Set the channel for role assignments",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "roles sendinfo",
                     "aliases": ["roles sendhelp"],
-                    "description": "Send roles help message to role channel for members as a  reference for all available role groups, role names, and limits"
+                    "description": "Send roles help message to role channel for members as a  reference for all available role groups, role names, and limits",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "roles listids",
-                    "description": "List all the current guild roles and IDs"
+                    "description": "List all the current guild roles and IDs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 }
             ]
         },
@@ -397,16 +414,19 @@
             "commands": [
                 {
                     "name": "settings list",
-                    "description": "Lists guild settings"
+                    "description": "Lists guild settings",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings joinmsg set",
                     "description": "Set the message sent on new member join to the configured msgchannel.  You can use the following replacements: <username>, <mention>, <server>",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "usage": "[message]"
                 },
                 {
                     "name": "settings joinmsg on/off/toggle",
                     "description": "Enable or disable message on new member join",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "examples": [
                         {
                             "command": "settings joinmsg on"
@@ -422,6 +442,7 @@
                 {
                     "name": "settings joinreact set",
                     "description": "Set the reaction to new member join message",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "usage": "[reaction]",
                     "examples": [
                         {
@@ -431,43 +452,53 @@
                 },
                 {
                     "name": "settings joinreact on/off/toggle",
-                    "description": "Enable or disable reaction to new member join message"
+                    "description": "Enable or disable reaction to new member join message",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings leavemsg set",
-                    "description": "Set the message on member leave to the configured msgchannel"
+                    "description": "Set the message on member leave to the configured msgchannel",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings leavemsg on/off/toggle",
-                    "description": "Enable or disable message sent on member leave"
+                    "description": "Enable or disable message sent on member leave",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings msgchannel set",
-                    "description": "Set the channel to send join / leave messages"
+                    "description": "Set the channel to send join / leave messages",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings msglog set/on/off/toggle",
-                    "description": "Channel to send message delete/edit logs"
+                    "description": "Channel to send message delete/edit logs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings modlog set",
-                    "description": "Set the channel to send moderation logs"
+                    "description": "Set the channel to send moderation logs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings modlog on/off/toggle",
-                    "description": "Enable or disable moderation logs"
+                    "description": "Enable or disable moderation logs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings memberlog set/on/off/toggle",
-                    "description": "Set the channel to send member join/leave logs"
+                    "description": "Set the channel to send member join/leave logs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings memberlog on/off/toggle",
-                    "description": "Enable or disable member join/leave logs"
+                    "description": "Enable or disable member join/leave logs",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings mute role",
                     "description": "Set the mute role",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "usage": "[role name or ID or mention]",
                     "examples": [
                         {
@@ -478,6 +509,7 @@
                 {
                     "name": "settings mute defaultduration",
                     "description": "Set the default duration for mutes when muting by manually adding a role to a member, or if a duration is not provided when using the mute command. The default duration is 1 day (24 hours). You can disable the default duration by using 0 or \"indefinite\" as the duration. This would make mutes not automatically expire.",
+                    "required_permissions": ["MANAGE_GUILD"],
                     "usage": "[duration or indefinite]",
                     "examples": [
                         {
@@ -498,27 +530,32 @@
                 },
                 {
                     "name": "settings mutedm set",
-                    "description": "Set the message sent to DM members when they are muted"
+                    "description": "Set the message sent to DM members when they are muted",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings mutedm set/on/off/toggle",
-                    "description": "Enable or disable sending messages to DM members on mute"
+                    "description": "Enable or disable sending messages to DM members on mute",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings disablechannel",
                     "aliases": ["settings disablechannels"],
                     "usage": "[channels]",
-                    "description": "Disable command and tag usage in given channels"
+                    "description": "Disable command and tag usage in given channels",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings enablechannel",
                     "aliases": ["settings enablechannels"],
-                    "description": "Re-enable command and tag usage in given channels"
+                    "description": "Re-enable command and tag usage in given channels",
+                    "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
                     "name": "settings disabledchannels",
                     "aliases": ["listdisabledchannels", "channels"],
-                    "description": "List the currently disabled channels"
+                    "description": "List the currently disabled channels",
+                    "required_permissions": ["MANAGE_GUILD"]
                 }
             ]
         }
