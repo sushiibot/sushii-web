@@ -169,6 +169,74 @@
             ]
         },
         {
+            "name": "Tags",
+            "description": "Custom tags can be created on each server as a way to make \"custom\" commands",
+            "commands": [
+                {
+                    "name": "tag",
+                    "description": "Get a tag",
+                    "usage": "[prefix][tag name]",
+                    "aliases": ["tag [tag name]"],
+                    "examples": [
+                        {
+                            "command": "risky"
+                        },
+                        {
+                            "content": "Risky, risky, wiggy, wigi. This is an emergency",
+                            "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "tag random",
+                    "description": "Get a random tag"
+                },
+                {
+                    "name": "tag info",
+                    "description": "Get information about a tag",
+                    "usage": "[tag name]"
+                },
+                {
+                    "name": "tag add",
+                    "description": "Add a new tag",
+                    "usage": "[tag name] [tag content]",
+                    "examples": [
+                        {
+                            "command": "tag add risky Risky, risky, wiggy, wigi. This is an emergency"
+                        },
+                        {
+                            "content": "Created a new tag `risky` with content: Risky, risky, wiggy, wigi. This is an emergency",
+                            "bot": true
+                        }
+                    ]
+                },
+                {
+                    "name": "tag list",
+                    "description": "Show all available tags in the server"
+                },
+                {
+                    "name": "tag search",
+                    "description": "Search for tags containing a query",
+                    "usage": "[query]"
+                },
+                {
+                    "name": "tag remove",
+                    "description": "Delete a tag. Only the tag owner and users with `MANAGE_GUILD` may delete the tag.",
+                    "usage": "[tag name]"
+                },
+                {
+                    "name": "tag edit",
+                    "description": "Edit a tag's content.  Only the tag owner and users with `MANAGE_GUILD` may edit the tag.",
+                    "usage": "[tag name] [new content]"
+                },
+                {
+                    "name": "tag rename",
+                    "description": "Rename a tag.  Only the tag owner and users with `MANAGE_GUILD` may rename the tag.",
+                    "usage": "[tag name] [new name]"
+                }
+            ]
+        },
+        {
             "name": "moderation",
             "description": "Moderation commands",
             "commands": [
