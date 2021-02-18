@@ -16,7 +16,7 @@ export default function Commands() {
                 <h1 className="text-4xl my-4">Commands</h1>
                 <p className="leading-relaxed max-w-screen-sm">
                     The default prefix for sushii is{" "}
-                    <span className="bg-gray-800">s!!</span>. You can also{" "}
+                    <span className="bg-gray-800">-</span>. You can also{" "}
                     <span className="bg-gray-800">@sushii</span> the bot as the
                     prefix.
                     <br />
