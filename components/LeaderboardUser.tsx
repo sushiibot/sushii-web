@@ -70,6 +70,8 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
                     style={{ textIndent: "100%" }}
                     src={avatarUrl.replace("?size=1024", "?size=128")}
                     alt={`${name}'s avatar`}
+                    loading="lazy"
+                    crossOrigin="anonymous"
                 />
                 <span className="text-gray-700 group-hover:text-gray-400">
                     <span className="text-gray-200 group-hover:text-gray-800">
