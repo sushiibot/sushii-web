@@ -10,7 +10,7 @@
                 },
                 {
                     "name": "prefix",
-                    "description": "Set the bot prefix for this guild. Use without an argument to get the current prefix",
+                    "description": "Set the bot prefix for the current server. Use without an argument to get the current prefix",
                     "usage": "(prefix)",
                     "examples": [
                         {
@@ -72,7 +72,7 @@
         },
         {
             "name": "notifications",
-            "description": "Get notifications when other users send messages containing a given keyword",
+            "description": "Get notifications when someone send messages containing a keyword",
             "commands": [
                 {
                     "name": "notification add",
@@ -101,7 +101,7 @@
         },
         {
             "name": "reminders",
-            "description": "Let sushii notify you in the future for a given reminder",
+            "description": "Let sushii notify you in the future for given reminders",
             "commands": [
                 {
                     "name": "remind",
@@ -169,8 +169,8 @@
             ]
         },
         {
-            "name": "Tags",
-            "description": "Custom tags can be created on each server as a way to make \"custom\" commands",
+            "name": "tags",
+            "description": "\"Custom\" commands, create tags with custom responses",
             "commands": [
                 {
                     "name": "tag",
@@ -444,45 +444,12 @@
             ]
         },
         {
-            "name": "roles",
-            "description": "Self assigned role settings",
-            "commands": [
-                {
-                    "name": "roles set",
-                    "description": "Set the roles configuration. Supports both JSON and TOML formats.",
-                    "required_permissions": ["MANAGE_GUILD"],
-                    "usage": "[config]"
-                },
-                {
-                    "name": "roles get",
-                    "description": "Get the current role configuration",
-                    "required_permissions": ["MANAGE_GUILD"]
-                },
-                {
-                    "name": "roles setchannel",
-                    "description": "Set the channel for role assignments",
-                    "required_permissions": ["MANAGE_GUILD"]
-                },
-                {
-                    "name": "roles sendinfo",
-                    "aliases": ["roles sendhelp"],
-                    "description": "Send roles help message to role channel for members as a  reference for all available role groups, role names, and limits",
-                    "required_permissions": ["MANAGE_GUILD"]
-                },
-                {
-                    "name": "roles listids",
-                    "description": "List all the current guild roles and IDs",
-                    "required_permissions": ["MANAGE_GUILD"]
-                }
-            ]
-        },
-        {
             "name": "settings",
-            "description": "Guild settings",
+            "description": "Server settings",
             "commands": [
                 {
                     "name": "settings list",
-                    "description": "Lists guild settings",
+                    "description": "Lists server settings",
                     "required_permissions": ["MANAGE_GUILD"]
                 },
                 {
@@ -623,6 +590,39 @@
                     "name": "settings disabledchannels",
                     "aliases": ["listdisabledchannels", "channels"],
                     "description": "List the currently disabled channels",
+                    "required_permissions": ["MANAGE_GUILD"]
+                }
+            ]
+        },
+        {
+            "name": "roles",
+            "description": "Self assigned role settings",
+            "commands": [
+                {
+                    "name": "roles set",
+                    "description": "Set the roles configuration. Supports both JSON and TOML formats.",
+                    "required_permissions": ["MANAGE_GUILD"],
+                    "usage": "[config]"
+                },
+                {
+                    "name": "roles get",
+                    "description": "Get the current role configuration",
+                    "required_permissions": ["MANAGE_GUILD"]
+                },
+                {
+                    "name": "roles setchannel",
+                    "description": "Set the channel for role assignments",
+                    "required_permissions": ["MANAGE_GUILD"]
+                },
+                {
+                    "name": "roles sendinfo",
+                    "aliases": ["roles sendhelp"],
+                    "description": "Send roles help message to role channel for members as a  reference for all available role groups, role names, and limits",
+                    "required_permissions": ["MANAGE_GUILD"]
+                },
+                {
+                    "name": "roles listids",
+                    "description": "List all the current guild roles and IDs",
                     "required_permissions": ["MANAGE_GUILD"]
                 }
             ]
