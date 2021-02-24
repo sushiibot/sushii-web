@@ -17,22 +17,31 @@ export default function Commands() {
                 <h1 className="text-4xl my-4">Commands</h1>
                 <p className="leading-relaxed max-w-screen-sm">
                     The default prefix for sushii is{" "}
-                    <span className="bg-gray-800">-</span>. You can also{" "}
-                    <span className="bg-gray-800">@sushii</span> the bot as the
-                    prefix.
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800">
+                        -
+                    </span>
+                    . You can also{" "}
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800">
+                        @sushii
+                    </span>{" "}
+                    the bot as the prefix.
                     <br />
                     Required arguments are in{" "}
-                    <span className="bg-gray-800">[brackets]</span>
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800">
+                        [brackets]
+                    </span>
                     <br />
                     Optional arguments are in{" "}
-                    <span className="bg-gray-800">(parentheses)</span>
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800">
+                        (parentheses)
+                    </span>
                     <br />
                     Some commands have a{" "}
-                    <span className="bg-gray-800 text-red-400">
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800 text-red-400">
                         REQUIRED_PERMISSION
                     </span>{" "}
                     or{" "}
-                    <span className="bg-gray-800 text-orange-300">
+                    <span className="px-1 py-0.25 rounded-sm bg-gray-800 text-orange-300">
                         OPTIONAL_PERMISSION
                     </span>{" "}
                     for the user invoking the command to use additional

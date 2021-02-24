@@ -36,6 +36,9 @@ module.exports = {
             fontSize: {
                 xxs: ".6rem",
             },
+            padding: {
+                0.25: ".1rem",
+            },
             typography: {
                 DEFAULT: {
                     css: {
