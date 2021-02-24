@@ -3,7 +3,14 @@ import { Command as CommandProps } from "../typings";
 import ReactMarkdown from "react-markdown";
 
 export default function Command(props: CommandProps) {
-    const { name, usage, aliases, description, examples } = props;
+    const {
+        name,
+        required_permissions,
+        usage,
+        aliases,
+        description,
+        examples,
+    } = props;
 
     return (
         <li className="my-3 mb-4 group">
@@ -12,6 +19,18 @@ export default function Command(props: CommandProps) {
                     {name}
                 </span>
                 <span className="text-red-300"> {usage}</span>
+                {required_permissions?.length !== undefined && (
+                    <>
+                        {required_permissions.map((p, i) => (
+                            <div
+                                key={i}
+                                className="ml-2 px-1 py-0.5 text-xs bg-red-600 rounded inline-block"
+                            >
+                                {p}
+                            </div>
+                        ))}
+                    </>
+                )}
             </p>
             {aliases?.length && (
                 <div className="mt-2 mb-2">
