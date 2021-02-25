@@ -31,7 +31,7 @@ export default async function installSSR(app: Express) {
         process.exit(1);
     });
 
-    app.get("*", async (req, res) => {
+    app.all("*", async (req, res) => {
         const handler = await handlerPromise;
         const parsedUrl = parse(req.url, true);
         handler(req, res, {

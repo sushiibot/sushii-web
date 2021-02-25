@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "build": "tsc -b",
-        "start": "node dist/index.js",
+        "start": "yarn start && node dist/index.js",
         "dev": "nodemon --signal SIGINT --watch 'dist/**/*.js' -x \"node --inspect=9678 -r @app/config/env -r source-map-support/register\" dist/index.js",
         "schema:export": "cross-env NODE_OPTIONS=\"$NODE_OPTIONS -r @app/config/env\" ts-node scripts/schema-export.ts",
         "cloudflare:import": "(echo \"export const cloudflareIps: string[] = [\"; (curl -Ls https://www.cloudflare.com/ips-v4 | sort | sed -e \"s/^/  \\\"/\" -e \"s/$/\\\",/\"); echo \"];\") > src/cloudflare.ts",
@@ -23,14 +23,20 @@
         "graphile-build-pg": "^4.11.2",
         "graphile-utils": "^4.11.2",
         "helmet": "^4.4.1",
+        "lodash": "^4.17.21",
         "morgan": "^1.10.0",
         "next": "^10.0.6",
+        "next-auth": "^3.5.1",
         "pg": "^8.5.1",
         "postgraphile": "^4.11.0"
     },
     "devDependencies": {
         "@types/connect-redis": "^0.0.16",
+        "@types/csurf": "^1.11.0",
         "@types/express-session": "^1.17.3",
+        "@types/lodash": "^4.14.168",
+        "@types/morgan": "^1.9.2",
+        "@types/next-auth": "^3.1.24",
         "@types/node": "^14.14.26"
     }
 }

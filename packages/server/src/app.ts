@@ -75,6 +75,8 @@ export async function makeApp({
      */
     app.set("httpServer", httpServer);
 
+    app.set("query parser", "simple");
+
     /*
      * For a clean nodemon shutdown, we need to close all our sockets otherwise
      * we might not come up cleanly again (inside nodemon).
@@ -98,21 +100,17 @@ export async function makeApp({
      * operate very rapidly to enable quick as possible server startup.
      */
     await middleware.installDatabasePools(app);
-    await middleware.installWorkerUtils(app);
     await middleware.installHelmet(app);
     await middleware.installSameOrigin(app);
     await middleware.installSession(app);
     await middleware.installCSRFProtection(app);
-    await middleware.installPassport(app);
+    // await middleware.installPassport(app);
     await middleware.installLogging(app);
     if (process.env.FORCE_SSL) {
         await middleware.installForceSSL(app);
     }
     // These are our assets: images/etc; served out of the /@app/server/public folder (if present)
     await middleware.installSharedStatic(app);
-    if (isTest || isDev) {
-        await middleware.installCypressServerCommand(app);
-    }
     await middleware.installPostGraphile(app);
     await middleware.installSSR(app);
 
