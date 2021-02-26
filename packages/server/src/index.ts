@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { createServer } from "http";
 
+require("dotenv").config();
 import { getShutdownActions, makeApp } from "./app";
 
 const packageJson = require("../../../package.json");

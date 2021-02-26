@@ -172,10 +172,10 @@ export function getPostGraphileOptions({
             PrimaryKeyMutationsOnlyPlugin,
 
             // Adds the `login` mutation to enable users to log in
-            PassportLoginPlugin,
+            // PassportLoginPlugin,
 
             // Adds realtime features to our GraphQL schema
-            SubscriptionsPlugin,
+            // SubscriptionsPlugin,
 
             // Adds custom orders to our GraphQL schema
             OrdersPlugin,
@@ -222,6 +222,7 @@ export function getPostGraphileOptions({
                     [sessionId]
                 );
             }
+
             return {
                 // Everyone uses the "visitor" role currently
                 role: process.env.DATABASE_VISITOR,
@@ -286,6 +287,7 @@ export default function installPostGraphile(app: Express) {
     const websocketMiddlewares = getWebsocketMiddlewares(app);
     const authPgPool = getAuthPgPool(app);
     const rootPgPool = getRootPgPool(app);
+
     const middleware = postgraphile<Request, Response>(
         authPgPool,
         "app_public",

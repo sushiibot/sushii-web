@@ -14,7 +14,7 @@ export default async function installSSR(app: Express) {
     // Ref: https://unpkg.com/next@9.0.3/dist/server/next.js
     const nextApp = next({
         dev: isDev,
-        dir: `${__dirname}/../../../client/src`,
+        dir: `${__dirname}/../../client/src`,
         quiet: !isDev,
         // Don't specify 'conf' key
     });
@@ -31,7 +31,7 @@ export default async function installSSR(app: Express) {
         process.exit(1);
     });
 
-    app.all("*", async (req, res) => {
+    app.get("*", async (req, res) => {
         const handler = await handlerPromise;
         const parsedUrl = parse(req.url, true);
         handler(req, res, {

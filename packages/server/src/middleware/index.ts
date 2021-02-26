@@ -4,7 +4,7 @@ import installErrorHandler from "./installErrorHandler";
 import installForceSSL from "./installForceSSL";
 import installHelmet from "./installHelmet";
 import installLogging from "./installLogging";
-// import installPassport from "./installPassport";
+import installPassport from "./installPassport";
 import installPostGraphile from "./installPostGraphile";
 import installSameOrigin from "./installSameOrigin";
 import installSession from "./installSession";
@@ -19,7 +19,7 @@ export {
     installForceSSL,
     installHelmet,
     installLogging,
-    // installPassport,
+    installPassport,
     installPostGraphile,
     installSameOrigin,
     installSession,

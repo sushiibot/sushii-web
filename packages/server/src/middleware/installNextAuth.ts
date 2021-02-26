@@ -59,7 +59,7 @@ export default (app: Express) => {
             },
             callbacks: {
                 async signIn(user, account, profile) {
-                    req.user = user;
+                    // req.user = user;
                     console.log("signed in:");
                     console.log("user:", user);
                     console.log("account:", account);

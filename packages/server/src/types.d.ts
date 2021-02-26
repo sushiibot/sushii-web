@@ -2,8 +2,14 @@ import { User } from "next-auth";
 
 declare global {
     namespace Express {
-        export interface Request {
-            user?: User;
+        interface User {
+            session_id: string;
         }
+    }
+
+    interface Error {
+        code?: string;
+        statusCode?: string;
+        status?: string;
     }
 }
