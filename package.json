@@ -6,10 +6,7 @@
     "author": "drklee3 <derrick@dlee.dev>",
     "license": "MIT",
     "private": true,
-    "workspaces": {
-        "packages": [
-            "packages/*",
-            "docker"
-        ]
-    }
+    "workspaces": [
+        "packages/*"
+    ]
 }

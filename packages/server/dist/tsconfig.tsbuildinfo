@@ -1627,7 +1627,7 @@
         "affectsGlobalScope": false
       },
       "../src/middleware/installSSR.ts": {
-        "version": "cd016f4756314b1303a7edf94ddaf81ce2f893211492d99c7ee0359e5f15ebf0",
+        "version": "c34ff2852aaa3cc54bb78297e4ff402b896ecdd7c71d9b93b938a56df432d607",
         "signature": "56a70834c29f727e4ccaa59e4783bf3091d90e7d248f06e92bf1890842f40359",
         "affectsGlobalScope": false
       },
@@ -3361,6 +3361,11 @@
         "signature": "9a6d65d77455efaaaeff945bea30c38b8fe0922b807ba45cd23792392f1bfe76",
         "affectsGlobalScope": false
       },
+      "../../../node_modules/@types/normalize-package-data/index.d.ts": {
+        "version": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "signature": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "affectsGlobalScope": false
+      },
       "../../../node_modules/@types/ungap__global-this/index.d.ts": {
         "version": "7412a2e6850832a689113c5e262b3d2c8a2239c72bc0b265d73a89ca2a249434",
         "signature": "7412a2e6850832a689113c5e262b3d2c8a2239c72bc0b265d73a89ca2a249434",
@@ -3379,7 +3384,7 @@
         "lib.es2018.d.ts",
         "lib.es2018.asynciterable.d.ts"
       ],
-      "allowJs": true,
+      "allowJs": false,
       "skipLibCheck": true,
       "strict": true,
       "forceConsistentCasingInFileNames": true,
@@ -3394,6 +3399,7 @@
       "outDir": "./",
       "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
       "declarationDir": "./",
+      "watch": true,
       "configFilePath": "../tsconfig.json"
     },
     "referencedMap": {
@@ -9037,6 +9043,7 @@
       "../../../node_modules/@types/node/wasi.d.ts",
       "../../../node_modules/@types/node/worker_threads.d.ts",
       "../../../node_modules/@types/node/zlib.d.ts",
+      "../../../node_modules/@types/normalize-package-data/index.d.ts",
       "../../../node_modules/@types/oauth/index.d.ts",
       "../../../node_modules/@types/passport-discord/index.d.ts",
       "../../../node_modules/@types/passport-oauth2/index.d.ts",

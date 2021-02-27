@@ -1,7 +1,7 @@
 {
-    "name": "sushii-web",
+    "name": "@sushii-web/client",
     "version": "0.1.0",
-    "private": true,
+    "license": "MIT",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -14,8 +14,8 @@
         "framer-motion": "^3.1.1",
         "graphql": "^15.4.0",
         "next": "^10.0.7",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
         "react-markdown": "^5.0.3",
         "swr": "^0.3.11"
     },
