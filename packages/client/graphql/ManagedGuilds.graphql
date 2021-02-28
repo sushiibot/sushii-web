@@ -1,0 +1,13 @@
+query ManagedGuilds {
+    webGuilds {
+        edges {
+            node {
+                createdAt
+                icon
+                id
+                name
+                updatedAt
+            }
+        }
+    }
+}

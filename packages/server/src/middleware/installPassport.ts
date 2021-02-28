@@ -59,6 +59,7 @@ export default async (app: Express) => {
             clientID: DISCORD_CLIENT_ID,
             clientSecret: DISCORD_CLIENT_SECRET,
             scope: ["identify", "guilds"],
+            prompt: "none",
         },
         {},
         async (profile, _accessToken, _refreshToken, _extra, _req) => ({
