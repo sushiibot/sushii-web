@@ -1,4 +1,5 @@
 import { Express, Request, RequestHandler } from "express";
+import { userInfo } from "os";
 import passport from "passport";
 
 import { getRootPgPool } from "./installDatabasePools";
@@ -12,10 +13,9 @@ interface DbSession {
 
 export interface UserSpec {
     id: string;
-    username: string;
-    discriminator: string;
-    avatar?: string;
-    profile?: any;
+    // Discord profile /users/@me
+    // https://discord.com/developers/docs/resources/user#user-object-user-structure
+    profile: any;
     auth?: any;
 }
 
@@ -76,83 +76,6 @@ export default (
 ) => {
     const rootPgPool = getRootPgPool(app);
 
-    let fn = async (
-        req: Request,
-        accessToken: string,
-        refreshToken: string,
-        extra: any,
-        profile: any,
-        done: (error: any, user?: any) => void
-    ) => {
-        try {
-            const userInformation = await getUserInformation(
-                profile,
-                accessToken,
-                refreshToken,
-                extra,
-                req
-            );
-            if (!userInformation.id) {
-                throw new Error(
-                    `getUserInformation must return a unique id for each user`
-                );
-            }
-            let session: DbSession | null = null;
-            if (req.user && req.user.session_id) {
-                ({
-                    rows: [session],
-                } = await rootPgPool.query<DbSession>(
-                    "select * from app_private.sessions where uuid = $1",
-                    [req.user.session_id]
-                ));
-            }
-
-            const {
-                rows: [user],
-            } = await rootPgPool.query(
-                `select * from app_private.link_or_register_user($1, $2, $3)`,
-                [
-                    userInformation.id,
-                    JSON.stringify({
-                        username: userInformation.username,
-                        discriminator: userInformation.discriminator,
-                        avatar: userInformation.avatar,
-                        ...userInformation.profile,
-                    }),
-                    JSON.stringify({
-                        [tokenNames[0]]: accessToken,
-                        [tokenNames[1]]: refreshToken,
-                        ...userInformation.auth,
-                    }),
-                ]
-            );
-
-            if (!user || !user.id) {
-                const e = new Error("Registration failed");
-                e["code"] = "FFFFF";
-                throw e;
-            }
-
-            if (!session) {
-                ({
-                    rows: [session],
-                } = await rootPgPool.query<DbSession>(
-                    `insert into app_private.sessions (user_id) values ($1) returning *`,
-                    [user.id]
-                ));
-            }
-
-            if (!session) {
-                const e = new Error("Failed to create session");
-                e["code"] = "FFFFF";
-                throw e;
-            }
-            done(null, { session_id: session.uuid });
-        } catch (e) {
-            done(e);
-        }
-    };
-
     passport.use(
         new Strategy(
             {
@@ -160,7 +83,80 @@ export default (
                 callbackURL: `${process.env.ROOT_URL}/auth/${service}/callback`,
                 passReqToCallback: true,
             },
-            fn
+            async (
+                req: Request,
+                accessToken: string,
+                refreshToken: string,
+                extra: any,
+                profile: any,
+                done: (error: any, user?: any) => void
+            ) => {
+                try {
+                    const userInformation = await getUserInformation(
+                        profile,
+                        accessToken,
+                        refreshToken,
+                        extra,
+                        req
+                    );
+
+                    console.log("userInformation", userInformation);
+
+                    if (!userInformation.id) {
+                        throw new Error(
+                            `getUserInformation must return a unique id for each user`
+                        );
+                    }
+                    let session: DbSession | null = null;
+                    if (req.user && req.user.session_id) {
+                        ({
+                            rows: [session],
+                        } = await rootPgPool.query<DbSession>(
+                            "select * from app_private.sessions where uuid = $1",
+                            [req.user.session_id]
+                        ));
+                    }
+
+                    const {
+                        rows: [user],
+                    } = await rootPgPool.query(
+                        `select * from app_private.login_or_register_user($1, $2, $3)`,
+                        [
+                            userInformation.id,
+                            JSON.stringify(userInformation.profile),
+                            JSON.stringify({
+                                [tokenNames[0]]: accessToken,
+                                [tokenNames[1]]: refreshToken,
+                                ...userInformation.auth,
+                            }),
+                        ]
+                    );
+
+                    if (!user || !user.id) {
+                        const e = new Error("Registration failed");
+                        e["code"] = "FFFFF";
+                        throw e;
+                    }
+
+                    if (!session) {
+                        ({
+                            rows: [session],
+                        } = await rootPgPool.query<DbSession>(
+                            `insert into app_private.sessions (user_id) values ($1) returning *`,
+                            [user.id]
+                        ));
+                    }
+
+                    if (!session) {
+                        const e = new Error("Failed to create session");
+                        e["code"] = "FFFFF";
+                        throw e;
+                    }
+                    done(null, { session_id: session.uuid });
+                } catch (e) {
+                    done(e);
+                }
+            }
         )
     );
 

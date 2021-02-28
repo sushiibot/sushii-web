@@ -3,6 +3,7 @@ import { lexicographicSortSchema, printSchema } from "graphql";
 import { Pool } from "pg";
 import { createPostGraphileSchema } from "postgraphile";
 
+require("dotenv").config();
 import { getPostGraphileOptions } from "../src/middleware/installPostGraphile";
 
 async function main() {

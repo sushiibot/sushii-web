@@ -172,7 +172,7 @@ export function getPostGraphileOptions({
             PrimaryKeyMutationsOnlyPlugin,
 
             // Adds the `login` mutation to enable users to log in
-            // PassportLoginPlugin,
+            PassportLoginPlugin,
 
             // Adds realtime features to our GraphQL schema
             // SubscriptionsPlugin,

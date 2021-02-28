@@ -63,9 +63,7 @@ export default async (app: Express) => {
         {},
         async (profile, _accessToken, _refreshToken, _extra, _req) => ({
             id: profile.id,
-            username: profile.username,
-            discriminator: profile.discriminator,
-            avatar: profile.avatar,
+            profile: profile,
         }),
         ["token", "tokenSecret"]
     );

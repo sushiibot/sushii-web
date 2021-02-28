@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { MenuToggle } from "./MenuToggle";
 import { motion, Variants } from "framer-motion";
+import Login from "./Login";
 
 const linksVariants: Variants = {
     open: {
@@ -63,7 +64,7 @@ export default function Nav() {
             <header className="max-w-screen-lg mx-auto px-4">
                 <motion.nav
                     initial={false}
-                    className="py-6 sm:flex sm:items-center"
+                    className="my-4 sm:flex sm:items-center"
                     animate={visible ? "open" : "closed"}
                 >
                     <div className="flex items-center justify-between">
@@ -77,12 +78,12 @@ export default function Nav() {
                         </Link>
                         <MenuToggle toggle={() => toggleVisible()} />
                     </div>
-                    <div className="hidden sm:inline-block">
+                    <div className="hidden sm:inline-block w-full">
                         <ul
                             className={
-                                "flex flex-wrap sm:items-center flex-col sm:flex-row \
-                            transition-colors text-md font-medium \
-                            lowercase tracking-widest mt-4 sm:mt-0"
+                                "flex flex-wrap items-center flex-row \
+                                transition-colors text-md font-medium \
+                                lowercase tracking-widest mt-0 w-full"
                             }
                         >
                             {links.map(({ href, label }, i) => (
@@ -104,6 +105,9 @@ export default function Nav() {
                                     </Link>
                                 </li>
                             ))}
+                            <li className="ml-auto">
+                                <Login />
+                            </li>
                         </ul>
                     </div>
                     <div className="block sm:hidden">

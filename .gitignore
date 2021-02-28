@@ -31,7 +31,10 @@ yarn-error.log*
 **/.env.test.local
 **/.env.production.local
 
+**/*.tsbuildinfo
 **/dist
 
+packages/graphql/index.*
+
 # vercel
-.vercel
+**/.vercel

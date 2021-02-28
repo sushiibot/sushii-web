@@ -1,0 +1,22 @@
+overwrite: true
+schema: "../../data/schema.graphql"
+documents: "../client/**/*.graphql"
+config:
+    avoidOptionals:
+        inputValue: false
+        object: false
+    scalars:
+        Datetime: "string"
+        JSON: "{ [key: string]: any }"
+    noGraphQLTag: false
+    withHOC: false
+    withComponent: false
+    withHooks: true
+generates:
+    index.ts:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-query
+        config:
+            fetcher: graphql-request

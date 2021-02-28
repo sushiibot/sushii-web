@@ -7,7 +7,7 @@
         "build": "tsc -b",
         "start": "yarn build && node dist/index.js",
         "dev": "yarn build && concurrently \"tsc -w\" \"nodemon --signal SIGINT dist/index.js\"",
-        "schema:export": "ts-node -r sushii-config/env --files scripts/schema-export.ts",
+        "schema:export": "ts-node --files scripts/schema-export.ts",
         "cloudflare:import": "(echo \"export const cloudflareIps: string[] = [\"; (curl -Ls https://www.cloudflare.com/ips-v4 | sort | sed -e \"s/^/  \\\"/\" -e \"s/$/\\\",/\"); echo \"];\") > src/cloudflare.ts",
         "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"$NODE_OPTIONS -r @app/config/env\" jest"
     },
@@ -16,6 +16,7 @@
         "@graphile/pg-pubsub": "^4.11.0",
         "@sushii-web/client": "0.1.0",
         "@sushii-web/config": "1.0.0",
+        "@sushii-web/graphql": "1.0.0",
         "chalk": "^4.1.0",
         "connect-redis": "^5.1.0",
         "csurf": "^1.11.0",

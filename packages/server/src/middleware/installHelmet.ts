@@ -21,7 +21,12 @@ export default function installHelmet(app: Express) {
                       contentSecurityPolicy: {
                           directives: {
                               ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                              "script-src": ["'self'", "'unsafe-eval'"],
+                              "script-src": [
+                                  "'self'",
+                                  "*.sushii.xyz",
+                                  "'unsafe-eval'",
+                              ],
+                              "img-src": ["'self'", "cdn.discordapp.com"],
                               "connect-src": [
                                   "'self'",
                                   // Safari doesn't allow using wss:// origins as 'self' from
