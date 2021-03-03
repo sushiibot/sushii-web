@@ -1,9 +1,6 @@
-import useSWR from "swr";
 import Head from "next/head";
+import { useQuery, useQueryClient } from "react-query";
 import ReactMarkdown from "react-markdown";
-
-const fetcher = (...args: [RequestInfo, RequestInit]) =>
-    fetch(...args).then((res) => res.text());
 
 function ChangelogContent({ data }: { data: string }) {
     const lines = data.split("\n");
@@ -14,9 +11,11 @@ function ChangelogContent({ data }: { data: string }) {
 }
 
 export default function Changelog() {
-    const { data, error } = useSWR(
-        "https://raw.githubusercontent.com/sushiibot/sushii-2/main/sushii-2/CHANGELOG.md",
-        fetcher
+    const queryClient = useQueryClient();
+    const { isLoading, isError, data, error } = useQuery("changelog", () =>
+        fetch(
+            "https://raw.githubusercontent.com/sushiibot/sushii-2/main/sushii-2/CHANGELOG.md"
+        ).then((res) => res.text())
     );
 
     return (
@@ -26,8 +25,9 @@ export default function Changelog() {
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
                 <h1 className="text-4xl my-4">Changelog</h1>
-                {error && <div>Failed to load changelog</div>}
-                {data ? <ChangelogContent data={data} /> : <div>Loading</div>}
+                {isError && <div>Failed to load changelog</div>}
+                {isLoading && <div>Loading...</div>}
+                {data && <ChangelogContent data={data} />}
             </section>
         </div>
     );
