@@ -2,7 +2,7 @@
     "name": "@sushii-web/server",
     "version": "1.0.0",
     "main": "index.js",
-    "license": "MIT",
+    "license": "AGPL-3.0",
     "scripts": {
         "build": "tsc -b",
         "start": "yarn build && node dist/index.js",
