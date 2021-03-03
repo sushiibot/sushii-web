@@ -10,9 +10,7 @@ export default function Footer() {
                             sushii 2
                         </p>
                         <p className="text-sm text-gray-400">
-                            Bot source code licensed AGPLv3
-                            <br />
-                            Website source code licensed MIT
+                            Source code licensed AGPLv3
                         </p>
                     </div>
                     <div className="w-full md:max-w-1/2">
