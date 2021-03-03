@@ -1,8 +1,8 @@
-import { LeaderboardQueryVars } from "./LeaderboardList";
+import { LevelTimeframe } from "@sushii-web/graphql";
 import { useState, useEffect } from "react";
 
 interface NextResetProps {
-    timeframe: LeaderboardQueryVars["timeframe"];
+    timeframe: LevelTimeframe;
 }
 
 function pad(num: number): string {
@@ -14,7 +14,7 @@ function pad(num: number): string {
 }
 
 export default function NextReset({ timeframe }: NextResetProps) {
-    if (timeframe == "ALL_TIME") {
+    if (timeframe == LevelTimeframe.AllTime) {
         return null;
     }
 
@@ -24,7 +24,7 @@ export default function NextReset({ timeframe }: NextResetProps) {
         let nextReset;
 
         switch (timeframe) {
-            case "MONTH":
+            case LevelTimeframe.Month:
                 lastReset.setUTCMonth(0);
                 if (now.getUTCMonth() == 11) {
                     nextReset = new Date(now.getUTCFullYear() + 1, 0, 1);
@@ -34,7 +34,7 @@ export default function NextReset({ timeframe }: NextResetProps) {
                     );
                 }
                 break;
-            case "WEEK":
+            case LevelTimeframe.Week:
                 nextReset = new Date(
                     Date.UTC(
                         now.getUTCFullYear(),
@@ -43,7 +43,7 @@ export default function NextReset({ timeframe }: NextResetProps) {
                     )
                 );
                 break;
-            case "DAY":
+            case LevelTimeframe.Day:
                 lastReset.setUTCHours(0);
                 // Add a day
                 nextReset = new Date(now.getTime() + 24 * 60 * 60 * 1000);

@@ -1,22 +1,31 @@
 import { motion } from "framer-motion";
+import { LeaderboardQuery } from "@sushii-web/graphql";
 
 const item = {
     hidden: { x: -10, opacity: 0 },
     visible: { x: 0, opacity: 1 },
 };
 
-export default function LeaderboardUser({ node, i, guildId }: any) {
+interface LeaderboardUserProps {
+    user: LeaderboardQuery["timeframeUserLevels"]["edges"][0]["node"];
+    index: number;
+    guildId: string;
+}
+
+export default function LeaderboardUser({
+    user,
+    index,
+    guildId,
+}: LeaderboardUserProps) {
     // This is NOT the same as Discord's calculation, as they use discriminator
     // instead of ID. But default avatar is used of there isn't a user found
     // so we wouldn't have the discriminator and only have the ID
-    const avatarUrl = node.user?.avatarUrl
-        ? node.user.avatarUrl
-        : `https://cdn.discordapp.com/embed/avatars/${node.userId % 5}.png`;
+    const avatarUrl = user.avatarUrl
+        ? user.avatarUrl
+        : `https://cdn.discordapp.com/embed/avatars/${user.userId % 5}.png`;
 
-    const name = node.user?.name ? node.user.name : "unknown";
-    const discriminator = node.user?.discriminator
-        ? node.user.discriminator
-        : 0;
+    const name = user.username ? user.username : "unknown";
+    const discriminator = user.discriminator ? user.discriminator : 0;
 
     const gradient = guildId
         ? "from-teal-400 to-blue-500"
@@ -24,7 +33,7 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
 
     let topUserStyle = {};
 
-    switch (i) {
+    switch (index) {
         case 0:
             topUserStyle = {
                 backgroundImage:
@@ -62,7 +71,7 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
                         className="text-gray-600 group-hover:text-gray-500 bg-clip-text"
                         style={topUserStyle}
                     >
-                        #{i + 1}
+                        #{index + 1}
                     </span>
                 </div>
                 <img
@@ -80,40 +89,42 @@ export default function LeaderboardUser({ node, i, guildId }: any) {
             </div>
             <div className="flex-grow p-4 w-full md:w-auto">
                 <div className="group-hover:text-gray-800">
-                    {node.xpProgress.nextLevelXpProgress} /{" "}
-                    {node.xpProgress.nextLevelXpRequired} XP
+                    {user.nextLevelXpProgress} / {user.nextLevelXpRequired} XP
                 </div>
                 <div className="mt-1 mb-1 w-full h-1 bg-gray-800 group-hover:bg-gray-400 rounded">
                     <div
                         className={`rounded h-full bg-gradient-to-r ${gradient}`}
                         style={{
-                            width: `${node.xpProgress.nextLevelXpPercentage}%`,
+                            width: `${Math.floor(
+                                (user.nextLevelXpProgress /
+                                    user.nextLevelXpRequired) *
+                                    100
+                            )}%`,
                         }}
                     ></div>
                 </div>
             </div>
             <div className="group-hover:text-gray-800 pl-4 h-20 flex items-center">
-                {node.xpDiff ? (
+                {user.xpDiff ? (
                     <div>
                         XP Gain
                         <br />
                         <span className="text-md font-medium">
-                            +{node.xpDiff} XP
+                            +{user.xpDiff} XP
                         </span>
                         <br />
-                        {node.timeframeGainedLevels &&
-                            node.timeframeGainedLevels > 0 && (
-                                <span className="text-sm text-gray-400 group-hover:text-gray-600">
-                                    + {node.timeframeGainedLevels} Levels
-                                </span>
-                            )}
+                        {user.gainedLevels && user.gainedLevels > 0 && (
+                            <span className="text-sm text-gray-400 group-hover:text-gray-600">
+                                + {user.gainedLevels} Levels
+                            </span>
+                        )}
                     </div>
                 ) : (
                     <div>
                         Level
                         <br />
                         <span className="text-2xl font-medium">
-                            {node.xpProgress.level}
+                            {user.currentLevel}
                         </span>
                     </div>
                 )}

@@ -1,5 +1,5 @@
 import { useGraphQLQuery } from "../../lib/useGraphQLQuery";
-import { useManagedGuildsQuery, useLogoutMutation } from "@sushii-web/graphql";
+import { useManagedGuildsQuery } from "@sushii-web/graphql";
 
 function getGuildIconUrl(
     id: string,
@@ -19,6 +19,10 @@ function getGuildIconUrl(
 export default function Dashboard() {
     const client = useGraphQLQuery();
     const { status, data, error, isFetching } = useManagedGuildsQuery(client);
+
+    if (error) {
+        return <div>Error loading your servers :(</div>;
+    }
 
     if (status === "loading" || !data?.webGuilds) {
         return <div>loading...</div>;

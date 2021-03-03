@@ -1,9 +1,32 @@
 """
+A floating point number that requires more precision than IEEE 754 binary 64
+"""
+scalar BigFloat
+
+"""
 A signed eight-byte integer. The upper big integer values are greater than the
 max value for a JavaScript number. Therefore all big integers will be output as
 strings and not numbers.
 """
 scalar BigInt
+
+type CachedGuild {
+  bannerUrl: String
+  features: String!
+  iconUrl: String
+  id: BigInt!
+  memberCount: BigInt!
+  name: String!
+  splashUrl: String
+}
+
+type CachedUser {
+  avatarUrl: String!
+  discriminator: Int!
+  id: BigInt!
+  lastChecked: Datetime!
+  name: String!
+}
 
 """A `BigInt` edge in the connection."""
 type CurrentUserGuildIdEdge {
@@ -170,6 +193,13 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+enum LevelTimeframe {
+  ALL_TIME
+  DAY
+  MONTH
+  WEEK
+}
+
 type LogoutPayload {
   success: Boolean
 }
@@ -201,6 +231,9 @@ type PageInfo {
 
 """The root query type which gives access points into the data universe."""
 type Query {
+  cachedGuild(id: BigInt!): CachedGuild
+  cachedUser(id: BigInt!): CachedUser
+
   """The currently logged in user (or null if not logged in)."""
   currentUser: WebUser
   currentUserGuildIds(
@@ -271,6 +304,63 @@ type Query {
     """The method to use when ordering `GuildConfig`."""
     orderBy: [GuildConfigsOrderBy!] = [PRIMARY_KEY_ASC]
   ): GuildConfigsConnection
+  hasManageGuild(permissions: BigInt!): Boolean
+
+  """
+  Leaderboard for given timeframe and optional guild. If guild is null, it is the global leaderboard
+  """
+  timeframeUserLevels(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Only read the first `n` values of the set."""
+    first: Int
+    guildId: BigInt
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+    timeframe: LevelTimeframe!
+  ): TimeframeUserLevelsConnection
+  userLevel(guildId: BigInt!, userId: BigInt!): UserLevel
+  userLevelsGlobalCachedUser(userId: BigInt!): CachedUser
+
+  """Reads and enables pagination through a set of `UserLevelsGlobal`."""
+  userLevelsGlobals(
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: UserLevelsGlobalCondition
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """The method to use when ordering `UserLevelsGlobal`."""
+    orderBy: [UserLevelsGlobalsOrderBy!] = [NATURAL]
+  ): UserLevelsGlobalsConnection
   webGuild(id: BigInt!): WebGuild
   webGuildByConfigId(configId: BigInt!): WebGuild
 
@@ -332,6 +422,113 @@ type Query {
     """The method to use when ordering `WebUser`."""
     orderBy: [WebUsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): WebUsersConnection
+}
+
+"""A `TimeframeUserLevelsRecord` edge in the connection."""
+type TimeframeUserLevelEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `TimeframeUserLevelsRecord` at the end of the edge."""
+  node: TimeframeUserLevelsRecord!
+}
+
+"""A connection to a list of `TimeframeUserLevelsRecord` values."""
+type TimeframeUserLevelsConnection {
+  """
+  A list of edges which contains the `TimeframeUserLevelsRecord` and cursor to aid in pagination.
+  """
+  edges: [TimeframeUserLevelEdge!]!
+
+  """A list of `TimeframeUserLevelsRecord` objects."""
+  nodes: [TimeframeUserLevelsRecord!]!
+
+  """
+  The count of *all* `TimeframeUserLevelsRecord` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""The return type of our `timeframeUserLevels` query."""
+type TimeframeUserLevelsRecord {
+  avatarUrl: String
+  currentLevel: BigInt
+  discriminator: Int
+  gainedLevels: BigInt
+  nextLevelXpProgress: BigInt
+  nextLevelXpRequired: BigInt
+  userId: BigInt
+  username: String
+  xp: BigInt
+  xpDiff: BigInt
+}
+
+type UserLevel {
+  guildId: BigInt!
+  lastMsg: Datetime!
+  msgAllTime: BigInt!
+  msgDay: BigInt!
+  msgMonth: BigInt!
+  msgWeek: BigInt!
+  userId: BigInt!
+}
+
+"""
+Global leaderboard for user levels. All XP in each guild is aggregated for each user.
+"""
+type UserLevelsGlobal {
+  avatarUrl: String
+  currentLevel: BigInt
+  discriminator: Int
+  name: String
+  nextLevelXpProgress: BigFloat
+  nextLevelXpRequired: BigFloat
+  userId: BigInt
+  xp: BigFloat
+}
+
+"""
+A condition to be used against `UserLevelsGlobal` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input UserLevelsGlobalCondition {
+  """Checks for equality with the object’s `userId` field."""
+  userId: BigInt
+}
+
+"""A connection to a list of `UserLevelsGlobal` values."""
+type UserLevelsGlobalsConnection {
+  """
+  A list of edges which contains the `UserLevelsGlobal` and cursor to aid in pagination.
+  """
+  edges: [UserLevelsGlobalsEdge!]!
+
+  """A list of `UserLevelsGlobal` objects."""
+  nodes: [UserLevelsGlobal!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `UserLevelsGlobal` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `UserLevelsGlobal` edge in the connection."""
+type UserLevelsGlobalsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `UserLevelsGlobal` at the end of the edge."""
+  node: UserLevelsGlobal!
+}
+
+"""Methods to use when ordering `UserLevelsGlobal`."""
+enum UserLevelsGlobalsOrderBy {
+  NATURAL
+  USER_ID_ASC
+  USER_ID_DESC
 }
 
 type WebGuild {
