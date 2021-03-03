@@ -10,13 +10,23 @@ export default function GuildLeaderboardPage() {
             ? router.query.guildId
             : undefined;
 
+    const routerIsLoading = guildId === undefined;
+    const guildIdIsNum = /^\d+$/.test(guildId);
+
     return (
         <div className="flex-grow">
             <Head>
                 <title>Leaderboard | sushii 2</title>
             </Head>
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
-                <Leaderboard guildId={guildId} />
+                {guildId !== undefined && !guildIdIsNum ? (
+                    <div>Invalid server :(</div>
+                ) : (
+                    <Leaderboard
+                        guildId={guildId}
+                        routerIsLoading={routerIsLoading}
+                    />
+                )}
             </section>
         </div>
     );

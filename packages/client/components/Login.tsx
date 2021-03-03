@@ -39,9 +39,13 @@ export default function Login() {
 
     if (!data?.currentUser) {
         return (
-            <div className={`${textClasses} bg-gray-800 rounded-lg p-2`}>
-                <a href="/auth/discord">Login with Discord</a>
-            </div>
+            <a
+                className={`${textClasses} bg-gradient-to-br from-blue-400 \
+                             to-blue-600 rounded-lg p-2 px-3 hover:ring`}
+                href="/auth/discord"
+            >
+                Login with Discord
+            </a>
         );
     }
 

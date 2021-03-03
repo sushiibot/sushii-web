@@ -7,6 +7,7 @@ import { useLeaderboardQuery, LevelTimeframe } from "@sushii-web/graphql";
 
 export interface GuildLeaderboardProps {
     guildId?: string;
+    routerIsLoading?: boolean;
 }
 
 const TIMEFRAME_STRS: { [key: string]: LevelTimeframe } = {
@@ -16,7 +17,10 @@ const TIMEFRAME_STRS: { [key: string]: LevelTimeframe } = {
     Day: LevelTimeframe.Day,
 };
 
-export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
+export default function Leaderboard({
+    guildId,
+    routerIsLoading,
+}: GuildLeaderboardProps) {
     const [timeframe, setTimeframe] = useState<LevelTimeframe>(
         LevelTimeframe.AllTime
     );
@@ -29,7 +33,10 @@ export default function Leaderboard({ guildId }: GuildLeaderboardProps) {
 
     return (
         <section>
-            <LeaderboardGuild guildId={guildId} />
+            <LeaderboardGuild
+                guildId={guildId}
+                routerIsLoading={routerIsLoading}
+            />
             <div className="flex flex-wrap justify-evenly my-4">
                 {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (
                     <div key={name}>

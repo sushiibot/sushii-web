@@ -4,9 +4,17 @@ import Head from "next/head";
 
 export interface LeaderboardGuildProps {
     guildId?: string;
+    routerIsLoading: boolean;
 }
 
-export default function LeaderboardGuild({ guildId }: LeaderboardGuildProps) {
+export default function LeaderboardGuild({
+    guildId,
+    routerIsLoading,
+}: LeaderboardGuildProps) {
+    if (routerIsLoading) {
+        return <div className="h-6 w-20 bg-gray-800 pulse"></div>;
+    }
+
     const client = useGraphQLQuery();
     const { status, data, error, isFetching } = useCachedGuildQuery(client, {
         guildId,
