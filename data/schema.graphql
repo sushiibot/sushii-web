@@ -1,9 +1,4 @@
 """
-A floating point number that requires more precision than IEEE 754 binary 64
-"""
-scalar BigFloat
-
-"""
 A signed eight-byte integer. The upper big integer values are greater than the
 max value for a JavaScript number. Therefore all big integers will be output as
 strings and not numbers.
@@ -332,35 +327,6 @@ type Query {
   ): TimeframeUserLevelsConnection
   userLevel(guildId: BigInt!, userId: BigInt!): UserLevel
   userLevelsGlobalCachedUser(userId: BigInt!): CachedUser
-
-  """Reads and enables pagination through a set of `UserLevelsGlobal`."""
-  userLevelsGlobals(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: UserLevelsGlobalCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `UserLevelsGlobal`."""
-    orderBy: [UserLevelsGlobalsOrderBy!] = [NATURAL]
-  ): UserLevelsGlobalsConnection
   webGuild(id: BigInt!): WebGuild
   webGuildByConfigId(configId: BigInt!): WebGuild
 
@@ -471,64 +437,6 @@ type UserLevel {
   msgMonth: BigInt!
   msgWeek: BigInt!
   userId: BigInt!
-}
-
-"""
-Global leaderboard for user levels. All XP in each guild is aggregated for each user.
-"""
-type UserLevelsGlobal {
-  avatarUrl: String
-  currentLevel: BigInt
-  discriminator: Int
-  name: String
-  nextLevelXpProgress: BigFloat
-  nextLevelXpRequired: BigFloat
-  userId: BigInt
-  xp: BigFloat
-}
-
-"""
-A condition to be used against `UserLevelsGlobal` object types. All fields are
-tested for equality and combined with a logical ‘and.’
-"""
-input UserLevelsGlobalCondition {
-  """Checks for equality with the object’s `userId` field."""
-  userId: BigInt
-}
-
-"""A connection to a list of `UserLevelsGlobal` values."""
-type UserLevelsGlobalsConnection {
-  """
-  A list of edges which contains the `UserLevelsGlobal` and cursor to aid in pagination.
-  """
-  edges: [UserLevelsGlobalsEdge!]!
-
-  """A list of `UserLevelsGlobal` objects."""
-  nodes: [UserLevelsGlobal!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """
-  The count of *all* `UserLevelsGlobal` you could get from the connection.
-  """
-  totalCount: Int!
-}
-
-"""A `UserLevelsGlobal` edge in the connection."""
-type UserLevelsGlobalsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `UserLevelsGlobal` at the end of the edge."""
-  node: UserLevelsGlobal!
-}
-
-"""Methods to use when ordering `UserLevelsGlobal`."""
-enum UserLevelsGlobalsOrderBy {
-  NATURAL
-  USER_ID_ASC
-  USER_ID_DESC
 }
 
 type WebGuild {
