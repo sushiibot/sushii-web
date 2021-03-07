@@ -100,6 +100,7 @@ export async function makeApp({
      * operate very rapidly to enable quick as possible server startup.
      */
     await middleware.installDatabasePools(app);
+    await middleware.installMetrics(app);
     await middleware.installHelmet(app);
     await middleware.installSameOrigin(app);
     await middleware.installSession(app);

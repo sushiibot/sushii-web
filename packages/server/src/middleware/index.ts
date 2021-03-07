@@ -10,6 +10,7 @@ import installSameOrigin from "./installSameOrigin";
 import installSession from "./installSession";
 import installSharedStatic from "./installSharedStatic";
 import installSSR from "./installSSR";
+import installMetrics from "./installMetrics";
 // import installWorkerUtils from "./installWorkerUtils";
 
 export {
@@ -19,6 +20,7 @@ export {
     installForceSSL,
     installHelmet,
     installLogging,
+    installMetrics,
     installPassport,
     installPostGraphile,
     installSameOrigin,

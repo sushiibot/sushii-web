@@ -100,7 +100,10 @@ export default (
                         req
                     );
 
-                    console.log("userInformation", userInformation);
+                    console.log(
+                        "userInformation",
+                        JSON.stringify(userInformation, null, 2)
+                    );
 
                     if (!userInformation.id) {
                         throw new Error(
