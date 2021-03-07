@@ -1,0 +1,14 @@
+query WebUserGuilds {
+    webUserGuilds {
+        nodes {
+            guildId
+            manageGuild
+            owner
+            permissions
+            guild {
+                name
+                icon
+            }
+        }
+    }
+}

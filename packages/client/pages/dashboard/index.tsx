@@ -1,53 +1,55 @@
 import { useGraphQLQuery } from "../../lib/useGraphQLQuery";
-import { useManagedGuildsQuery } from "@sushii-web/graphql";
-
-function getGuildIconUrl(
-    id: string,
-    icon: string | undefined
-): string | undefined {
-    if (!icon) {
-        return undefined;
-    }
-
-    if (icon.startsWith("a_")) {
-        return `https://cdn.discordapp.com/icons/${id}/${icon}.gif`;
-    }
-
-    return `https://cdn.discordapp.com/icons/${id}/${icon}.jpg`;
-}
+import { useWebUserGuildsQuery } from "@sushii-web/graphql";
+import Link from "next/link";
+import { getGuildIconUrl } from "../../lib/discordCdn";
 
 export default function Dashboard() {
     const client = useGraphQLQuery();
-    const { status, data, error, isFetching } = useManagedGuildsQuery(client);
+    const { status, data, error, isFetching } = useWebUserGuildsQuery(client);
 
     if (error) {
         return <div>Error loading your servers :(</div>;
     }
 
-    if (status === "loading" || !data?.webGuilds) {
+    if (status === "loading" || !data?.webUserGuilds) {
         return <div>loading...</div>;
     }
 
     const {
-        webGuilds: { edges },
+        webUserGuilds: { nodes },
     } = data;
 
     return (
         <div className="flex-grow">
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
                 <h2 className="text-xl mb-4">Select a server</h2>
-                <div className="flex justify-around">
-                    {edges.map(({ node }) => (
-                        <div key={node.id}>
-                            {node.icon && (
-                                <img
-                                    className="rounded-full w-20 h-20"
-                                    src={getGuildIconUrl(node.id, node.icon)}
-                                    alt={`${node.name} icon`}
-                                />
-                            )}
-                            <p className="w-40">{node.name}</p>
-                        </div>
+                <div className="flex flex-wrap justify-around">
+                    {nodes.map((node) => (
+                        <Link
+                            key={node.guildId}
+                            href={`/dashboard/${node.guildId}`}
+                        >
+                            <a
+                                className="opacity-80 hover:opacity-100
+                                           transform hover:-translate-y-1
+                                           transition
+                                           flex flex-col items-center text-center"
+                            >
+                                {node.guild.icon ? (
+                                    <img
+                                        className="rounded-full w-20 h-20 mb-2"
+                                        src={getGuildIconUrl(
+                                            node.guildId,
+                                            node.guild.icon
+                                        )}
+                                        alt={`${node.guild.name} icon`}
+                                    />
+                                ) : (
+                                    <div className="rounded-full w-20 h-20 bg-gray-800 mb-2"></div>
+                                )}
+                                <p className="w-40 mb-6">{node.guild.name}</p>
+                            </a>
+                        </Link>
                     ))}
                 </div>
             </section>

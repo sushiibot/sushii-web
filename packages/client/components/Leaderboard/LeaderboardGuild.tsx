@@ -1,6 +1,7 @@
 import { useGraphQLQuery } from "../../lib/useGraphQLQuery";
 import { useCachedGuildQuery } from "@sushii-web/graphql";
 import Head from "next/head";
+import { getGuildIconUrl } from "../../lib/discordCdn";
 
 export interface LeaderboardGuildProps {
     guildId?: string;
@@ -44,7 +45,7 @@ export default function LeaderboardGuild({
             <div className="flex items-center">
                 <img
                     className="w-20 h-20 mr-4 rounded-full"
-                    src={data.cachedGuild.iconUrl}
+                    src={getGuildIconUrl(guildId, data.cachedGuild.icon)}
                     alt="Guild Icon URL"
                 />
                 <h1 className="text-4xl">

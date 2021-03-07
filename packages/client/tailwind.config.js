@@ -108,7 +108,8 @@ module.exports = {
     variants: {
         extend: {
             inset: ["hover"],
-            translate: ["active"],
+            translate: ["active", "hover"],
+            transform: ["active", "hover"],
         },
     },
     plugins: [require("@tailwindcss/typography")],

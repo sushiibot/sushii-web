@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import ReactMarkdown from "react-markdown";
 
 function ChangelogContent({ data }: { data: string }) {
@@ -11,7 +11,6 @@ function ChangelogContent({ data }: { data: string }) {
 }
 
 export default function Changelog() {
-    const queryClient = useQueryClient();
     const { isLoading, isError, data, error } = useQuery("changelog", () =>
         fetch(
             "https://raw.githubusercontent.com/sushiibot/sushii-2/main/sushii-2/CHANGELOG.md"

@@ -1,9 +1,8 @@
 query CachedGuild($guildId: BigInt!) {
     cachedGuild(id: $guildId) {
-        bannerUrl
-        iconUrl
-        memberCount
         name
-        splashUrl
+        icon
+        banner
+        splash
     }
 }
