@@ -20,6 +20,14 @@ export default function LeaderboardUserList({
     guildId,
     loading,
 }: LeaderboardUserListProps) {
+    if (data.timeframeUserLevels.edges.length === 0) {
+        return (
+            <div className="text-center mt-6 py-6 bg-gray-900 bg-opacity-50 rounded-lg">
+                No users were active in this timeframe
+            </div>
+        );
+    }
+
     return (
         <div>
             <motion.ul
