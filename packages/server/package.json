@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+        "@graphile/persisted-operations": "^0.1.0",
         "@graphile/pg-pubsub": "^4.11.0",
         "@sushii-web/client": "0.1.0",
         "@sushii-web/config": "1.0.0",
