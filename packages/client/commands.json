@@ -237,6 +237,25 @@
             ]
         },
         {
+            "name": "feeds",
+            "description": "Get notified when something new is released, currently only supports `vlive.tv`. New feeds to be added soon!",
+            "commands": [
+                {
+                    "name": "feed add",
+                    "description": "Add a new feed. This will start the set up process and ask you more questions to set up a new feed"
+                },
+                {
+                    "name": "feed list",
+                    "description": "Get the list of active feeds"
+                },
+                {
+                    "name": "feed delete",
+                    "description": "Delete a feed. Use `feed list` to get the list of feeds with the corresponding ID.",
+                    "usage": "[feed ID]"
+                }
+            ]
+        },
+        {
             "name": "moderation",
             "description": "Moderation commands",
             "commands": [
