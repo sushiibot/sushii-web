@@ -64,31 +64,38 @@ export default function Nav() {
             <header className="max-w-screen-lg mx-auto px-4">
                 <motion.nav
                     initial={false}
-                    className="my-4 sm:flex sm:items-center"
+                    className="my-4 md:flex md:items-center md:justify-between"
                     animate={visible ? "open" : "closed"}
                 >
                     <div className="flex items-center justify-between">
-                        <Link href="/">
-                            <a>
-                                <img
-                                    className="h-8 w-8 inline-block mr-4"
-                                    src="/images/sushii.png"
-                                />
-                            </a>
-                        </Link>
+                        <div className="flex-shrink-0">
+                            <Link href="/">
+                                <a className="">
+                                    <img
+                                        className="h-8 w-8 inline-block"
+                                        src="/images/sushii.png"
+                                    />
+                                    <span
+                                        className="ml-2 font-medium text-lg \
+                                        tracking-wide align-middle inline-block"
+                                    >
+                                        sushii
+                                    </span>
+                                </a>
+                            </Link>
+                        </div>
                         <MenuToggle toggle={() => toggleVisible()} />
                     </div>
-                    <div className="hidden sm:inline-block w-full">
+                    <div className="hidden md:inline-block">
                         <ul
                             className={
                                 "flex flex-wrap items-center flex-row \
-                                transition-colors text-md font-medium \
-                                lowercase tracking-widest mt-0 w-full"
+                                transition-colors tracking-widest mt-0 w-full"
                             }
                         >
                             {links.map(({ href, label }, i) => (
                                 <li
-                                    className="hidden sm:inline-block"
+                                    className="hidden md:inline-block"
                                     key={`${href}${label}`}
                                 >
                                     <Link href={href}>
@@ -105,23 +112,23 @@ export default function Nav() {
                                     </Link>
                                 </li>
                             ))}
-                            <li className="ml-auto">
+                            <span className="ml-4">
                                 <Login />
-                            </li>
+                            </span>
                         </ul>
                     </div>
-                    <div className="block sm:hidden">
+                    <div className="block md:hidden">
                         <motion.ul
                             className={
                                 "flex flex-col \
-                                transition-colors text-md font-medium \
-                                lowercase tracking-widest"
+                                transition-colors text-md \
+                                tracking-widest"
                             }
                             variants={linksVariants}
                         >
                             {links.map(({ href, label }, i) => (
                                 <motion.li
-                                    className="block sm:hidden"
+                                    className="block md:hidden"
                                     key={`${href}${label}`}
                                     variants={linkVariants}
                                 >

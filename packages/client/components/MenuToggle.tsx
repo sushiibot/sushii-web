@@ -15,7 +15,7 @@ interface MenuToggleProps {
 }
 
 export const MenuToggle = ({ toggle }: MenuToggleProps) => (
-    <button onClick={toggle} className="sm:hidden">
+    <button onClick={toggle} className="md:hidden">
         <svg className="h-8 w-8 inline-block" viewBox="0 0 23 23">
             <Path
                 variants={{

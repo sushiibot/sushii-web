@@ -40,8 +40,7 @@ export default function Login() {
     if (!data?.currentUser) {
         return (
             <a
-                className={`${textClasses} bg-gradient-to-br from-blue-400 \
-                             to-blue-600 rounded-lg p-2 px-3 hover:ring`}
+                className={`${textClasses} bg-blue-500 rounded-lg p-2 px-3 hover:ring`}
                 href="/auth/discord"
             >
                 Login with Discord
