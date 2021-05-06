@@ -38,7 +38,23 @@ export default function installHelmet(app: Express) {
                           },
                       },
                   }
-                : {}
+                : {
+                      contentSecurityPolicy: {
+                          directives: {
+                              ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                              "script-src": ["'self'", "*.sushii.xyz"],
+                              "img-src": ["'self'", "cdn.discordapp.com"],
+                              "connect-src": [
+                                  "'self'",
+                                  "raw.githubusercontent.com",
+                                  // Safari doesn't allow using wss:// origins as 'self' from
+                                  // an https:// page, so we have to translate explicitly for
+                                  // it.
+                                  ROOT_URL.replace(/^http/, "ws"),
+                              ],
+                          },
+                      },
+                  }
         )
     );
 }
