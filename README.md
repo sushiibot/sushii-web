@@ -13,6 +13,7 @@ docker build .
 Configuration options are set via environment variables.
 
 ```bash
+NODE_ENV=production
 ROOT_URL=https://sushii.xyz
 
 # Db owner connection string
