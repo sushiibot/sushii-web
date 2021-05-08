@@ -35,12 +35,12 @@ export default function Login() {
         return null;
     }
 
-    const textClasses = "normal-case font-normal tracking-normal text-base";
+    const textClasses = "normal-case font-medium tracking-normal text-base";
 
     if (!data?.currentUser) {
         return (
             <a
-                className={`${textClasses} bg-blue-500 rounded-lg p-2 px-3 hover:ring`}
+                className={`${textClasses} bg-blue-500 rounded-lg p-2 px-3 hover:bg-blue-400 hover:ring`}
                 href="/auth/discord"
             >
                 Login with Discord

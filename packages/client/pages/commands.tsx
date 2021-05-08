@@ -13,7 +13,7 @@ export default function Commands() {
             <Head>
                 <title>Commands | sushii 2</title>
             </Head>
-            <section className="max-w-screen-lg mx-auto px-3 pt-6">
+            <section className="max-w-screen-2xl mx-auto px-3 pt-6">
                 <h1 className="text-4xl my-4">Commands</h1>
                 <p className="leading-relaxed max-w-screen-sm">
                     The default prefix for sushii is{" "}

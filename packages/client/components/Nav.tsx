@@ -60,24 +60,26 @@ export default function Nav() {
     };
 
     return (
-        <div className="border-b border-gray-800">
-            <header className="max-w-screen-lg mx-auto px-4">
+        <div className="">
+            <header className="max-w-screen-2xl mx-auto px-6">
                 <motion.nav
                     initial={false}
-                    className="my-4 md:flex md:items-center md:justify-between"
+                    className="my-6 md:flex md:items-center md:justify-between"
                     animate={visible ? "open" : "closed"}
                 >
                     <div className="flex items-center justify-between">
                         <div className="flex-shrink-0">
                             <Link href="/">
-                                <a className="">
+                                <a className="group">
                                     <img
-                                        className="h-8 w-8 inline-block"
+                                        className="h-8 w-8 inline-block
+                                            group-hover:animate-spin"
                                         src="/images/sushii.png"
                                     />
                                     <span
-                                        className="ml-2 font-medium text-lg \
-                                        tracking-wide align-middle inline-block"
+                                        className="ml-2 font-medium text-lg
+                                        tracking-wide align-middle inline-block
+                                        transition-opacity group-hover:opacity-90"
                                     >
                                         sushii
                                     </span>
@@ -101,7 +103,9 @@ export default function Nav() {
                                     <Link href={href}>
                                         <a
                                             className={
-                                                "text-gray-200 hover:text-blue-400 inline-block py-0 mx-4" +
+                                                "text-gray-200 hover:bg-gray-800 hover:bg-opacity-10 \
+                                                rounded-lg transition-all \
+                                                hover:text-blue-400 inline-block p-2 m-2" +
                                                 (pathname == href
                                                     ? " text-blue-400"
                                                     : " ")

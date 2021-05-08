@@ -66,9 +66,9 @@ export default function LeaderboardUser({
             variants={item}
         >
             <div className="flex-shrink-0 w-72 truncate text-gray-700">
-                <div className="inline-block bg-gray-900 px-2 py-1 rounded-md">
+                <div className="inline-block bg-gray-700 px-2 py-1 rounded-md">
                     <span
-                        className="text-gray-600 group-hover:text-gray-500 bg-clip-text"
+                        className="text-gray-400 group-hover:text-gray-400 bg-clip-text"
                         style={topUserStyle}
                     >
                         #{index + 1}
@@ -80,7 +80,7 @@ export default function LeaderboardUser({
                     src={avatarUrl.replace("?size=1024", "?size=128")}
                     alt={`${name}'s avatar`}
                 />
-                <span className="text-gray-700 group-hover:text-gray-400">
+                <span className="text-gray-500 group-hover:text-gray-400">
                     <span className="text-gray-200 group-hover:text-gray-800">
                         {name}
                     </span>
@@ -91,7 +91,7 @@ export default function LeaderboardUser({
                 <div className="group-hover:text-gray-800">
                     {user.nextLevelXpProgress} / {user.nextLevelXpRequired} XP
                 </div>
-                <div className="mt-1 mb-1 w-full h-1 bg-gray-800 group-hover:bg-gray-400 rounded">
+                <div className="mt-1 mb-1 w-full h-1 bg-gray-700 group-hover:bg-gray-400 rounded">
                     <div
                         className={`rounded h-full bg-gradient-to-r ${gradient}`}
                         style={{

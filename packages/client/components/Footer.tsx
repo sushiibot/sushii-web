@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <div className="border-t border-gray-800 mt-4">
-            <footer className="max-w-screen-lg mx-auto p-4 py-6">
+            <footer className="max-w-screen-2xl mx-auto p-4 py-6">
                 <div className="flex flex-wrap">
                     <div className="w-full md:max-w-1/2 mb-4">
                         <p className="text-md font-medium uppercase tracking-widest mb1">
@@ -20,13 +20,13 @@ export default function Footer() {
                         <p>
                             <a
                                 href="https://github.com/sushiibot"
-                                className="text-blue-200"
+                                className="text-blue-300"
                             >
                                 GitHub
                             </a>
                             <br />
                             <Link href="/changelog">
-                                <a className="text-blue-200">Changelog</a>
+                                <a className="text-blue-300">Changelog</a>
                             </Link>
                         </p>
                     </div>

@@ -6,7 +6,7 @@ export default function About() {
             <Head>
                 <title>About | sushii</title>
             </Head>
-            <section className="max-w-screen-lg mx-auto px-3 pt-6">
+            <section className="max-w-screen-2xl mx-auto px-3 pt-6">
                 <h1 className="text-4xl mt-4">About</h1>
                 <p className="max-w-lg mt-4">
                     sushii with a bot with a focus on moderation tools. It has
@@ -39,8 +39,7 @@ export default function About() {
                     >
                         GitHub
                     </a>
-                    . This website uses Next.js with React and a Rust API
-                    backend.
+                    . This website uses Next.js with React and PostGraphile.
                 </p>
             </section>
         </div>

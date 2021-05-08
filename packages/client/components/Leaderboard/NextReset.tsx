@@ -92,5 +92,5 @@ export default function NextReset({ timeframe }: NextResetProps) {
         setTimeLeft(calculateTimeLeft());
     }, [timeframe]);
 
-    return <p className="text-gray-600 text-center">Next reset in {s}</p>;
+    return <p className="text-gray-400 text-center">Next reset in {s}</p>;
 }

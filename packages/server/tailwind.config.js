@@ -12,10 +12,22 @@ module.exports = {
                 teal: colors.teal,
                 orange: colors.orange,
                 amber: colors.amber,
+                blue: {
+                    300: "#59affb",
+                    400: "#3fa1f8",
+                    500: "#2a95f3",
+                    600: "#1a89ea",
+                    700: "#0e7ad8",
+                },
                 gray: {
-                    1000: "#0a0e14",
-                    900: "#161d28",
-                    800: "#1f2735",
+                    1000: "#05090F",
+                    900: "#101113",
+                    800: "#0E121A",
+                    750: "#161C27",
+                    700: "#1F2124",
+                    600: "#2C2F33",
+                    500: "#3D4146",
+                    300: "#737880",
                 },
                 discord: {
                     dark: "#36393f",
@@ -31,7 +43,11 @@ module.exports = {
                     "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.6)",
             },
             maxWidth: {
+                "1/3": "33%",
                 "1/2": "50%",
+            },
+            height: {
+                "screen-90": "90vh",
             },
             fontSize: {
                 xxs: ".6rem",
@@ -103,12 +119,17 @@ module.exports = {
         zIndex: {
             "-5": "-5",
             "-10": "-10",
+            "-20": "-20",
+            "-30": "-30",
+            "-40": "-40",
+            "-50": "-50",
         },
     },
     variants: {
         extend: {
             inset: ["hover"],
-            translate: ["active"],
+            animation: ["group-hover"],
+            translate: ["active", "group-hover"],
         },
     },
     plugins: [require("@tailwindcss/typography")],

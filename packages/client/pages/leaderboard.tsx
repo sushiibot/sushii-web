@@ -7,7 +7,7 @@ export default function GlobalLeaderboardPage() {
             <Head>
                 <title>Global Leaderboard | sushii 2</title>
             </Head>
-            <section className="max-w-screen-lg mx-auto px-3 pt-6">
+            <section className="max-w-screen-2xl mx-auto px-3 pt-6">
                 <Leaderboard />
             </section>
         </div>

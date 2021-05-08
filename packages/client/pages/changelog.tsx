@@ -22,7 +22,7 @@ export default function Changelog() {
             <Head>
                 <title>Changelog | sushii 2</title>
             </Head>
-            <section className="max-w-screen-lg mx-auto px-3 pt-6">
+            <section className="max-w-screen-2xl mx-auto px-3 pt-6">
                 <h1 className="text-4xl my-4">Changelog</h1>
                 {isError && <div>Failed to load changelog</div>}
                 {isLoading && <div>Loading...</div>}

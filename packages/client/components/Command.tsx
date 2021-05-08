@@ -38,7 +38,7 @@ export default function Command(props: CommandProps) {
                     {aliases.map((alias, i) => (
                         <span
                             key={i}
-                            className="mt-0 ml-2 mb-2 px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded inline-block"
+                            className="mt-0 ml-2 mb-2 px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded inline-block"
                         >
                             {alias}
                         </span>
@@ -46,7 +46,7 @@ export default function Command(props: CommandProps) {
                 </div>
             )}
 
-            <div className="w-100 mt-2 ml-4 px-2 bg-gray-900 rounded border-l-2 group-hover:border-blue-400 transition duration-75">
+            <div className="w-100 mt-2 ml-4 px-2 bg-gray-800 rounded border-l-2 group-hover:border-blue-400 transition duration-75">
                 <ReactMarkdown className="m-0 p-3 prose">
                     {description}
                 </ReactMarkdown>

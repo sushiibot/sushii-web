@@ -1,0 +1,39 @@
+@import "./fonts";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+    @apply text-gray-200 bg-gray-1000;
+}
+
+/** 
+ * https://css-tricks.com/elegant-fix-jumping-scrollbar-issue/
+ * Fix horizontal jump when scroll bar shows up
+ */
+html {
+    overflow-y: scroll;
+}
+
+.landing-bg::before {
+    content: "";
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(310.1deg, #000000 63%, #0101ff 100%),
+        linear-gradient(141.85deg, #003ffd 0%, #001355 19.1%, #000b08 46%),
+        linear-gradient(299.91deg, rgba(255, 255, 255, 0) 60.87%, #9e1af5 100%),
+        linear-gradient(
+            325.39deg,
+            #470c3f 12.162162162162163%,
+            #12f6ef 100%,
+            #2d0038 30%
+        ),
+        linear-gradient(310.1deg, #a21efe 1%, #000 52%);
+    background-blend-mode: screen, screen, normal, hard-light, normal;
+    filter: brightness(1) contrast(1.5) saturate(0.6);
+}

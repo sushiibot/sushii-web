@@ -112,13 +112,15 @@ export default function FeatureBlock(props: Props) {
     const { icon, title, children } = props;
 
     return (
-        <div className="sm:max-w-1/2 mb-4 p-2">
-            <div className="h-full p-4 px-5 border shadow rounded-lg border-gray-800 bg-gray-900 bg-opacity-50">
-                <Icon
-                    type={icon}
-                    className="w-10 mb-2 stroke-2 stroke-current"
-                />
-                <h2 className="text-2xl font-medium">{title}</h2>
+        <div className="sm:max-w-1/3 mb-4 p-2">
+            <div
+                className="h-full p-4 px-5 border shadow rounded-lg border-gray-800
+                          bg-gradient-to-bl from-gray-800 to-gray-1000"
+            >
+                <div className="w-12 h-12 bg-gray-750 rounded-full flex justify-center items-center">
+                    <Icon type={icon} className="w-8 stroke-2 stroke-current" />
+                </div>
+                <h2 className="text-2xl font-medium mb-2">{title}</h2>
                 <p>{children}</p>
             </div>
         </div>
