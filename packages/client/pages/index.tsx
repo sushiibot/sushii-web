@@ -3,6 +3,7 @@ import Link from "next/link";
 import FeatureBlock, { IconType } from "../components/Landing/FeatureBlock";
 import DotSeparator from "../components/Landing/DotSeparator";
 import Waves from "../components/Landing/Waves";
+import BotStats from "../components/Landing/BotStats";
 
 export default function Home() {
     return (
@@ -36,6 +37,7 @@ export default function Home() {
                             </a>
                         </Link>
                         <DotSeparator count={3} />
+                        <BotStats />
                     </div>
                     <div className="w-full lg:w-1/2 px-6">
                         <img
