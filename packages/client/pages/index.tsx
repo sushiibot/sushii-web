@@ -16,7 +16,7 @@ export default function Home() {
                     className="h-5/6 m-auto max-w-screen-2xl pb-12 \
                                 flex flex-wrap flex-grow items-center justify-items-center"
                 >
-                    <div className="w-full lg:w-1/2 md:pl-20 p-2">
+                    <div className="w-full md:w-1/2 md:pl-20 p-2 py-8">
                         <h1 className="text-6xl font-semibold">sushii</h1>
                         <h2 className="text-xl mt-2 mb-8">
                             Multi-purpose bot for Discord.
@@ -39,7 +39,7 @@ export default function Home() {
                         <DotSeparator count={3} />
                         <BotStats />
                     </div>
-                    <div className="w-full lg:w-1/2 px-6">
+                    <div className="w-96 md:w-1/2 px-6">
                         <img
                             className="max-h-80 ml-16 mr-16 transform transition-transform \
                                      hover:-translate-y-6 hover:rotate-3 origin-bottom-left"
