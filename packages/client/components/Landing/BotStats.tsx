@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 
 const STAT_NAME_MAP = {
     guild_count: "Servers",
+    member_count: "Members",
     commands_executed: "Commands Run",
 };
 
 const STAT_ORDER = {
     guild_count: 0,
+    member_count: 1,
     commands_executed: 2,
 };
 
@@ -36,6 +38,12 @@ const StatItemVariant = {
         },
     },
 };
+
+function formatNum(num) {
+    return Math.abs(num) > 999
+        ? (Math.abs(num) / 1000).toFixed(1) + "k"
+        : num.toLocaleString();
+}
 
 export default function BotStats() {
     const client = useGraphQLQuery();
@@ -71,7 +79,7 @@ export default function BotStats() {
                     variants={StatItemVariant}
                     className="mr-6"
                 >
-                    <p className="text-4xl font-medium">{s.count}</p>
+                    <p className="text-4xl font-medium">{formatNum(s.count)}</p>
                     <p className="text-md font-medium text-blue-400">
                         {STAT_NAME_MAP[s.name]}
                     </p>
