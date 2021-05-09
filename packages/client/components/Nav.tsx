@@ -116,7 +116,7 @@ export default function Nav() {
                                     </Link>
                                 </li>
                             ))}
-                            <span className="ml-4">
+                            <span className="ml-4 hidden">
                                 <Login />
                             </span>
                         </ul>
