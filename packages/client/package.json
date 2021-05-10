@@ -9,6 +9,7 @@
         "export": "next export"
     },
     "dependencies": {
+        "@hashicorp/react-docs-sidenav": "^8.1.0",
         "@sushii-web/graphql": "1.0.0",
         "@tanem/react-nprogress": "^3.0.52",
         "framer-motion": "^3.1.1",

@@ -1597,6 +1597,19 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.1.tgz#9daf5745156fd84b8e9889a2dc721f0c58e894aa"
   integrity sha512-CAEbWH7OIur6jEOzaai83jq3FmKmv4PmX1JYfs9IrYcGEVI/lyL1EXJGCj7eFVJ0bg5QR8LMxBlEtA+xKiLpFw==
 
+"@hashicorp/react-docs-sidenav@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@hashicorp/react-docs-sidenav/-/react-docs-sidenav-8.1.0.tgz#c0daabaa53fba5a8fe33dca272026c3b3b4da836"
+  integrity sha512-TN6D/FKbDGCpLrBv6wO9U4Ad0GtL+4HEJpPMEchTannElkMhq67nV2x6cl4+HzspFsD07dlaYIDUpyASUV+wew==
+  dependencies:
+    "@hashicorp/react-link-wrap" "^3.0.1"
+    fuzzysearch "1.0.3"
+
+"@hashicorp/react-link-wrap@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@hashicorp/react-link-wrap/-/react-link-wrap-3.0.1.tgz#d1ebfea08d759b51d773872cc08d5f90a2892ff6"
+  integrity sha512-A9CTee8CUg6yCeuDvWXcR8lEu8+HzODb71+z9yg44MyhVSPGX1+tzsnvDkeB7Kwbqdhk8J8fUtrKsQ0ryPWLCQ==
+
 "@iarna/toml@^2.2.5":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
@@ -4722,6 +4735,11 @@ futoin-hkdf@^1.3.2:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/futoin-hkdf/-/futoin-hkdf-1.3.3.tgz#6ee1c9c105dfa0995ba4f80633cf1c0c32defcb2"
   integrity sha512-oR75fYk3B3X9/B02Y6vusrBKucrpC6VjxhRL+C6B7FwUpuSRHbhBNG3AZbcE/xPyJmEQWsyqUFp3VeNNbA3S7A==
+
+fuzzysearch@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/fuzzysearch/-/fuzzysearch-1.0.3.tgz#dffc80f6d6b04223f2226aa79dd194231096d008"
+  integrity sha1-3/yA9tawQiPyImqnndGUIxCW0Ag=
 
 gauge@~2.7.3:
   version "2.7.4"

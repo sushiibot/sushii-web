@@ -77,7 +77,7 @@ export default function BotStats() {
                 <motion.li
                     key={s.name}
                     variants={StatItemVariant}
-                    className="mr-6"
+                    className="mr-8 md:mr-16"
                 >
                     <p className="text-4xl font-medium">{formatNum(s.count)}</p>
                     <p className="text-md font-medium text-blue-400">
