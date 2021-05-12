@@ -104,9 +104,9 @@ export default function LeaderboardUser({
                     ></div>
                 </div>
             </div>
-            <div className="group-hover:text-gray-800 pl-4 h-20 flex items-center">
-                {user.xpDiff ? (
-                    <div>
+            <div className="group-hover:text-gray-800 pl-4 h-20 flex w-full md:w-auto items-center justify-between">
+                {user.xpDiff && (
+                    <div className="mr-6">
                         XP Gain
                         <br />
                         <span className="text-md font-medium">
@@ -119,15 +119,14 @@ export default function LeaderboardUser({
                             </span>
                         )}
                     </div>
-                ) : (
-                    <div>
-                        Level
-                        <br />
-                        <span className="text-2xl font-medium">
-                            {user.currentLevel}
-                        </span>
-                    </div>
                 )}
+                <div>
+                    Level
+                    <br />
+                    <span className="text-2xl font-medium">
+                        {user.currentLevel}
+                    </span>
+                </div>
             </div>
         </motion.li>
     );
