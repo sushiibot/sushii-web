@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const STAT_NAME_MAP = {
     guild_count: "Servers",
     member_count: "Members",
-    commands_executed: "Commands Run",
+    commands_executed: "Commands Ran",
 };
 
 const STAT_ORDER = {
