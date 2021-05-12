@@ -22,18 +22,20 @@ export default function Dashboard() {
     return (
         <div className="flex-grow">
             <section className="max-w-screen-lg mx-auto px-3 pt-6">
-                <h2 className="text-xl mb-4">Select a server</h2>
-                <div className="flex flex-wrap justify-around">
+                <p className="text-lg font-medium">Hi tzuwy!</p>
+                <h2 className="text-4xl font-medium mb-4">Pick a server</h2>
+                <div className="flex flex-wrap">
                     {nodes.map((node) => (
                         <Link
                             key={node.guildId}
                             href={`/dashboard/${node.guildId}`}
                         >
                             <a
-                                className="opacity-80 hover:opacity-100
+                                className="opacity-90 hover:opacity-100
                                            transform hover:-translate-y-1
-                                           transition
-                                           flex flex-col items-center text-center"
+                                           transition bg-white pt-6 m-4 rounded-lg
+                                           flex flex-col items-center text-center
+                                           text-gray-800"
                             >
                                 {node.guild.icon ? (
                                     <img
@@ -47,10 +49,13 @@ export default function Dashboard() {
                                 ) : (
                                     <div className="rounded-full w-20 h-20 bg-gray-800 mb-2"></div>
                                 )}
-                                <p className="w-40 mb-6">{node.guild.name}</p>
+                                <p className="w-36 mb-6 truncate">
+                                    {node.guild.name}
+                                </p>
                             </a>
                         </Link>
                     ))}
+                    <div className="flex-grow"></div>
                 </div>
             </section>
         </div>

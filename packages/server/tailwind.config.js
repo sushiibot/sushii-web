@@ -129,7 +129,10 @@ module.exports = {
         extend: {
             inset: ["hover"],
             animation: ["group-hover"],
-            translate: ["active", "group-hover"],
+            translate: ["active", "group-hover", "checked"],
+            backgroundColor: ["disabled"],
+            textColor: ["disabled"],
+            cursor: ["disabled"],
         },
     },
     plugins: [require("@tailwindcss/typography")],

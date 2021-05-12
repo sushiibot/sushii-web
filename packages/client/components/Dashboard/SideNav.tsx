@@ -73,8 +73,11 @@ export default function SideNav({
     }, [currentPath, navData, baseRoute]);
 
     return (
-        <div className="w-64">
-            <button onClick={() => setIsMobileOpen(!isMobileOpen)}>
+        <div className="w-64 overflow-y-scroll border-r border-gray-600 px-2">
+            <button
+                className="hidden"
+                onClick={() => setIsMobileOpen(!isMobileOpen)}
+            >
                 <span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -124,6 +127,7 @@ function NavTree({ baseRoute, content }: NavTreeProps) {
                         <DirectLink
                             key={item.title + item.href}
                             title={item.title}
+                            icon={item.icon}
                             href={item.href}
                             isActive={item.__isActive}
                         />
@@ -166,7 +170,10 @@ function NavBranch({ title, routes, baseRoute, isActive }) {
 
     return (
         <li className="">
-            <span dangerouslySetInnerHTML={{ __html: title }} />
+            <span
+                className="pl-4 text-gray-300"
+                dangerouslySetInnerHTML={{ __html: title }}
+            />
 
             <ul className="" data-is-open={isOpen}>
                 <NavTree baseRoute={baseRoute} content={routes} />
@@ -202,24 +209,11 @@ function NavLeaf({ title, url, isActive, icon }) {
     );
 }
 
-function DirectLink({ title, href, isActive }) {
+function DirectLink({ title, href, isActive, icon }) {
     return (
         <li>
             <Link href={href}>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                    />
-                </svg>
+                <span className="inline-block align-middle">{icon}</span>
                 {title}
             </Link>
         </li>

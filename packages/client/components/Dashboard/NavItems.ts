@@ -10,7 +10,7 @@ interface NavItemBase {
     __isActive?: boolean;
 }
 
-interface NavItemDivider extends NavItemBase {
+interface NavItemDivider {
     type: NavItemType.NavItemDivider;
 }
 
@@ -28,6 +28,7 @@ interface NavItemPage extends NavItemBase {
 interface NavItemDirectLink extends NavItemBase {
     type: NavItemType.NavItemDirectLink;
     href: string;
+    icon: JSX.Element;
 }
 
 export type NavItem =

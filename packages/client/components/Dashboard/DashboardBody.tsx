@@ -4,10 +4,15 @@ import { getGuildIconUrl } from "../../lib/discordCdn";
 import {
     useGuildConfigQuery,
     useEditGuildConfigMutation,
+    GuildConfigPatch,
 } from "@sushii-web/graphql";
 import { useQueryClient } from "react-query";
 import Link from "next/link";
 import Head from "next/head";
+import { useForm } from "react-hook-form";
+import TextInput from "./Inputs/TextInput";
+import ToggleInput from "./Inputs/ToggleInput";
+import Icon from "../../components/Icon";
 
 export default function DashboardBody() {
     const router = useRouter();
@@ -32,6 +37,14 @@ export default function DashboardBody() {
         },
     });
 
+    const {
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm<GuildConfigPatch>({ mode: "all" });
+
+    const onSubmit = (data) => console.log(data);
+
     if (!guildId || status === "loading") {
         return <div>Loading</div>;
     }
@@ -55,15 +68,51 @@ export default function DashboardBody() {
             <Head>
                 <title>{cachedGuild.name} Dashboard | sushii</title>
             </Head>
-            <div className="flex items-center my-4">
+            <div className="flex items-center my-4 bg-gray-800 rounded p-2">
                 <img
-                    className="w-14 h-14 mr-4 rounded-full"
+                    className="w-10 h-10 mr-4 rounded-full"
                     src={getGuildIconUrl(guildId, cachedGuild.icon)}
                     alt="Guild Icon URL"
                 />
-                <h1 className="text-2xl">Dashboard {cachedGuild.name}</h1>
+                <h2 className="text-xl truncate">{cachedGuild.name}</h2>
+                <div className="ml-auto mr-2">
+                    <Icon type="ChevronDown" />
+                </div>
             </div>
-            <div>prefix: {guildConfig.prefix || "-"}</div>
+            <h1 className="text-4xl font-medium mb-6">Dashboard</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <TextInput
+                    name="prefix"
+                    title="Prefix"
+                    control={control}
+                    defaultValue={guildConfig.prefix || "-"}
+                    rules={{
+                        required: {
+                            value: true,
+                            message: "Prefix must be at least 1 character long",
+                        },
+                    }}
+                />
+
+                <ToggleInput
+                    name="joinMsg"
+                    title="Join Message"
+                    control={control}
+                    defaultValue={guildConfig.joinMsgEnabled}
+                />
+
+                <button
+                    type="submit"
+                    className={
+                        "rounded mt-4 px-3 py-1 block " +
+                        (Object.keys(errors).length > 0
+                            ? "bg-gray-700"
+                            : "bg-blue-500")
+                    }
+                >
+                    Save All
+                </button>
+            </form>
             {guildConfig.disabledChannels &&
                 guildConfig.disabledChannels.map((chanId) => (
                     <div key={chanId}>{chanId}</div>

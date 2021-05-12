@@ -19,7 +19,7 @@ const NAV_DATA: NavItem[] = [
             {
                 type: NavItemType.NavItemPage,
                 title: "Mod Logs",
-                path: "/logs/moderation",
+                path: "logs/moderation",
                 icon: <Icon type="ShieldCheck" />,
             },
         ],
@@ -32,20 +32,39 @@ const NAV_DATA: NavItem[] = [
             {
                 type: NavItemType.NavItemPage,
                 title: "General",
-                path: "/settings/general",
+                path: "settings/general",
                 icon: <Icon type="Cog" />,
             },
             {
                 type: NavItemType.NavItemPage,
                 title: "Welcome",
-                path: "/settings/welcome",
+                path: "settings/welcome",
                 icon: <Icon type="UserAdd" />,
             },
             {
                 type: NavItemType.NavItemPage,
                 title: "Feeds",
-                path: "/settings/feeds",
+                path: "settings/feeds",
                 icon: <Icon type="Newspaper" />,
+            },
+        ],
+    },
+    { type: NavItemType.NavItemDivider },
+    {
+        title: "Content",
+        type: NavItemType.NavItemSection,
+        routes: [
+            {
+                type: NavItemType.NavItemPage,
+                title: "Tags",
+                path: "tags",
+                icon: <Icon type="Tag" />,
+            },
+            {
+                type: NavItemType.NavItemPage,
+                title: "Leaderboard",
+                path: "leaderboard",
+                icon: <Icon type="UserAdd" />,
             },
         ],
     },
@@ -61,14 +80,14 @@ export default function guildDashboard() {
     const baseRoute = `/dashboard/${guildId}`;
 
     return (
-        <div className="flex-grow">
-            <section className="max-w-screen-lg mx-auto px-3 pt-6 flex">
-                <SideNav
-                    navData={NAV_DATA}
-                    baseRoute={baseRoute}
-                    currentPath={currentPath}
-                />
-                <div>
+        <section className="flex-grow max-w-screen-2xl min-h-full flex">
+            <SideNav
+                navData={NAV_DATA}
+                baseRoute={baseRoute}
+                currentPath={currentPath}
+            />
+            <div className="ml-4">
+                <div className="hidden">
                     <Link href="/dashboard">
                         <a>
                             <svg
@@ -86,9 +105,9 @@ export default function guildDashboard() {
                             Back to server list
                         </a>
                     </Link>
-                    <DashboardBody />
                 </div>
-            </section>
-        </div>
+                <DashboardBody />
+            </div>
+        </section>
     );
 }

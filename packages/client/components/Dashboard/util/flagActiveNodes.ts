@@ -15,8 +15,6 @@ function addIsActiveToNode(
     currentPath: string,
     baseRoute: string
 ) {
-    console.log(currentPath, baseRoute);
-
     // If any children are active, then section is active
     if (navNode.type === NavItemType.NavItemSection) {
         const routesWithActive: any[] = addIsActiveToNodes(
