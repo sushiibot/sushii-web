@@ -39,10 +39,7 @@ export default function Leaderboard({
                 routerIsLoading={routerIsLoading}
             />
             <AnimateSharedLayout>
-                <motion.ul
-                    layout
-                    className="flex flex-wrap my-6 border-b border-gray-700"
-                >
+                <motion.ul className="flex flex-wrap my-6 border-b border-gray-700">
                     {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (
                         <motion.li key={name} className="mr-4 group">
                             <button
@@ -59,7 +56,11 @@ export default function Leaderboard({
                             </button>
                             {value === timeframe ? (
                                 <motion.div
-                                    transition={{ duration: 0.1 }}
+                                    layout
+                                    transition={{
+                                        duration: 0.3,
+                                        ease: "circOut",
+                                    }}
                                     className="w-full h-px bg-blue-400"
                                     layoutId="underline"
                                 />
