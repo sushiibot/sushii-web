@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import DashboardBody from "../../../components/Dashboard/Body";
-import { NavItem, NavItemType } from "../../../components/Dashboard/NavItems";
-import SideNav from "../../../components/Dashboard/SideNav";
-import Icon from "../../../components/Icon";
+import DashboardBody from "./Body";
+import { NavItem, NavItemType } from "./NavItems";
+import SideNav from "./SideNav";
+import Icon from "../Icon";
 
 const NAV_DATA: NavItem[] = [
     {
@@ -70,7 +70,11 @@ const NAV_DATA: NavItem[] = [
     },
 ];
 
-export default function guildDashboard() {
+interface DashboardLayoutProps {
+    children: JSX.Element[];
+}
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
     const router = useRouter();
     const currentPath = router.asPath;
     const guildId = Array.isArray(router.query.guildId)
@@ -105,13 +109,15 @@ export default function guildDashboard() {
                             Back to server list
                         </a>
                     </Link>
+                    {/* This supposed to be below */}
+                    <DashboardBody
+                        guildId={guildId}
+                        navData={NAV_DATA}
+                        currentPath={currentPath}
+                        baseRoute={baseRoute}
+                    />
                 </div>
-                <DashboardBody
-                    guildId={guildId}
-                    navData={NAV_DATA}
-                    currentPath={currentPath}
-                    baseRoute={baseRoute}
-                />
+                {children}
             </div>
         </section>
     );

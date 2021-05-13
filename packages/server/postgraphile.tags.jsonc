@@ -11,6 +11,12 @@
   "version": 1,
   "config": {
     "class": {
+      "app_public.tags": {
+        "description": "Server tags",
+        "tags": {
+          "foreignKey": ["(owner_id) references app_public.cached_users(id)"]
+        }
+      }
     },
     "procedure": {
        // We've put this in public, but omitted it, because it's often useful for debugging auth issues.

@@ -130,7 +130,7 @@ module.exports = {
             inset: ["hover"],
             animation: ["group-hover"],
             translate: ["active", "group-hover", "checked"],
-            backgroundColor: ["disabled"],
+            backgroundColor: ["disabled", "even"],
             textColor: ["disabled"],
             cursor: ["disabled"],
         },

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useGraphQLQuery } from "../../lib/useGraphQLQuery";
-import { getGuildIconUrl } from "../../lib/discordCdn";
+import { useGraphQLQuery } from "../../../lib/useGraphQLQuery";
+import { getGuildIconUrl } from "../../../lib/discordCdn";
 import {
     useGuildConfigQuery,
     useEditGuildConfigMutation,
@@ -10,9 +10,9 @@ import { useQueryClient } from "react-query";
 import Link from "next/link";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import TextInput from "./Inputs/TextInput";
-import ToggleInput from "./Inputs/ToggleInput";
-import Icon from "../../components/Icon";
+import TextInput from "../Inputs/TextInput";
+import ToggleInput from "../Inputs/ToggleInput";
+import Icon from "../../../components/Icon";
 
 export default function DashboardBody() {
     const router = useRouter();
@@ -66,7 +66,7 @@ export default function DashboardBody() {
     return (
         <div>
             <Head>
-                <title>{cachedGuild.name} Dashboard | sushii</title>
+                <title>{cachedGuild.name} Settings | sushii</title>
             </Head>
             <div className="flex items-center my-4 bg-gray-800 rounded p-2">
                 <img
@@ -79,7 +79,7 @@ export default function DashboardBody() {
                     <Icon type="ChevronDown" />
                 </div>
             </div>
-            <h1 className="text-4xl font-medium mb-6">Dashboard</h1>
+            <h1 className="text-4xl font-medium mb-6">Settings</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextInput
                     name="prefix"
