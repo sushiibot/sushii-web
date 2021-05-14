@@ -84,7 +84,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     const baseRoute = `/dashboard/${guildId}`;
 
     return (
-        <section className="flex-grow max-w-screen-2xl min-h-full flex">
+        <section className="flex-grow max-w-screen-2xl mx-auto min-h-full inline-flex">
             <SideNav
                 navData={NAV_DATA}
                 baseRoute={baseRoute}

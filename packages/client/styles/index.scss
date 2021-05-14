@@ -37,3 +37,17 @@ html {
     background-blend-mode: screen, screen, normal, hard-light, normal;
     filter: brightness(1) contrast(1.5) saturate(0.6);
 }
+
+.p-sortable-column-icon {
+    @apply w-4 h-4 inline-block;
+
+    &::before {
+        @apply inline-block;
+        content: "";
+    }
+}
+
+.pi-sort-alt::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" /></svg>');
+    background-size: cover;
+}
