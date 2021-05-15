@@ -26,7 +26,7 @@ export default function TagsBody() {
             <h2 className="text-lg">
                 {data.tags.totalCount.toLocaleString()} total tags
             </h2>
-            <div className="bg-gray-800 rounded-2xl p-4 mt-4">
+            <div className="bg-gray-800 border border-gray-750 rounded-2xl p-4 mt-4 mr-4">
                 <RTable
                     columns={[
                         {
@@ -44,7 +44,21 @@ export default function TagsBody() {
                                     >
                                         ID: {row.ownerId}
                                     </div>
-                                    {row.owner?.name || `ID ${row.ownerId}`}
+                                    <div className="text-sm flex items-center">
+                                        <img
+                                            className="rounded-full w-6 h-6"
+                                            src={
+                                                row.owner?.avatarUrl ||
+                                                `https://cdn.discordapp.com/embed/avatars/${
+                                                    row.ownerId % 5
+                                                }.png`
+                                            }
+                                        />
+                                        <span className="ml-2 text-gray-400">
+                                            {row.owner?.name ||
+                                                "ID " + row.ownerId}
+                                        </span>
+                                    </div>
                                 </div>
                             ),
                             Header: "Owner",
@@ -58,7 +72,7 @@ export default function TagsBody() {
                         {
                             accessor: (row: Tag) => (
                                 <ReactMarkdown
-                                    className="prose"
+                                    className="prose break-words"
                                     remarkPlugins={[gfm]}
                                     linkTarget="_blank"
                                 >

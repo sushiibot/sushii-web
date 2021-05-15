@@ -134,6 +134,7 @@ module.exports = {
             textColor: ["disabled"],
             cursor: ["disabled"],
             display: ["group-hover"],
+            borderRadius: ["first", "last"],
         },
     },
     plugins: [require("@tailwindcss/typography")],
