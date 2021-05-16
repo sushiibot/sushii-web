@@ -8,6 +8,30 @@ import flagActiveNodes from "./util/flagActiveNodes";
 import useEventListener from "./util/useEventListener";
 import { NavItem, NavItemType } from "./NavItems";
 import { MenuAlt2Icon } from "@heroicons/react/outline";
+import { motion, Variants } from "framer-motion";
+
+const linksVariants: Variants = {
+    open: {
+        // This required or it will still there but invisible after 2nd time closing
+        // https://github.com/framer/motion/issues/599
+        display: "block",
+        left: "0px",
+        transition: {
+            duration: 0.3,
+            ease: "easeOut",
+        },
+    },
+    closed: {
+        left: "-100%",
+        transition: {
+            duration: 0.3,
+            ease: "easeIn",
+        },
+        transitionEnd: {
+            display: "none",
+        },
+    },
+};
 
 interface SideNavProps {
     currentPath: string;
@@ -29,8 +53,6 @@ export default function SideNav({
 
     // isMobileOpen controls menu open / close state
     const [isMobileOpen, setIsMobileOpen] = useState(false);
-    // isMobileFullyHidden reflects if the menu is fully transitioned to a hidden state
-    const [isMenuFullyHidden, setIsMenuFullyHidden] = useState(true);
     // We want to avoid exposing links to keyboard navigation
     // when the menu is hidden on mobile. But we don't want our
     // menu to flash when hide and shown. To meet both needs,
@@ -38,10 +60,6 @@ export default function SideNav({
     // a transition ends and the menu is not open, we set isMenuFullyHidden
     // which translates into a visibility: hidden CSS property
     const menuRef = useRef(null);
-    const handleMenuTransitionEnd = useCallback(() => {
-        setIsMenuFullyHidden(!isMobileOpen);
-    }, [isMobileOpen, setIsMenuFullyHidden]);
-    useEventListener("transitionend", handleMenuTransitionEnd, menuRef.current);
 
     // Close the menu when there is a click outside
     const handleDocumentClick = useCallback(
@@ -83,20 +101,27 @@ export default function SideNav({
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
             >
                 <MenuAlt2Icon className="w-6 h-6 inline-block" />
-                <span className="ml-2">Show Server Menu</span>
+                <span className="ml-2">
+                    {isMobileOpen ? "Hide Server Menu" : "Show Server Menu"}
+                </span>
             </button>
             <div className="relative">
                 {/* Header guild info etc */}
                 {children}
-                <ul
-                    ref={menuRef}
-                    className={
-                        !isMobileOpen && isMenuFullyHidden
-                            ? "hidden md:block"
-                            : "absolute top-0 left-0 w-64 px-2 bg-gray-1000 md:relative"
-                    }
-                    style={{ height: "calc(100vh - 56px)" }}
-                >
+                <div className="md:hidden">
+                    <motion.ul
+                        ref={menuRef}
+                        variants={linksVariants}
+                        animate={!isMobileOpen ? "closed" : "open"}
+                        className="absolute top-0 left-0 w-64 px-2 bg-gray-1000 
+                               border-r border-t border-gray-700"
+                        style={{ height: "calc(100vh - 56px)" }}
+                    >
+                        <NavTree baseRoute={baseRoute} content={content} />
+                    </motion.ul>
+                </div>
+                {/* Desktop navbar, not animated, not hidable */}
+                <ul className="hidden md:block top-0 left-0 w-64 px-2">
                     <NavTree baseRoute={baseRoute} content={content} />
                 </ul>
             </div>
