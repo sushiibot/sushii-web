@@ -290,6 +290,11 @@ function Table({ columns, data }) {
                     ))}
                 </tbody>
             </table>
+            {rows.length === 0 && (
+                <div className="text-center block w-full mb-4 p-6 bg-gray-750 rounded-lg">
+                    No tags found! :(
+                </div>
+            )}
         </>
     );
 }
