@@ -97,27 +97,25 @@ fuzzyTextFilterFn.autoRemove = (val) => !val;
 fuzzyContentObjFilterFn.autoRemove = (val) => !val;
 fuzzyOwnerObjFilterFn.autoRemove = (val) => !val;
 
-interface DesktopRowProps {}
-
 // Table row displayed on desktop, no special layout so all cells are the same
 function DesktopRow({ prepareRow, row, i }: RowComponentProps) {
     console.log(row);
     prepareRow(row);
 
     return (
-        <tr {...row.getRowProps()} className="hidden md:table-row">
+        <tr {...row.getRowProps()} className="hidden lg:table-row">
             {row.cells.map((cell) => {
                 return (
                     <td
                         {...cell.getCellProps()}
                         className={
                             "px-4 py-4 \
-                                flex justify-between items-center md:table-cell \
-                                md:first:rounded-l-lg md:last:rounded-r-lg " +
+                                flex justify-between items-center lg:table-cell \
+                                lg:first:rounded-l-lg lg:last:rounded-r-lg " +
                             (i % 2 == 1 ? "bg-gray-750" : "")
                         }
                     >
-                        <div className="md:hidden inline-block">
+                        <div className="lg:hidden inline-block">
                             {cell.column.Header}
                         </div>
                         {cell.render("Cell")}
@@ -132,7 +130,7 @@ function MobileRow({ prepareRow, row, i }: RowComponentProps) {
     const original = row.original as Tag;
 
     return (
-        <tr {...row.getRowProps()} className="block md:hidden">
+        <tr {...row.getRowProps()} className="block lg:hidden">
             <div className="rounded-lg shadow-lg bg-gray-750 border border-gray-700 my-4 p-4">
                 <div className="text-sm flex items-center">
                     <img
@@ -240,14 +238,14 @@ function Table({ columns, data }) {
                 className="table-auto border-separate max-w-full"
                 style={{ borderSpacing: "0 0.75rem" }}
             >
-                <thead className="hidden md:table-header-group">
+                <thead className="lg:table-header-group">
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 // Add the sorting props to control sorting. For this example
                                 // we can add them into the header props
                                 <th
-                                    className="whitespace-nowrap px-4 py-3
+                                    className="block lg:table-cell whitespace-nowrap px-4 py-3
                                     text-left text-sm font-medium tracking-wider 
                                     border-b border-gray-700"
                                 >
