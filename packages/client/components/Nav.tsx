@@ -7,6 +7,9 @@ import Login from "./Login";
 
 const linksVariants: Variants = {
     open: {
+        // This required or it will still there but invisible after 2nd time closing
+        // https://github.com/framer/motion/issues/599
+        display: "block",
         height: "auto",
         marginTop: "0.5rem",
         transition: {
@@ -23,6 +26,9 @@ const linksVariants: Variants = {
             ease: "easeOut",
             staggerChildren: 0.05,
             staggerDirection: -1,
+        },
+        transitionEnd: {
+            display: "none",
         },
     },
 };

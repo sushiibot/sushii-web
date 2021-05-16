@@ -34,10 +34,7 @@ export default function Leaderboard({
 
     return (
         <section>
-            <LeaderboardGuild
-                guildId={guildId}
-                routerIsLoading={routerIsLoading}
-            />
+            <h1 className="text-4xl font-medium">Server Leaderboard</h1>
             <AnimateSharedLayout>
                 <motion.ul className="flex flex-wrap my-6 border-b border-gray-700">
                     {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (

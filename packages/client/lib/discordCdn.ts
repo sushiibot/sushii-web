@@ -14,3 +14,18 @@ export function getGuildIconUrl(
 
     return IMAGE_BASE_URL + `/icons/${id}/${icon}.jpg`;
 }
+
+export function getGuildBannerUrl(
+    id: string,
+    banner: string | undefined,
+    size: number = 1024
+): string | undefined {
+    if (!banner) {
+        return undefined;
+    }
+
+    return (
+        IMAGE_BASE_URL +
+        `/banners/${id}/${banner}.jpg${size ? "?size=" + size : ""}`
+    );
+}

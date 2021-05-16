@@ -7,18 +7,21 @@ import { useRouter } from "next/router";
 import flagActiveNodes from "./util/flagActiveNodes";
 import useEventListener from "./util/useEventListener";
 import { NavItem, NavItemType } from "./NavItems";
+import { MenuAlt2Icon } from "@heroicons/react/outline";
 
 interface SideNavProps {
     currentPath: string;
     baseRoute: string;
     navData: NavItem[];
     disableFilter?: boolean;
+    children?: JSX.Element;
 }
 
 export default function SideNav({
     currentPath,
     baseRoute,
     navData,
+    children,
 }: SideNavProps) {
     // Set up filtering state
     const [filterInput, setFilterInput] = useState("");
@@ -49,6 +52,7 @@ export default function SideNav({
         },
         [isMobileOpen]
     );
+
     useEventListener(
         "click",
         handleDocumentClick,
@@ -73,36 +77,29 @@ export default function SideNav({
     }, [currentPath, navData, baseRoute]);
 
     return (
-        <div className="w-64 overflow-y-scroll border-r border-gray-600 px-2">
+        <div className="w-full md:w-64 px-2">
             <button
-                className="hidden"
+                className="md:hidden h-6 ml-2 mb-4"
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
             >
-                <span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                    </svg>{" "}
-                    Menu
-                </span>
+                <MenuAlt2Icon className="w-6 h-6 inline-block" />
+                <span className="ml-2">Show Server Menu</span>
             </button>
-            <ul
-                ref={menuRef}
-                data-is-mobile-hidden={!isMobileOpen && isMenuFullyHidden}
-                data-is-mobile-open={isMobileOpen}
-            >
-                <NavTree baseRoute={baseRoute} content={content} />
-            </ul>
+            <div className="relative">
+                {/* Header guild info etc */}
+                {children}
+                <ul
+                    ref={menuRef}
+                    className={
+                        !isMobileOpen && isMenuFullyHidden
+                            ? "hidden md:block"
+                            : "absolute top-0 left-0 w-64 px-2 bg-gray-1000 md:relative"
+                    }
+                    style={{ height: "calc(100vh - 56px)" }}
+                >
+                    <NavTree baseRoute={baseRoute} content={content} />
+                </ul>
+            </div>
         </div>
     );
 }
@@ -186,11 +183,12 @@ function NavLeaf({ title, url, isActive, icon }) {
     console.log(title, url, isActive);
 
     let classes =
-        "my-2 h-12 pl-4 rounded-lg w-full inline-block flex items-center \
-                   hover:bg-white hover:text-gray-900";
+        "my-2 h-12 pl-4 rounded-lg w-full inline-block flex items-center";
 
     if (isActive) {
         classes += " bg-blue-600 text-white";
+    } else {
+        classes += " hover:bg-white hover:text-gray-900";
     }
 
     // if the item has a path, it's a leaf node so we render a link to the page
