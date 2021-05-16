@@ -34,7 +34,9 @@ export default function Leaderboard({
 
     return (
         <section>
-            <h1 className="text-4xl font-medium">Server Leaderboard</h1>
+            <h1 className="text-4xl font-medium">
+                {guildId ? "Server" : "Global"} Leaderboard
+            </h1>
             <AnimateSharedLayout>
                 <motion.ul className="flex flex-wrap my-6 border-b border-gray-700">
                     {Object.entries(TIMEFRAME_STRS).map(([name, value]) => (

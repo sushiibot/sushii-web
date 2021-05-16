@@ -157,8 +157,13 @@ function MobileRow({ prepareRow, row, i }: RowComponentProps) {
                 >
                     {original.content}
                 </ReactMarkdown>
-                <div className="mt-2 text-sm text-gray-300">
-                    Used {original.useCount} times
+                <div className="mt-2 text-sm text-gray-300 flex justify-between">
+                    <span>Used {original.useCount} times</span>
+
+                    <span>
+                        Created{" "}
+                        {new Date(original.created).toLocaleDateString()}
+                    </span>
                 </div>
             </div>
         </tr>

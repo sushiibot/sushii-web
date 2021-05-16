@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { NavItem, NavItemType } from "../Dashboard/NavItems";
 import SideNav from "../Dashboard/SideNav";
 import { TrendingUpIcon, TagIcon } from "@heroicons/react/outline";
+import Image from "../Image";
 
 const NAV_DATA: NavItem[] = [
     {
@@ -58,43 +59,58 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     currentPath={currentPath}
                 >
                     <div className="w-full flex items-center">
-                        {status === "loading" && <div>Loading...</div>}
-                        {data && data.cachedGuild && (
-                            <div className="w-full px-2">
-                                {data.cachedGuild.banner ? (
-                                    <img
-                                        className="w-full rounded"
+                        <div className="w-full px-2">
+                            <div className="aspect-w-16 aspect-h-9 -z-5">
+                                {data?.cachedGuild.banner ? (
+                                    <Image
+                                        wrapperClassName="aspect-w-16 aspect-h-9"
                                         src={getGuildBannerUrl(
                                             guildId,
                                             data.cachedGuild.banner
                                         )}
                                         alt={data.cachedGuild.name + " banner"}
+                                        className="object-cover rounded"
                                     />
                                 ) : (
                                     <div
-                                        className="h-24 bg-gray-800 rounded flex items-center 
+                                        className="object-cover bg-gray-800
+                                            rounded flex items-center 
                                             justify-center text-gray-600"
                                     >
                                         meow
                                     </div>
                                 )}
-                                <div className="mt-2 px-2 flex items-end">
-                                    <img
-                                        className="w-16 h-16 -mt-16 mr-4 rounded-full ring-4 ring-gray-1000"
-                                        src={getGuildIconUrl(
-                                            guildId,
-                                            data.cachedGuild.icon
-                                        )}
-                                        alt="Guild Icon URL"
-                                    />
-                                    <h1 className="text-xl pb-2">
-                                        {data.cachedGuild
-                                            ? data.cachedGuild.name
-                                            : guildId}
-                                    </h1>
-                                </div>
                             </div>
-                        )}
+                            <div className="mt-2 px-2 flex items-end">
+                                {data?.cachedGuild ? (
+                                    <>
+                                        <img
+                                            className="w-16 h-16 -mt-16 mr-4 rounded-full ring-4 ring-gray-1000"
+                                            src={getGuildIconUrl(
+                                                guildId,
+                                                data.cachedGuild.icon
+                                            )}
+                                            alt="Guild Icon URL"
+                                        />
+                                        <h1 className="text-xl pb-2">
+                                            {data.cachedGuild
+                                                ? data.cachedGuild.name
+                                                : guildId}
+                                        </h1>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div
+                                            className="w-16 h-16 -mt-16 mr-4
+                                            rounded-full ring-4 ring-gray-1000 bg-gray-700"
+                                        />
+                                        <h1 className="text-xl pb-2">
+                                            Loading
+                                        </h1>
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </SideNav>
             </div>

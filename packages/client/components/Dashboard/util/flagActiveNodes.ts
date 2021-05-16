@@ -15,6 +15,9 @@ function addIsActiveToNode(
     currentPath: string,
     baseRoute: string
 ) {
+    // currentPath without query params
+    currentPath = currentPath.split("?")[0] || currentPath;
+
     // If any children are active, then section is active
     if (navNode.type === NavItemType.NavItemSection) {
         const routesWithActive: any[] = addIsActiveToNodes(
