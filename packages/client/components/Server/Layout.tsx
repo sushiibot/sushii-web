@@ -58,8 +58,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     baseRoute={baseRoute}
                     currentPath={currentPath}
                 >
-                    <div className="w-full flex items-center">
-                        <div className="w-full px-2">
+                    <div className="mt-4 w-full flex items-center">
+                        <div className="w-full max-w-sm px-2">
                             <div className="aspect-w-16 aspect-h-9 -z-5">
                                 {data?.cachedGuild.banner ? (
                                     <Image
@@ -114,7 +114,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     </div>
                 </SideNav>
             </div>
-            <div className="px-4 pt-6 w-full">{children}</div>
+            <div className="px-4 pt-6 w-full flex flex-col">{children}</div>
         </section>
     );
 }

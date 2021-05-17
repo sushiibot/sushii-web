@@ -21,7 +21,7 @@ export default function TagsBody() {
                 {data ? data.tags.totalCount.toLocaleString() : "..."} total
                 tags
             </h2>
-            <div className="bg-gray-800 border border-gray-750 rounded-2xl p-4 mt-4">
+            <div className="bg-gray-800 border border-gray-750 rounded-2xl p-4 mt-4 flex-grow">
                 {status === "loading" ? (
                     <div>Loading...</div>
                 ) : (

@@ -1,7 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import type { Tag } from "@sushii-web/graphql";
+import List from "react-virtualized/dist/commonjs/List";
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
+import { CellMeasurer, CellMeasurerCache } from "react-virtualized";
+import type { ListRowRenderer } from "react-virtualized";
+
 import {
     useTable,
     useSortBy,
@@ -98,10 +103,7 @@ fuzzyContentObjFilterFn.autoRemove = (val) => !val;
 fuzzyOwnerObjFilterFn.autoRemove = (val) => !val;
 
 // Table row displayed on desktop, no special layout so all cells are the same
-function DesktopRow({ prepareRow, row, i }: RowComponentProps) {
-    console.log(row);
-    prepareRow(row);
-
+function DesktopRow({ row, i }: RowComponentProps) {
     return (
         <tr {...row.getRowProps()} className="hidden lg:table-row">
             {row.cells.map((cell) => {
@@ -126,7 +128,7 @@ function DesktopRow({ prepareRow, row, i }: RowComponentProps) {
     );
 }
 
-function MobileRow({ prepareRow, row, i }: RowComponentProps) {
+function MobileRow({ row, i }: RowComponentProps) {
     const original = row.original as Tag;
 
     return (
@@ -171,17 +173,11 @@ function MobileRow({ prepareRow, row, i }: RowComponentProps) {
 }
 
 interface RowComponentProps {
-    prepareRow: (row: Row) => void;
     row: Row;
     i: number;
 }
 
 function RowComponent(props: RowComponentProps) {
-    const { row, prepareRow } = props;
-
-    console.log(row);
-    prepareRow(row);
-
     return (
         <>
             <DesktopRow {...props} />
@@ -229,6 +225,35 @@ function Table({ columns, data }) {
         useSortBy
     );
 
+    const cache = new CellMeasurerCache({
+        defaultHeight: 72,
+        fixedWidth: true,
+    });
+
+    const RenderRow = useCallback<ListRowRenderer>(
+        ({ index, parent, key, style }) => {
+            const row = rows[index];
+            prepareRow(row);
+
+            return (
+                <CellMeasurer
+                    cache={cache}
+                    columnIndex={0}
+                    rowIndex={index}
+                    key={key}
+                    parent={parent}
+                >
+                    {({ registerChild }) => (
+                        <div style={style} ref={registerChild}>
+                            <RowComponent row={rows[index]} i={index} />
+                        </div>
+                    )}
+                </CellMeasurer>
+            );
+        },
+        [prepareRow, rows]
+    );
+
     return (
         <>
             <div className="hidden">
@@ -240,10 +265,10 @@ function Table({ columns, data }) {
             </div>
             <table
                 {...getTableProps()}
-                className="table-auto border-separate max-w-full"
+                className="flex flex-col table-auto border-separate max-w-full h-full"
                 style={{ borderSpacing: "0 0.75rem" }}
             >
-                <thead className="lg:table-header-group">
+                <thead className="lg:inline-block">
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
@@ -284,10 +309,19 @@ function Table({ columns, data }) {
                         </tr>
                     ))}
                 </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row, i) => (
-                        <RowComponent prepareRow={prepareRow} row={row} i={i} />
-                    ))}
+                <tbody {...getTableBodyProps()} className="flex-auto">
+                    <AutoSizer>
+                        {({ height, width }) => (
+                            <List
+                                height={height}
+                                width={width}
+                                rowCount={rows.length}
+                                rowHeight={cache.rowHeight}
+                                rowRenderer={RenderRow}
+                                deferredMeasurementCache={cache}
+                            />
+                        )}
+                    </AutoSizer>
                 </tbody>
             </table>
             {rows.length === 0 && (
@@ -308,9 +342,5 @@ export default function RTable({ columns, data }: RTableProps) {
     const columnsMemo = useMemo(() => columns, [columns]);
     const dataMemo = useMemo(() => data, [data]);
 
-    return (
-        <div>
-            <Table columns={columnsMemo} data={dataMemo} />
-        </div>
-    );
+    return <Table columns={columnsMemo} data={dataMemo} />;
 }

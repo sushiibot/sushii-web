@@ -4,7 +4,7 @@ module.exports = {
             {
                 source: "/leaderboard/:guildId",
                 destination: "/server/:guildId/leaderboard",
-                permanent: false,
+                permanent: true,
             },
         ];
     },

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MenuToggle } from "./MenuToggle";
 import { motion, Variants } from "framer-motion";
 import Login from "./Login";
+import useScroll from "../lib/useScroll";
 
 const linksVariants: Variants = {
     open: {
@@ -65,8 +66,21 @@ export default function Nav() {
         setVisible(!visible);
     };
 
+    const isLanding = pathname === "/";
+
+    const { scrollY } = useScroll();
+
+    console.log(scrollY);
+
     return (
-        <div className="">
+        <div
+            className={
+                "sticky z-40 top-0 block transition-colors " +
+                (isLanding && scrollY === 0
+                    ? "bg-transparent border-transparent"
+                    : "bg-gray-1000 border-b border-gray-700")
+            }
+        >
             <header className="max-w-screen-2xl mx-auto px-6">
                 <motion.nav
                     initial={false}
