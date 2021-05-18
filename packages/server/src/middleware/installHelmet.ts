@@ -29,7 +29,7 @@ export default function installHelmet(app: Express) {
                               "img-src": ["'self'", "cdn.discordapp.com"],
                               "connect-src": [
                                   "'self'",
-                                  "*sushii.xyz",
+                                  "*.sushii.xyz",
                                   "raw.githubusercontent.com",
                                   // Safari doesn't allow using wss:// origins as 'self' from
                                   // an https:// page, so we have to translate explicitly for
@@ -47,7 +47,7 @@ export default function installHelmet(app: Express) {
                               "img-src": ["'self'", "cdn.discordapp.com"],
                               "connect-src": [
                                   "'self'",
-                                  "*sushii.xyz",
+                                  "*.sushii.xyz",
                                   "raw.githubusercontent.com",
                                   // Safari doesn't allow using wss:// origins as 'self' from
                                   // an https:// page, so we have to translate explicitly for
