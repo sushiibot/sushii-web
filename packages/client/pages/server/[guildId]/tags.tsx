@@ -69,13 +69,15 @@ export default function TagsBody() {
                             },
                             {
                                 accessor: (row: Tag) => (
-                                    <ReactMarkdown
-                                        className="prose break-words"
-                                        remarkPlugins={[gfm]}
-                                        linkTarget="_blank"
-                                    >
-                                        {row.content}
-                                    </ReactMarkdown>
+                                    <div className="whitespace-normal">
+                                        <ReactMarkdown
+                                            className="prose break-words"
+                                            remarkPlugins={[gfm]}
+                                            linkTarget="_blank"
+                                        >
+                                            {row.content}
+                                        </ReactMarkdown>
+                                    </div>
                                 ),
                                 Header: "Content",
                                 id: "content",

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import type { Tag } from "@sushii-web/graphql";
@@ -6,6 +6,13 @@ import List from "react-virtualized/dist/commonjs/List";
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 import { CellMeasurer, CellMeasurerCache } from "react-virtualized";
 import type { ListRowRenderer } from "react-virtualized";
+import {
+    Column as VirtualizedColumn,
+    Table as VirtualizedTable,
+    TableCellRenderer,
+    TableHeaderRenderer,
+} from "react-virtualized";
+import "react-virtualized/styles.css";
 
 import {
     useTable,
@@ -17,6 +24,7 @@ import {
     Row,
     FilterProps,
 } from "react-table";
+
 import {
     SortAscendingIcon,
     SortDescendingIcon,
@@ -103,12 +111,14 @@ fuzzyContentObjFilterFn.autoRemove = (val) => !val;
 fuzzyOwnerObjFilterFn.autoRemove = (val) => !val;
 
 // Table row displayed on desktop, no special layout so all cells are the same
-function DesktopRow({ row, i }: RowComponentProps) {
+function DesktopRow({ row, i, prepareRow }: RowComponentProps) {
+    prepareRow(row);
+
     return (
-        <tr {...row.getRowProps()} className="hidden lg:table-row">
+        <div {...row.getRowProps()} className="hidden lg:table-row">
             {row.cells.map((cell) => {
                 return (
-                    <td
+                    <div
                         {...cell.getCellProps()}
                         className={
                             "px-4 py-4 \
@@ -121,18 +131,20 @@ function DesktopRow({ row, i }: RowComponentProps) {
                             {cell.column.Header}
                         </div>
                         {cell.render("Cell")}
-                    </td>
+                    </div>
                 );
             })}
-        </tr>
+        </div>
     );
 }
 
-function MobileRow({ row, i }: RowComponentProps) {
+function MobileRow({ row, i, prepareRow }: RowComponentProps) {
+    prepareRow(row);
+
     const original = row.original as Tag;
 
     return (
-        <tr {...row.getRowProps()} className="block lg:hidden">
+        <div {...row.getRowProps()} className="block lg:hidden">
             <div className="rounded-lg shadow-lg bg-gray-750 border border-gray-700 my-4 p-4">
                 <div className="text-sm flex items-center">
                     <img
@@ -168,13 +180,14 @@ function MobileRow({ row, i }: RowComponentProps) {
                     </span>
                 </div>
             </div>
-        </tr>
+        </div>
     );
 }
 
 interface RowComponentProps {
     row: Row;
     i: number;
+    prepareRow: (Row) => void;
 }
 
 function RowComponent(props: RowComponentProps) {
@@ -186,7 +199,12 @@ function RowComponent(props: RowComponentProps) {
     );
 }
 
-function Table({ columns, data }) {
+const cache = new CellMeasurerCache({
+    defaultHeight: 72,
+    fixedWidth: true,
+});
+
+function Table({ columns, data }: RTableProps) {
     const filterTypes = useMemo(
         () => ({
             fuzzyText: fuzzyTextFilterFn,
@@ -207,7 +225,7 @@ function Table({ columns, data }) {
     const {
         getTableProps,
         getTableBodyProps,
-        headerGroups,
+        headers,
         rows,
         prepareRow,
         state,
@@ -225,15 +243,17 @@ function Table({ columns, data }) {
         useSortBy
     );
 
-    const cache = new CellMeasurerCache({
-        defaultHeight: 72,
-        fixedWidth: true,
-    });
+    const TableRef = useRef<VirtualizedTable>();
+
+    useEffect(() => {
+        // Rows different heights on rows change
+        cache.clearAll();
+        TableRef.current.recomputeRowHeights();
+    }, [rows]);
 
     const RenderRow = useCallback<ListRowRenderer>(
         ({ index, parent, key, style }) => {
             const row = rows[index];
-            prepareRow(row);
 
             return (
                 <CellMeasurer
@@ -245,7 +265,11 @@ function Table({ columns, data }) {
                 >
                     {({ registerChild }) => (
                         <div style={style} ref={registerChild}>
-                            <RowComponent row={rows[index]} i={index} />
+                            <RowComponent
+                                row={row}
+                                i={index}
+                                prepareRow={prepareRow}
+                            />
                         </div>
                     )}
                 </CellMeasurer>
@@ -253,6 +277,135 @@ function Table({ columns, data }) {
         },
         [prepareRow, rows]
     );
+
+    const RenderContentCell = useCallback<TableCellRenderer>(
+        ({ rowIndex, columnIndex, parent, dataKey, rowData }) => {
+            const content = rowData[dataKey];
+
+            return (
+                <CellMeasurer
+                    cache={cache}
+                    columnIndex={columnIndex}
+                    rowIndex={rowIndex}
+                    parent={parent}
+                >
+                    {({ registerChild }) => (
+                        <div ref={registerChild} className="whitespace-normal">
+                            <ReactMarkdown
+                                className="prose break-words"
+                                remarkPlugins={[gfm]}
+                                linkTarget="_blank"
+                            >
+                                {content}
+                            </ReactMarkdown>
+                        </div>
+                    )}
+                </CellMeasurer>
+            );
+        },
+        [prepareRow, rows]
+    );
+
+    console.log(rows, data);
+
+    const RenderColumn = (column, i) => {
+        return (
+            <VirtualizedColumn
+                width={190}
+                flexGrow={i === 3 ? 1 : 0}
+                label={column.Header}
+                dataKey={column.id}
+                className="whitespace-normal self-start"
+                cellRenderer={({ rowIndex, columnIndex, parent, rowData }) => {
+                    return (
+                        <CellMeasurer
+                            cache={cache}
+                            columnIndex={columnIndex}
+                            rowIndex={rowIndex}
+                            parent={parent}
+                        >
+                            {({ registerChild }) => (
+                                <div
+                                    ref={registerChild}
+                                    className="whitespace-normal px-4 py-4"
+                                >
+                                    {column.accessor(rowData)}
+                                </div>
+                            )}
+                        </CellMeasurer>
+                    );
+                }}
+                headerRenderer={() => {
+                    return (
+                        <div
+                            className="whitespace-nowrap px-4 py-3 normal-case
+                                       text-left text-sm font-medium tracking-wider 
+                                       border-b border-gray-700"
+                        >
+                            <div
+                                className="flex cursor-pointer"
+                                {...column.getHeaderProps(
+                                    column.getSortByToggleProps()
+                                )}
+                            >
+                                {column.render("Header")}
+                                {/* Add a sort direction indicator */}
+                                <span className="ml-2">
+                                    {column.isSorted ? (
+                                        column.isSortedDesc ? (
+                                            <SortDescendingIcon className="w-6 h-6 text-orange-500" />
+                                        ) : (
+                                            <SortAscendingIcon className="w-6 h-6 text-blue-500" />
+                                        )
+                                    ) : (
+                                        <SwitchVerticalIcon className="w-6 h-6" />
+                                    )}
+                                </span>
+                            </div>
+                            <div>
+                                {column.canFilter
+                                    ? column.render("Filter")
+                                    : null}
+                            </div>
+                        </div>
+                    );
+                }}
+            />
+        );
+    };
+
+    const RenderHeader = (column, i) => {
+        // Add the sorting props to control sorting. For this example
+        // we can add them into the header props
+        return (
+            <div
+                key={i}
+                className="block lg:table-cell whitespace-nowrap px-4 py-3
+                           dark:text-left text-sm font-medium tracking-wider 
+                           dark:border-b border-gray-700"
+            >
+                <div
+                    className="flex cursor-pointer"
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
+                    {column.render("Header")}
+                    {/* Add a sort direction indicator */}
+                    <span className="ml-2">
+                        {column.isSorted ? (
+                            column.isSortedDesc ? (
+                                <SortDescendingIcon className="w-6 h-6 text-orange-500" />
+                            ) : (
+                                <SortAscendingIcon className="w-6 h-6 text-blue-500" />
+                            )
+                        ) : (
+                            <SwitchVerticalIcon className="w-6 h-6" />
+                        )}
+                    </span>
+                </div>
+                <div>{column.canFilter ? column.render("Filter") : null}</div>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -263,78 +416,58 @@ function Table({ columns, data }) {
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
-            <table
-                {...getTableProps()}
-                className="flex flex-col table-auto border-separate max-w-full h-full"
-                style={{ borderSpacing: "0 0.75rem" }}
-            >
-                <thead className="lg:inline-block">
-                    {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => (
-                                // Add the sorting props to control sorting. For this example
-                                // we can add them into the header props
-                                <th
-                                    className="block lg:table-cell whitespace-nowrap px-4 py-3
-                                    text-left text-sm font-medium tracking-wider 
-                                    border-b border-gray-700"
-                                >
-                                    <div
-                                        className="flex cursor-pointer"
-                                        {...column.getHeaderProps(
-                                            column.getSortByToggleProps()
-                                        )}
-                                    >
-                                        {column.render("Header")}
-                                        {/* Add a sort direction indicator */}
-                                        <span className="ml-2">
-                                            {column.isSorted ? (
-                                                column.isSortedDesc ? (
-                                                    <SortDescendingIcon className="w-6 h-6 text-orange-500" />
-                                                ) : (
-                                                    <SortAscendingIcon className="w-6 h-6 text-blue-500" />
-                                                )
-                                            ) : (
-                                                <SwitchVerticalIcon className="w-6 h-6" />
-                                            )}
-                                        </span>
+            <AutoSizer>
+                {({ height, width }) => (
+                    <>
+                        <VirtualizedTable
+                            ref={TableRef}
+                            width={width}
+                            height={height}
+                            headerHeight={84}
+                            rowHeight={cache.rowHeight}
+                            rowCount={rows.length}
+                            rowGetter={({ index }) => rows[index].original}
+                        >
+                            {headers.map((column, i) =>
+                                RenderColumn(column, i)
+                            )}
+                        </VirtualizedTable>
+                        <div
+                            {...getTableProps()}
+                            className="lg:hidden flex flex-col table-auto
+                                       border-separate max-w-full h-full"
+                            style={{ borderSpacing: "0 0.75rem" }}
+                        >
+                            <div className="lg:inline-block">
+                                {headers.map((column, i) =>
+                                    RenderHeader(column, i)
+                                )}
+                            </div>
+                            <div {...getTableBodyProps()} className="flex-auto">
+                                {rows.length === 0 && (
+                                    <div className="text-center block w-full mb-4 p-6 bg-gray-750 rounded-lg">
+                                        No tags found! :(
                                     </div>
-                                    <div>
-                                        {column.canFilter
-                                            ? column.render("Filter")
-                                            : null}
-                                    </div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()} className="flex-auto">
-                    <AutoSizer>
-                        {({ height, width }) => (
-                            <List
-                                height={height}
-                                width={width}
-                                rowCount={rows.length}
-                                rowHeight={cache.rowHeight}
-                                rowRenderer={RenderRow}
-                                deferredMeasurementCache={cache}
-                            />
-                        )}
-                    </AutoSizer>
-                </tbody>
-            </table>
-            {rows.length === 0 && (
-                <div className="text-center block w-full mb-4 p-6 bg-gray-750 rounded-lg">
-                    No tags found! :(
-                </div>
-            )}
+                                )}
+                                <List
+                                    height={height}
+                                    width={width}
+                                    rowCount={rows.length}
+                                    rowHeight={cache.rowHeight}
+                                    rowRenderer={RenderRow}
+                                    deferredMeasurementCache={cache}
+                                />
+                            </div>
+                        </div>
+                    </>
+                )}
+            </AutoSizer>
         </>
     );
 }
 
 interface RTableProps {
-    columns: Column[];
+    columns: Column<any>[];
     data: any[];
 }
 
