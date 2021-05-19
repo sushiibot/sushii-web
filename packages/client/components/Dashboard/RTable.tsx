@@ -254,8 +254,9 @@ function Table({ columns, data }: RTableProps) {
     useEffect(() => {
         // Rows different heights on rows change
         cache.clearAll();
+        mobileCache.clearAll();
         TableRef.current.recomputeRowHeights();
-        // ListRef.current.recomputeRowHeights();
+        ListRef.current.recomputeRowHeights();
     }, [rows]);
 
     const RenderRow = useCallback<ListRowRenderer>(
@@ -464,6 +465,7 @@ function Table({ columns, data }: RTableProps) {
                                 {({ width }) => (
                                     <div ref={registerChild}>
                                         <List
+                                            ref={ListRef}
                                             autoHeight={true}
                                             height={height}
                                             width={width}
