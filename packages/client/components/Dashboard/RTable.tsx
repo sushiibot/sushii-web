@@ -10,7 +10,7 @@ import {
     Column as VirtualizedColumn,
     Table as VirtualizedTable,
     TableCellRenderer,
-    TableHeaderRenderer,
+    WindowScroller,
 } from "react-virtualized";
 import "react-virtualized/styles.css";
 
@@ -144,7 +144,7 @@ function MobileRow({ row, i, prepareRow }: RowComponentProps) {
     const original = row.original as Tag;
 
     return (
-        <div {...row.getRowProps()} className="block lg:hidden">
+        <div {...row.getRowProps()} className="block lg:hidden pb-0.5">
             <div className="rounded-lg shadow-lg bg-gray-750 border border-gray-700 my-4 p-4">
                 <div className="text-sm flex items-center">
                     <img
@@ -204,6 +204,11 @@ const cache = new CellMeasurerCache({
     fixedWidth: true,
 });
 
+const mobileCache = new CellMeasurerCache({
+    defaultHeight: 458,
+    fixedWidth: true,
+});
+
 function Table({ columns, data }: RTableProps) {
     const filterTypes = useMemo(
         () => ({
@@ -216,7 +221,7 @@ function Table({ columns, data }: RTableProps) {
 
     const defaultColumn = useMemo(
         () => ({
-            // Let's set up our default Filter UI
+            // Default Filter UI
             Filter: DefaultColumnFilter,
         }),
         []
@@ -244,11 +249,13 @@ function Table({ columns, data }: RTableProps) {
     );
 
     const TableRef = useRef<VirtualizedTable>();
+    const ListRef = useRef<List>();
 
     useEffect(() => {
         // Rows different heights on rows change
         cache.clearAll();
         TableRef.current.recomputeRowHeights();
+        // ListRef.current.recomputeRowHeights();
     }, [rows]);
 
     const RenderRow = useCallback<ListRowRenderer>(
@@ -257,14 +264,14 @@ function Table({ columns, data }: RTableProps) {
 
             return (
                 <CellMeasurer
-                    cache={cache}
+                    cache={mobileCache}
                     columnIndex={0}
                     rowIndex={index}
                     key={key}
                     parent={parent}
                 >
                     {({ registerChild }) => (
-                        <div style={style} ref={registerChild}>
+                        <div ref={registerChild} style={style}>
                             <RowComponent
                                 row={row}
                                 i={index}
@@ -407,6 +414,14 @@ function Table({ columns, data }: RTableProps) {
         );
     };
 
+    const RenderEmpty = () => {
+        return (
+            <div className="text-center block w-full mb-4 p-6 bg-gray-750 rounded-lg">
+                No tags found! :(
+            </div>
+        );
+    };
+
     return (
         <>
             <div className="hidden">
@@ -416,7 +431,7 @@ function Table({ columns, data }: RTableProps) {
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
-            <AutoSizer>
+            <AutoSizer className="hidden lg:block">
                 {({ height, width }) => (
                     <>
                         <VirtualizedTable
@@ -432,36 +447,44 @@ function Table({ columns, data }: RTableProps) {
                                 RenderColumn(column, i)
                             )}
                         </VirtualizedTable>
-                        <div
-                            {...getTableProps()}
-                            className="lg:hidden flex flex-col table-auto
-                                       border-separate max-w-full h-full"
-                            style={{ borderSpacing: "0 0.75rem" }}
-                        >
-                            <div className="lg:inline-block">
-                                {headers.map((column, i) =>
-                                    RenderHeader(column, i)
-                                )}
-                            </div>
-                            <div {...getTableBodyProps()} className="flex-auto">
-                                {rows.length === 0 && (
-                                    <div className="text-center block w-full mb-4 p-6 bg-gray-750 rounded-lg">
-                                        No tags found! :(
-                                    </div>
-                                )}
-                                <List
-                                    height={height}
-                                    width={width}
-                                    rowCount={rows.length}
-                                    rowHeight={cache.rowHeight}
-                                    rowRenderer={RenderRow}
-                                    deferredMeasurementCache={cache}
-                                />
-                            </div>
-                        </div>
                     </>
                 )}
             </AutoSizer>
+            <div className="lg:hidden w-full">
+                <div className="lg:inline-block">
+                    {headers.map((column, i) => RenderHeader(column, i))}
+                </div>
+                <WindowScroller>
+                    {({ height, registerChild, scrollTop, onChildScroll }) => {
+                        console.log("height", height);
+                        console.log("scrollTop", scrollTop);
+
+                        return (
+                            <AutoSizer disableHeight>
+                                {({ width }) => (
+                                    <div ref={registerChild}>
+                                        <List
+                                            autoHeight={true}
+                                            height={height}
+                                            width={width}
+                                            scrollTop={scrollTop}
+                                            onScroll={onChildScroll}
+                                            rowCount={rows.length}
+                                            rowHeight={mobileCache.rowHeight}
+                                            rowRenderer={RenderRow}
+                                            deferredMeasurementCache={
+                                                mobileCache
+                                            }
+                                            noRowsRenderer={RenderEmpty}
+                                            overscanRowCount={2}
+                                        />
+                                    </div>
+                                )}
+                            </AutoSizer>
+                        );
+                    }}
+                </WindowScroller>
+            </div>
         </>
     );
 }
