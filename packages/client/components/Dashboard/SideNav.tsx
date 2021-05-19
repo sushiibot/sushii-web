@@ -95,37 +95,44 @@ export default function SideNav({
     }, [currentPath, navData, baseRoute]);
 
     return (
-        <div className="w-full md:w-64 px-2">
-            <button
-                className="md:hidden h-6 ml-2 mb-4"
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
+        <>
+            <div
+                className="md:hidden w-full mb-2 border-b border-gray-700
+                          bg-gray-1000 fixed z-40"
             >
-                <MenuAlt2Icon className="w-6 h-6 inline-block" />
-                <span className="ml-2">
-                    {isMobileOpen ? "Hide Server Menu" : "Show Server Menu"}
-                </span>
-            </button>
-            <div className="relative">
-                {/* Header guild info etc */}
-                {children}
-                <div className="md:hidden">
-                    <motion.ul
-                        ref={menuRef}
-                        variants={linksVariants}
-                        animate={!isMobileOpen ? "closed" : "open"}
-                        className="absolute top-0 left-0 w-64 px-2 bg-gray-1000 
-                               border-r border-t border-gray-700"
-                        style={{ height: "calc(100vh - 56px)" }}
-                    >
-                        <NavTree baseRoute={baseRoute} content={content} />
-                    </motion.ul>
-                </div>
-                {/* Desktop navbar, not animated, not hidable */}
-                <ul className="hidden md:block top-0 left-0 w-64 px-2">
-                    <NavTree baseRoute={baseRoute} content={content} />
-                </ul>
+                <button
+                    className="ml-4 py-4"
+                    onClick={() => setIsMobileOpen(!isMobileOpen)}
+                >
+                    <MenuAlt2Icon className="w-6 h-6 inline-block" />
+                    <span className="ml-2">
+                        {isMobileOpen ? "Hide Server Menu" : "Show Server Menu"}
+                    </span>
+                </button>
             </div>
-        </div>
+            <div className="md:hidden h-14"></div>
+            <div className="w-full md:w-64 px-2">
+                <div className="relative">
+                    {/* Header guild info etc */}
+                    {children}
+                    <div className="md:hidden">
+                        <motion.ul
+                            ref={menuRef}
+                            variants={linksVariants}
+                            animate={!isMobileOpen ? "closed" : "open"}
+                            className="fixed z-30 top-32 left-0 h-screen w-64 px-2 bg-gray-1000 
+                               border-r border-t border-gray-700"
+                        >
+                            <NavTree baseRoute={baseRoute} content={content} />
+                        </motion.ul>
+                    </div>
+                    {/* Desktop navbar, not animated, not hidable */}
+                    <ul className="hidden md:block top-0 left-0 w-64 px-2">
+                        <NavTree baseRoute={baseRoute} content={content} />
+                    </ul>
+                </div>
+            </div>
+        </>
     );
 }
 
