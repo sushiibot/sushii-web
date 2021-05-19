@@ -254,8 +254,9 @@ function Table({ columns, data }: RTableProps) {
     const resetSizes = () => {
         cache.clearAll();
         mobileCache.clearAll();
-        TableRef.current.recomputeRowHeights();
-        ListRef.current.recomputeRowHeights();
+
+        TableRef.current && TableRef.current.recomputeRowHeights();
+        ListRef.current && ListRef.current.recomputeRowHeights();
     };
 
     useEffect(() => {
@@ -447,6 +448,7 @@ function Table({ columns, data }: RTableProps) {
                             rowHeight={cache.rowHeight}
                             rowCount={rows.length}
                             rowGetter={({ index }) => rows[index].original}
+                            noRowsRenderer={RenderEmpty}
                         >
                             {headers.map((column, i) =>
                                 RenderColumn(column, i)
@@ -460,35 +462,28 @@ function Table({ columns, data }: RTableProps) {
                     {headers.map((column, i) => RenderHeader(column, i))}
                 </div>
                 <WindowScroller>
-                    {({ height, registerChild, scrollTop, onChildScroll }) => {
-                        console.log("height", height);
-                        console.log("scrollTop", scrollTop);
-
-                        return (
-                            <AutoSizer disableHeight>
-                                {({ width }) => (
-                                    <div ref={registerChild}>
-                                        <List
-                                            ref={ListRef}
-                                            autoHeight={true}
-                                            height={height}
-                                            width={width}
-                                            scrollTop={scrollTop}
-                                            onScroll={onChildScroll}
-                                            rowCount={rows.length}
-                                            rowHeight={mobileCache.rowHeight}
-                                            rowRenderer={RenderRow}
-                                            deferredMeasurementCache={
-                                                mobileCache
-                                            }
-                                            noRowsRenderer={RenderEmpty}
-                                            overscanRowCount={2}
-                                        />
-                                    </div>
-                                )}
-                            </AutoSizer>
-                        );
-                    }}
+                    {({ height, registerChild, scrollTop, onChildScroll }) => (
+                        <AutoSizer disableHeight>
+                            {({ width }) => (
+                                <div ref={registerChild}>
+                                    <List
+                                        ref={ListRef}
+                                        autoHeight={true}
+                                        height={height}
+                                        width={width}
+                                        scrollTop={scrollTop}
+                                        onScroll={onChildScroll}
+                                        rowCount={rows.length}
+                                        rowHeight={mobileCache.rowHeight}
+                                        rowRenderer={RenderRow}
+                                        deferredMeasurementCache={mobileCache}
+                                        noRowsRenderer={RenderEmpty}
+                                        overscanRowCount={2}
+                                    />
+                                </div>
+                            )}
+                        </AutoSizer>
+                    )}
                 </WindowScroller>
             </div>
         </>

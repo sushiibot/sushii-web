@@ -13,7 +13,14 @@ import { GraphQLClient } from "graphql-request";
 
 const queryClient = new QueryClient();
 
-function App({ Component, pageProps }: AppProps) {
+interface AppPropsE {
+    Component: AppProps["Component"] & {
+        getLayout: (page: JSX.Element) => JSX.Element;
+    };
+    pageProps: AppProps["pageProps"];
+}
+
+function App({ Component, pageProps }: AppPropsE) {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +44,8 @@ function App({ Component, pageProps }: AppProps) {
             router.events.off("routeChangeComplete", handleRouteChangeComplete);
         };
     }, []);
+
+    const getLayout = Component.getLayout || ((page) => page);
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -90,7 +99,7 @@ function App({ Component, pageProps }: AppProps) {
                         ></script>
                     </Head>
                     <Nav />
-                    <Component {...pageProps} />
+                    {getLayout(<Component {...pageProps}></Component>)}
                     <Footer />
                 </div>
                 <ReactQueryDevtools initialIsOpen={false} />

@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import RTable from "../../../components/Dashboard/RTable";
 
-export default function TagsBody() {
+export default function TagsPage() {
     const { guildId } = useDashboardRouter();
 
     const client = useGraphQLQuery();
@@ -15,7 +15,7 @@ export default function TagsBody() {
     });
 
     return (
-        <Layout>
+        <>
             <h1 className="text-4xl font-medium">Server Tags</h1>
             <h2 className="text-lg">
                 {data ? data.tags.totalCount.toLocaleString() : "..."} total
@@ -88,6 +88,8 @@ export default function TagsBody() {
                     />
                 )}
             </div>
-        </Layout>
+        </>
     );
 }
+
+TagsPage.getLayout = (page) => <Layout>{page}</Layout>;

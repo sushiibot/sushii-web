@@ -14,7 +14,7 @@ export default function GuildLeaderboardPage() {
     const guildIdIsNum = /^\d+$/.test(guildId);
 
     return (
-        <Layout>
+        <>
             <Head>
                 <title>Leaderboard | sushii 2</title>
             </Head>
@@ -28,6 +28,8 @@ export default function GuildLeaderboardPage() {
                     />
                 )}
             </section>
-        </Layout>
+        </>
     );
 }
+
+GuildLeaderboardPage.getLayout = (page) => <Layout>{page}</Layout>;
