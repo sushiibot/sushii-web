@@ -251,12 +251,16 @@ function Table({ columns, data }: RTableProps) {
     const TableRef = useRef<VirtualizedTable>();
     const ListRef = useRef<List>();
 
-    useEffect(() => {
-        // Rows different heights on rows change
+    const resetSizes = () => {
         cache.clearAll();
         mobileCache.clearAll();
         TableRef.current.recomputeRowHeights();
         ListRef.current.recomputeRowHeights();
+    };
+
+    useEffect(() => {
+        // Rows different heights on rows change
+        resetSizes();
     }, [rows]);
 
     const RenderRow = useCallback<ListRowRenderer>(
@@ -432,7 +436,7 @@ function Table({ columns, data }: RTableProps) {
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
-            <AutoSizer className="hidden lg:block">
+            <AutoSizer className="hidden lg:block" onResize={resetSizes}>
                 {({ height, width }) => (
                     <>
                         <VirtualizedTable
