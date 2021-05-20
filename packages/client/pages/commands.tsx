@@ -62,8 +62,8 @@ export default function Commands() {
                             </div>
                             <span className="ml-1 prose">
                                 <ReactMarkdown
-                                    renderers={{
-                                        paragraph: "span",
+                                    components={{
+                                        p: "span",
                                         div: "span",
                                     }}
                                 >
