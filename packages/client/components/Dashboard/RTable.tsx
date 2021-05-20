@@ -148,6 +148,7 @@ function MobileRow({ row, i, prepareRow }: RowComponentProps) {
             <div className="rounded-lg shadow-lg bg-gray-750 border border-gray-700 my-4 p-4">
                 <div className="text-sm flex items-center">
                     <img
+                        loading="lazy"
                         className="rounded-full w-6 h-6"
                         src={
                             original.owner?.avatarUrl ||

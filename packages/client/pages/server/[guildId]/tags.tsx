@@ -44,6 +44,7 @@ export default function TagsPage() {
                                         </div>
                                         <div className="text-sm flex items-center">
                                             <img
+                                                loading="lazy"
                                                 className="rounded-full w-6 h-6"
                                                 src={
                                                     row.owner?.avatarUrl ||
