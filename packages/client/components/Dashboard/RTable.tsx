@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import type { Tag } from "@sushii-web/graphql";
-import List from "react-virtualized/dist/commonjs/List";
-import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
-import { CellMeasurer, CellMeasurerCache } from "react-virtualized";
+import {
+    CellMeasurer,
+    CellMeasurerCache,
+    AutoSizer,
+    List,
+} from "react-virtualized";
 import type { ListRowRenderer } from "react-virtualized";
 import {
     Column as VirtualizedColumn,
@@ -279,7 +282,7 @@ function Table({ columns, data }: RTableProps) {
                 >
                     {({ registerChild }) => (
                         <div ref={registerChild} style={style}>
-                            <RowComponent
+                            <MobileRow
                                 row={row}
                                 i={index}
                                 prepareRow={prepareRow}
@@ -463,7 +466,7 @@ function Table({ columns, data }: RTableProps) {
                     {headers.map((column, i) => RenderHeader(column, i))}
                 </div>
                 <WindowScroller>
-                    {({ height, registerChild, scrollTop, onChildScroll }) => (
+                    {({ height, registerChild, scrollTop }) => (
                         <AutoSizer disableHeight>
                             {({ width }) => (
                                 <div ref={registerChild}>
@@ -473,13 +476,12 @@ function Table({ columns, data }: RTableProps) {
                                         height={height}
                                         width={width}
                                         scrollTop={scrollTop}
-                                        onScroll={onChildScroll}
                                         rowCount={rows.length}
                                         rowHeight={mobileCache.rowHeight}
                                         rowRenderer={RenderRow}
                                         deferredMeasurementCache={mobileCache}
                                         noRowsRenderer={RenderEmpty}
-                                        overscanRowCount={2}
+                                        overscanRowCount={10}
                                     />
                                 </div>
                             )}

@@ -70,8 +70,6 @@ export default function Nav() {
 
     const { scrollY } = useScroll();
 
-    console.log(scrollY);
-
     return (
         <div
             className={
