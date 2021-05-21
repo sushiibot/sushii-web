@@ -212,8 +212,15 @@ const mobileCache = new CellMeasurerCache({
     defaultHeight: 458,
     fixedWidth: true,
 });
+interface RTableProps {
+    columns: Column<any>[];
+    data: any[];
+}
 
-function Table({ columns, data }: RTableProps) {
+export default function RTable({ columns, data }: RTableProps) {
+    const columnsMemo = useMemo(() => columns, [columns]);
+    const dataMemo = useMemo(() => data, [data]);
+
     const filterTypes = useMemo(
         () => ({
             fuzzyText: fuzzyTextFilterFn,
@@ -242,8 +249,8 @@ function Table({ columns, data }: RTableProps) {
         setGlobalFilter,
     } = useTable(
         {
-            columns,
-            data,
+            columns: columnsMemo,
+            data: dataMemo,
             defaultColumn,
             filterTypes,
         },
@@ -325,7 +332,7 @@ function Table({ columns, data }: RTableProps) {
 
     console.log(rows, data);
 
-    const RenderColumn = (column, i) => {
+    const RenderColumn = useCallback((column, i) => {
         return (
             <VirtualizedColumn
                 width={190}
@@ -389,9 +396,9 @@ function Table({ columns, data }: RTableProps) {
                 }}
             />
         );
-    };
+    }, []);
 
-    const RenderHeader = (column, i) => {
+    const RenderHeader = useCallback((column, i) => {
         // Add the sorting props to control sorting. For this example
         // we can add them into the header props
         return (
@@ -422,7 +429,7 @@ function Table({ columns, data }: RTableProps) {
                 <div>{column.canFilter ? column.render("Filter") : null}</div>
             </div>
         );
-    };
+    }, []);
 
     const RenderEmpty = () => {
         return (
@@ -491,16 +498,4 @@ function Table({ columns, data }: RTableProps) {
             </div>
         </>
     );
-}
-
-interface RTableProps {
-    columns: Column<any>[];
-    data: any[];
-}
-
-export default function RTable({ columns, data }: RTableProps) {
-    const columnsMemo = useMemo(() => columns, [columns]);
-    const dataMemo = useMemo(() => data, [data]);
-
-    return <Table columns={columnsMemo} data={dataMemo} />;
 }
