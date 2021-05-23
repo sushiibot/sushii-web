@@ -5,6 +5,7 @@ import { useDashboardRouter } from "../../../lib/dashboardRouter";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import RTable from "../../../components/Dashboard/RTable";
+import type { Row } from "react-table";
 
 export default function TagsPage() {
     const { guildId } = useDashboardRouter();
@@ -70,6 +71,28 @@ export default function TagsPage() {
                                 Header: "Owner",
                                 id: "owner",
                                 filter: "fuzzyOwnerObj",
+                                sortType: (a: Row<Tag>, b: Row<Tag>) => {
+                                    if (
+                                        a.original.owner?.name &&
+                                        b.original.owner?.name
+                                    ) {
+                                        return a.original.owner.name.localeCompare(
+                                            b.original.owner.name
+                                        );
+                                    }
+
+                                    if (!a.original.owner) {
+                                        return -1;
+                                    }
+
+                                    if (!b.original.owner) {
+                                        return -1;
+                                    }
+
+                                    return (
+                                        a.original.ownerId - b.original.ownerId
+                                    );
+                                },
                             },
                             {
                                 accessor: "useCount",
