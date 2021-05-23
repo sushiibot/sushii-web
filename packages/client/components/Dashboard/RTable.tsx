@@ -12,8 +12,9 @@ import type { ListRowRenderer } from "react-virtualized";
 import {
     Column as VirtualizedColumn,
     Table as VirtualizedTable,
-    TableCellRenderer,
+    TableCellProps,
     WindowScroller,
+    TableHeaderProps,
 } from "react-virtualized";
 import "react-virtualized/styles.css";
 
@@ -34,6 +35,7 @@ import {
     SwitchVerticalIcon,
 } from "@heroicons/react/solid";
 import { matchSorter } from "match-sorter";
+import useWindowDimensions from "../../lib/useWindowDimensions";
 
 function GlobalFilter({
     preGlobalFilteredRows,
@@ -146,6 +148,19 @@ function MobileRow({ row, i, prepareRow }: RowComponentProps) {
 
     const original = row.original as Tag;
 
+    const markdownContent = useMemo(
+        () => (
+            <ReactMarkdown
+                className="prose break-words text-gray-400"
+                remarkPlugins={[gfm]}
+                linkTarget="_blank"
+            >
+                {original.content}
+            </ReactMarkdown>
+        ),
+        [original.content]
+    );
+
     return (
         <div {...row.getRowProps()} className="block lg:hidden pb-0.5">
             <div className="rounded-lg shadow-lg bg-gray-750 border border-gray-700 my-4 p-4">
@@ -167,14 +182,7 @@ function MobileRow({ row, i, prepareRow }: RowComponentProps) {
                 <div className="mt-2 text-lg font-semibold">
                     {original.tagName}
                 </div>
-
-                <ReactMarkdown
-                    className="prose break-words text-gray-400"
-                    remarkPlugins={[gfm]}
-                    linkTarget="_blank"
-                >
-                    {original.content}
-                </ReactMarkdown>
+                {markdownContent}
                 <div className="mt-2 text-sm text-gray-300 flex justify-between">
                     <span>Used {original.useCount} times</span>
 
@@ -212,6 +220,15 @@ const mobileCache = new CellMeasurerCache({
     defaultHeight: 458,
     fixedWidth: true,
 });
+
+interface TableCellRendererWithColumn extends TableCellProps {
+    column: any;
+}
+
+interface TableHeaderRendererWithColumn extends TableHeaderProps {
+    column: any;
+}
+
 interface RTableProps {
     columns: Column<any>[];
     data: any[];
@@ -220,6 +237,8 @@ interface RTableProps {
 export default function RTable({ columns, data }: RTableProps) {
     const columnsMemo = useMemo(() => columns, [columns]);
     const dataMemo = useMemo(() => data, [data]);
+
+    const { width } = useWindowDimensions();
 
     const filterTypes = useMemo(
         () => ({
@@ -275,9 +294,11 @@ export default function RTable({ columns, data }: RTableProps) {
         resetSizes();
     }, [rows]);
 
+    // Render an entire row on mobile, single component
     const RenderRow = useCallback<ListRowRenderer>(
         ({ index, parent, key, style }) => {
             const row = rows[index];
+            prepareRow(row);
 
             return (
                 <CellMeasurer
@@ -302,9 +323,10 @@ export default function RTable({ columns, data }: RTableProps) {
         [prepareRow, rows]
     );
 
-    const RenderContentCell = useCallback<TableCellRenderer>(
-        ({ rowIndex, columnIndex, parent, dataKey, rowData }) => {
-            const content = rowData[dataKey];
+    // Render a single table cell on desktop
+    const RenderContentCell = useCallback<(TableCellRendererWithColumn) => any>(
+        ({ rowIndex, columnIndex, parent, dataKey, rowData, column }) => {
+            // prepareRow(rowData);
 
             return (
                 <CellMeasurer
@@ -314,14 +336,11 @@ export default function RTable({ columns, data }: RTableProps) {
                     parent={parent}
                 >
                     {({ registerChild }) => (
-                        <div ref={registerChild} className="whitespace-normal">
-                            <ReactMarkdown
-                                className="prose break-words"
-                                remarkPlugins={[gfm]}
-                                linkTarget="_blank"
-                            >
-                                {content}
-                            </ReactMarkdown>
+                        <div
+                            ref={registerChild}
+                            className="whitespace-normal px-4 py-4"
+                        >
+                            {column.accessor(rowData)}
                         </div>
                     )}
                 </CellMeasurer>
@@ -330,7 +349,38 @@ export default function RTable({ columns, data }: RTableProps) {
         [prepareRow, rows]
     );
 
-    console.log(rows, data);
+    const RenderTableHeader = useCallback<
+        (TableHeaderRendererWithColumn) => any
+    >(
+        ({ column }) => (
+            <div
+                className="whitespace-nowrap px-4 py-3 normal-case
+                                       text-left text-sm font-medium tracking-wider 
+                                       border-b border-gray-700"
+            >
+                <div
+                    className="flex cursor-pointer"
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                >
+                    {column.render("Header")}
+                    {/* Add a sort direction indicator */}
+                    <span className="ml-2">
+                        {column.isSorted ? (
+                            column.isSortedDesc ? (
+                                <SortDescendingIcon className="w-6 h-6 text-orange-500" />
+                            ) : (
+                                <SortAscendingIcon className="w-6 h-6 text-blue-500" />
+                            )
+                        ) : (
+                            <SwitchVerticalIcon className="w-6 h-6" />
+                        )}
+                    </span>
+                </div>
+                <div>{column.canFilter ? column.render("Filter") : null}</div>
+            </div>
+        ),
+        [rows]
+    );
 
     const RenderColumn = useCallback((column, i) => {
         return (
@@ -340,60 +390,10 @@ export default function RTable({ columns, data }: RTableProps) {
                 label={column.Header}
                 dataKey={column.id}
                 className="whitespace-normal self-start"
-                cellRenderer={({ rowIndex, columnIndex, parent, rowData }) => {
-                    return (
-                        <CellMeasurer
-                            cache={cache}
-                            columnIndex={columnIndex}
-                            rowIndex={rowIndex}
-                            parent={parent}
-                        >
-                            {({ registerChild }) => (
-                                <div
-                                    ref={registerChild}
-                                    className="whitespace-normal px-4 py-4"
-                                >
-                                    {column.accessor(rowData)}
-                                </div>
-                            )}
-                        </CellMeasurer>
-                    );
-                }}
-                headerRenderer={() => {
-                    return (
-                        <div
-                            className="whitespace-nowrap px-4 py-3 normal-case
-                                       text-left text-sm font-medium tracking-wider 
-                                       border-b border-gray-700"
-                        >
-                            <div
-                                className="flex cursor-pointer"
-                                {...column.getHeaderProps(
-                                    column.getSortByToggleProps()
-                                )}
-                            >
-                                {column.render("Header")}
-                                {/* Add a sort direction indicator */}
-                                <span className="ml-2">
-                                    {column.isSorted ? (
-                                        column.isSortedDesc ? (
-                                            <SortDescendingIcon className="w-6 h-6 text-orange-500" />
-                                        ) : (
-                                            <SortAscendingIcon className="w-6 h-6 text-blue-500" />
-                                        )
-                                    ) : (
-                                        <SwitchVerticalIcon className="w-6 h-6" />
-                                    )}
-                                </span>
-                            </div>
-                            <div>
-                                {column.canFilter
-                                    ? column.render("Filter")
-                                    : null}
-                            </div>
-                        </div>
-                    );
-                }}
+                cellRenderer={(cellData) =>
+                    RenderContentCell({ ...cellData, column })
+                }
+                headerRenderer={() => RenderTableHeader({ column })}
             />
         );
     }, []);
@@ -448,54 +448,60 @@ export default function RTable({ columns, data }: RTableProps) {
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
-            <AutoSizer className="hidden lg:block" onResize={resetSizes}>
-                {({ height, width }) => (
-                    <>
-                        <VirtualizedTable
-                            ref={TableRef}
-                            width={width}
-                            height={height}
-                            headerHeight={84}
-                            rowHeight={cache.rowHeight}
-                            rowCount={rows.length}
-                            rowGetter={({ index }) => rows[index].original}
-                            noRowsRenderer={RenderEmpty}
-                        >
-                            {headers.map((column, i) =>
-                                RenderColumn(column, i)
-                            )}
-                        </VirtualizedTable>
-                    </>
-                )}
-            </AutoSizer>
-            <div className="lg:hidden w-full">
-                <div className="lg:inline-block">
-                    {headers.map((column, i) => RenderHeader(column, i))}
-                </div>
-                <WindowScroller>
-                    {({ height, registerChild, scrollTop }) => (
-                        <AutoSizer disableHeight>
-                            {({ width }) => (
-                                <div ref={registerChild}>
-                                    <List
-                                        ref={ListRef}
-                                        autoHeight={true}
-                                        height={height}
-                                        width={width}
-                                        scrollTop={scrollTop}
-                                        rowCount={rows.length}
-                                        rowHeight={mobileCache.rowHeight}
-                                        rowRenderer={RenderRow}
-                                        deferredMeasurementCache={mobileCache}
-                                        noRowsRenderer={RenderEmpty}
-                                        overscanRowCount={10}
-                                    />
-                                </div>
-                            )}
-                        </AutoSizer>
+            {/* -lg size, prevent render entirely */}
+            {width > 1024 ? (
+                <AutoSizer onResize={resetSizes}>
+                    {({ height, width }) => (
+                        <>
+                            <VirtualizedTable
+                                ref={TableRef}
+                                width={width}
+                                height={height}
+                                headerHeight={84}
+                                rowHeight={cache.rowHeight}
+                                rowCount={rows.length}
+                                rowGetter={({ index }) => rows[index].original}
+                                noRowsRenderer={RenderEmpty}
+                            >
+                                {headers.map((column, i) =>
+                                    RenderColumn(column, i)
+                                )}
+                            </VirtualizedTable>
+                        </>
                     )}
-                </WindowScroller>
-            </div>
+                </AutoSizer>
+            ) : (
+                <div className="w-full">
+                    <div className="lg:inline-block">
+                        {headers.map((column, i) => RenderHeader(column, i))}
+                    </div>
+                    <WindowScroller>
+                        {({ height, registerChild, scrollTop }) => (
+                            <AutoSizer disableHeight>
+                                {({ width }) => (
+                                    <div ref={registerChild}>
+                                        <List
+                                            ref={ListRef}
+                                            autoHeight={true}
+                                            height={height}
+                                            width={width}
+                                            scrollTop={scrollTop}
+                                            rowCount={rows.length}
+                                            rowHeight={mobileCache.rowHeight}
+                                            rowRenderer={RenderRow}
+                                            deferredMeasurementCache={
+                                                mobileCache
+                                            }
+                                            noRowsRenderer={RenderEmpty}
+                                            overscanRowCount={10}
+                                        />
+                                    </div>
+                                )}
+                            </AutoSizer>
+                        )}
+                    </WindowScroller>
+                </div>
+            )}
         </>
     );
 }
