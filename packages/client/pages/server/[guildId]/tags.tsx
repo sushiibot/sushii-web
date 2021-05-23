@@ -86,7 +86,7 @@ export default function TagsPage() {
                                     }
 
                                     if (!b.original.owner) {
-                                        return -1;
+                                        return 1;
                                     }
 
                                     return (
