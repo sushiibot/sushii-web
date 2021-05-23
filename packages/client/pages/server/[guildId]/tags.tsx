@@ -10,9 +10,16 @@ export default function TagsPage() {
     const { guildId } = useDashboardRouter();
 
     const client = useGraphQLQuery();
-    const { status, data, error, isFetching } = useGuildTagsQuery(client, {
-        guildId,
-    });
+    const { status, data, error, isFetching } = useGuildTagsQuery(
+        client,
+        {
+            guildId,
+        },
+        {
+            // 30 minutes
+            staleTime: 30 * 60 * 1000,
+        }
+    );
 
     return (
         <>
