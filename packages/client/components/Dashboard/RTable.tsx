@@ -340,7 +340,11 @@ export default function RTable({ columns, data }: RTableProps) {
                             ref={registerChild}
                             className="whitespace-normal px-4 py-4"
                         >
-                            {column.accessor(rowData)}
+                            {/* dumb way to add more space on bottom,
+                             later border-4 to add "space" between elements */}
+                            <div className="mb-2">
+                                {column.accessor(rowData)}
+                            </div>
                         </div>
                     )}
                 </CellMeasurer>
@@ -355,8 +359,8 @@ export default function RTable({ columns, data }: RTableProps) {
         ({ column }) => (
             <div
                 className="whitespace-nowrap px-4 py-3 normal-case
-                                       text-left text-sm font-medium tracking-wider 
-                                       border-b border-gray-700"
+                           text-left text-sm font-medium tracking-wider 
+                           border-b border-gray-700"
             >
                 <div
                     className="flex cursor-pointer"
@@ -389,7 +393,8 @@ export default function RTable({ columns, data }: RTableProps) {
                 flexGrow={i === 3 ? 1 : 0}
                 label={column.Header}
                 dataKey={column.id}
-                className="whitespace-normal self-start"
+                className="whitespace-normal self-start first:rounded-l-lg last:rounded-r-lg bg-gray-750"
+                style={{ overflow: "visible", marginRight: 0, height: "100%" }}
                 cellRenderer={(cellData) =>
                     RenderContentCell({ ...cellData, column })
                 }
@@ -457,10 +462,14 @@ export default function RTable({ columns, data }: RTableProps) {
                                 ref={TableRef}
                                 width={width}
                                 height={height}
-                                headerHeight={84}
+                                headerHeight={120}
                                 rowHeight={cache.rowHeight}
                                 rowCount={rows.length}
                                 rowGetter={({ index }) => rows[index].original}
+                                rowStyle={{ overflow: "visible" }}
+                                rowClassName={({ index }) =>
+                                    index >= 0 ? "border-4 border-gray-800" : ""
+                                }
                                 noRowsRenderer={RenderEmpty}
                             >
                                 {headers.map((column, i) =>

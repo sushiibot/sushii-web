@@ -34,8 +34,13 @@ export default async function installSSR(app: Express) {
     app.get("*", async (req, res) => {
         const handler = await handlerPromise;
         const parsedUrl = parse(req.url, true);
-        handler(req, res, {
-            ...parsedUrl,
+        handler(
+            req,
+            res,
+            parsedUrl
+            // TODO: Might need to re-add csrf later, currently adds these queries
+            // to the url on SSR / redirects which looks messy
+            /*
             query: {
                 ...parsedUrl.query,
                 CSRF_TOKEN: req.csrfToken(),
@@ -43,6 +48,7 @@ export default async function installSSR(app: Express) {
                 ROOT_URL: process.env.ROOT_URL || "http://localhost:5678",
                 T_AND_C_URL: process.env.T_AND_C_URL,
             },
-        });
+            */
+        );
     });
 }
