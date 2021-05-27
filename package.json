@@ -1,6 +1,6 @@
 {
     "name": "sushii-web",
-    "version": "1.0.5-rc.2",
+    "version": "1.0.6",
     "main": "index.js",
     "repository": "git@github.com:sushiibot/sushii-web.git",
     "author": "drklee3 <derrick@dlee.dev>",
