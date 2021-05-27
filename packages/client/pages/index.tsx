@@ -25,7 +25,7 @@ export default function Home() {
                             className="inline-block font-medium p-2 px-4 mr-4 mb-2 rounded-lg \
                                        transition-all relative top-0 hover:-top-0.5 \
                                        bg-gradient-to-br from-purple-400 via-blue-500 to-teal-500"
-                            href="=https://discord.com/api/oauth2/authorize?client_id=193163942502072320&permissions=268823622&scope=applications.commands%20bot"
+                            href="https://discord.com/api/oauth2/authorize?client_id=193163942502072320&permissions=268823622&scope=applications.commands%20bot"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
