@@ -1,4 +1,3 @@
-import Settings from "./pages/Settings";
 import { NavItem, NavItemType } from "./NavItems";
 
 interface DashboardBodyProps {
@@ -20,8 +19,6 @@ export default function DashboardBody({
     console.log("Current path:", currentPath);
 
     switch (currentPath) {
-        case "/settings/general":
-            return <Settings />;
         default:
             return <div>Dashboard Home</div>;
     }

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import DashboardBody from "./Body";
 import { NavItem, NavItemType } from "./NavItems";
 import SideNav from "./SideNav";
 import Icon from "../Icon";
+import GuildSideBarLayout from "../Layouts/GuildSideBarLayout";
 
 const NAV_DATA: NavItem[] = [
     {
-        title: "Admin tools",
+        title: "Tools",
         type: NavItemType.NavItemSection,
         routes: [
             {
@@ -75,50 +75,12 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-    const router = useRouter();
-    const currentPath = router.asPath;
-    const guildId = Array.isArray(router.query.guildId)
-        ? router.query.guildId.join("")
-        : router.query.guildId;
-
-    const baseRoute = `/dashboard/${guildId}`;
-
     return (
-        <section className="flex-grow max-w-screen-2xl mx-auto min-h-full inline-flex">
-            <SideNav
-                navData={NAV_DATA}
-                baseRoute={baseRoute}
-                currentPath={currentPath}
-            />
-            <div className="ml-4">
-                <div className="hidden">
-                    <Link href="/dashboard">
-                        <a>
-                            <svg
-                                className="w-4 h-4 inline mr-2"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            Back to server list
-                        </a>
-                    </Link>
-                    {/* This supposed to be below */}
-                    <DashboardBody
-                        guildId={guildId}
-                        navData={NAV_DATA}
-                        currentPath={currentPath}
-                        baseRoute={baseRoute}
-                    />
-                </div>
-                {children}
-            </div>
-        </section>
+        <GuildSideBarLayout
+            navData={NAV_DATA}
+            baseRouteFn={(guildId) => `/dashboard/${guildId}`}
+        >
+            {children}
+        </GuildSideBarLayout>
     );
 }

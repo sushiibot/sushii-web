@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useGraphQLQuery } from "../../../lib/useGraphQLQuery";
-import { getGuildIconUrl } from "../../../lib/discordCdn";
+import { useGraphQLQuery } from "../../../../lib/useGraphQLQuery";
+import { getGuildIconUrl } from "../../../../lib/discordCdn";
 import {
     useGuildConfigQuery,
     useEditGuildConfigMutation,
@@ -8,13 +8,14 @@ import {
 } from "@sushii-web/graphql";
 import { useQueryClient } from "react-query";
 import Link from "next/link";
+import Layout from "../../../../components/Dashboard/Layout";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import TextInput from "../Inputs/TextInput";
-import ToggleInput from "../Inputs/ToggleInput";
-import Icon from "../../../components/Icon";
+import TextInput from "../../../../components/Dashboard/Inputs/TextInput";
+import ToggleInput from "../../../../components/Dashboard/Inputs/ToggleInput";
+import Icon from "../../../../components/Icon";
 
-export default function DashboardBody() {
+export default function SettingsGeneralPage() {
     const router = useRouter();
     const guildId = Array.isArray(router.query.guildId)
         ? router.query.guildId.join("")
@@ -120,3 +121,5 @@ export default function DashboardBody() {
         </div>
     );
 }
+
+SettingsGeneralPage.getLayout = (page) => <Layout>{page}</Layout>;
