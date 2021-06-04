@@ -71,7 +71,13 @@ function Input({ name, parameter, register }: InputProps) {
                     </label>
                 ) : (
                     <label>
-                        <span className="block">{parameter.name}</span>
+                        <p className="block">
+                            {parameter.name}
+                            <br />
+                            <span className="text-sm text-gray-400">
+                                {parameter.title}
+                            </span>
+                        </p>
                         <input
                             className="bg-gray-700 text-white p-2 my-2 rounded"
                             type={parameter.type || "text"}
@@ -79,6 +85,9 @@ function Input({ name, parameter, register }: InputProps) {
                                 parameter.defaultValue || ""
                             ).toString()}
                             required={parameter.required}
+                            placeholder={(
+                                parameter.exampleValue || ""
+                            ).toString()}
                             {...register(name)}
                         />
                     </label>
