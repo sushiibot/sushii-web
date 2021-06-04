@@ -112,26 +112,32 @@ function BridgeForm({ groupName, parameters, onSubmit }: BridgeFormProps) {
 
     return (
         <div className="mt-4 bg-gray-800 p-4 rounded">
-            {groupName && <h4 className="text-xl font-medium">{groupName}</h4>}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="">
-                    {Object.entries(parameters as ParameterList).map(
-                        ([parameterName, parameter]) => (
-                            <Input
-                                key={parameterName}
-                                name={parameterName}
-                                parameter={parameter}
-                                register={register}
-                            />
-                        )
-                    )}
-                    <button
-                        className="bg-blue-500 px-2 py-1 rounded"
-                        type="submit"
-                    >
-                        Add Feed
-                    </button>
-                </div>
+                {groupName && (
+                    <>
+                        <h4 className="text-xl font-medium">{groupName}</h4>
+
+                        <input
+                            className="hidden"
+                            type="text"
+                            {...register("context")}
+                            value={groupName}
+                        />
+                    </>
+                )}
+                {Object.entries(parameters as ParameterList).map(
+                    ([parameterName, parameter]) => (
+                        <Input
+                            key={parameterName}
+                            name={parameterName}
+                            parameter={parameter}
+                            register={register}
+                        />
+                    )
+                )}
+                <button className="bg-blue-500 px-2 py-1 rounded" type="submit">
+                    Add Feed
+                </button>
             </form>
         </div>
     );
@@ -176,8 +182,8 @@ function BridgeParameters({
     if (Array.isArray(parameters) && parameters.length === 1) {
         return <BridgeForm parameters={parameters[0]} onSubmit={onSubmit} />;
     } else if (Array.isArray(parameters) && parameters.length === 0) {
-        // Empty array, no parameters
-        return null;
+        // Empty array, no parameters so just submit button
+        return <BridgeForm parameters={{}} onSubmit={onSubmit} />;
     }
 
     return null;
@@ -190,7 +196,7 @@ export default function FeedsForm() {
         ? BRIDGES[selectedBridgeName]
         : undefined;
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => console.log(selectedBridgeName, data);
 
     return (
         <>
@@ -198,6 +204,7 @@ export default function FeedsForm() {
                 className="bg-gray-700 text-white p-2 my-2 rounded"
                 onChange={(e) => setSelectedBridgeName(e.target.value)}
             >
+                <option value="">Choose a feed</option>
                 {Object.entries(BRIDGES).map(([bridgeKey, bridge]) => (
                     <option
                         key={bridgeKey}
