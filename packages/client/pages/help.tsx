@@ -44,7 +44,7 @@ export default function Help() {
                 <p className="max-w-screen-sm">
                     Support is offered on the sushii{" "}
                     <a
-                        href="https://discord.gg/QCXjyrs"
+                        href="https://discord.gg/Bz5Q2WfuE7"
                         className="text-blue-400"
                     >
                         Discord server
