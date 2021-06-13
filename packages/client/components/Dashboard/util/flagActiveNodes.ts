@@ -34,8 +34,9 @@ function addIsActiveToNode(
     // If path is same as current path
     if (navNode.type === NavItemType.NavItemPage) {
         // Compare with trailing slash removed
-        const isActive =
-            `${baseRoute}/${navNode.path}`.replace(/\/$/, "") === currentPath;
+        const isActive = currentPath.startsWith(
+            `${baseRoute}/${navNode.path}`.replace(/\/$/, "")
+        );
         return { ...navNode, __isActive: isActive };
     }
 
