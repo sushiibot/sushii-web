@@ -1,0 +1,11 @@
+query BotStats {
+  botStats {
+    nodes {
+      category
+      name
+      count
+      __typename
+    }
+    __typename
+  }
+}

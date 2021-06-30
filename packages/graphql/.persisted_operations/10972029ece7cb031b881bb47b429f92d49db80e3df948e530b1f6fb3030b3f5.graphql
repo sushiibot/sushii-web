@@ -1,0 +1,26 @@
+query GuildTags($guildId: BigInt!) {
+  tags(condition: {guildId: $guildId}) {
+    edges {
+      node {
+        content
+        created
+        tagName
+        ownerId
+        guildId
+        useCount
+        owner {
+          id
+          name
+          discriminator
+          avatarUrl
+          __typename
+        }
+        __typename
+      }
+      cursor
+      __typename
+    }
+    totalCount
+    __typename
+  }
+}

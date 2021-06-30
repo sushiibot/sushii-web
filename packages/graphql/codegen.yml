@@ -1,6 +1,9 @@
 overwrite: true
 schema: "../../data/schema.graphql"
 documents: "../client/**/*.graphql"
+hooks:
+    afterAllFileWrite:
+        - node addToPersistedOperations.js
 config:
     avoidOptionals:
         inputValue: false
@@ -20,3 +23,12 @@ generates:
             - typescript-react-query
         config:
             fetcher: graphql-request
+    client.json:
+        - graphql-codegen-persisted-query-ids:
+              output: client
+              algorithm: sha256
+
+    server.json:
+        - graphql-codegen-persisted-query-ids:
+              output: server
+              algorithm: sha256

@@ -9,6 +9,7 @@
         "codegen": "graphql-codegen --config codegen.yml"
     },
     "dependencies": {
+        "graphql-codegen-persisted-query-ids": "^0.1.2",
         "react": "^17.0.1"
     },
     "devDependencies": {

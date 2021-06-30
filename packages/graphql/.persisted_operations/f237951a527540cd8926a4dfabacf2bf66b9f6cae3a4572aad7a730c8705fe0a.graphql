@@ -1,0 +1,13 @@
+query CurrentUser {
+  currentUser {
+    avatar
+    createdAt
+    details
+    discriminator
+    id
+    isAdmin
+    updatedAt
+    username
+    __typename
+  }
+}
