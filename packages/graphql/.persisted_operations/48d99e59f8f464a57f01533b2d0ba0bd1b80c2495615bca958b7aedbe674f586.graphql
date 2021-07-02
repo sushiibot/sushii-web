@@ -1,0 +1,18 @@
+mutation CreateGuildRuleSet($guildRuleSet: GuildRuleSetInput!) {
+  createGuildRuleSet(input: {guildRuleSet: $guildRuleSet}) {
+    guildRuleSet {
+      author
+      category
+      createdAt
+      description
+      editable
+      enabled
+      guildId
+      name
+      updatedAt
+      id
+      __typename
+    }
+    __typename
+  }
+}

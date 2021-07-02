@@ -76,8 +76,6 @@ export function getPostGraphileOptions({
         // This is for PostGraphile server plugins: https://www.graphile.org/postgraphile/plugins/
         pluginHook,
 
-        // TODO: Get this to work, `graphql-codegen-persisted-query-ids` pulls older graphql
-        // and makes sushii-graphql to fail.
         persistedOperationsDirectory: `${__dirname}../graphql/.persisted_operations/`,
 
         // This is so that PostGraphile installs the watch fixtures, it's also needed to enable live queries

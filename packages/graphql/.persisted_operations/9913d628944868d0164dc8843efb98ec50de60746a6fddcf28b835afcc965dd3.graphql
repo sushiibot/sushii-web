@@ -1,0 +1,17 @@
+mutation CreateGuildRule($guildRule: GuildRuleInput!) {
+  createGuildRule(input: {guildRule: $guildRule}) {
+    guildRule {
+      actions
+      conditions
+      createdAt
+      enabled
+      id
+      name
+      setId
+      trigger
+      updatedAt
+      __typename
+    }
+    __typename
+  }
+}
