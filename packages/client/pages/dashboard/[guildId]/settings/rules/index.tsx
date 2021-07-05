@@ -11,8 +11,9 @@ import { useQueryClient } from "react-query";
 import GuildRuleSetsList from "../../../../../components/Dashboard/Rules/GuildRuleSetsList";
 import { useForm } from "react-hook-form";
 import TextInput from "../../../../../components/Dashboard/Inputs/TextInput";
+import RuleSetPage from "./ruleset/[ruleSetId]";
 
-export default function DashboardFeedsPage() {
+export default function ServerRulesPage() {
     const router = useRouter();
     const guildId =
         typeof router.query.guildId === "string"
@@ -93,7 +94,7 @@ export default function DashboardFeedsPage() {
                         </button>
                     </form>
                     {data ? (
-                        <GuildRuleSetsList data={data} />
+                        <GuildRuleSetsList guildId={guildId} data={data} />
                     ) : (
                         <div>Loading...</div>
                     )}
@@ -103,4 +104,4 @@ export default function DashboardFeedsPage() {
     );
 }
 
-DashboardFeedsPage.getLayout = (page) => <Layout>{page}</Layout>;
+ServerRulesPage.getLayout = (page) => <Layout>{page}</Layout>;

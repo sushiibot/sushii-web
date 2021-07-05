@@ -212,8 +212,6 @@ function NavBranch({ title, routes, baseRoute, isActive }) {
 }
 
 function NavLeaf({ title, url, isActive, icon }) {
-    console.log(title, url, isActive);
-
     let classes =
         "my-2 h-12 pl-4 rounded-lg w-full inline-block flex items-center";
 
