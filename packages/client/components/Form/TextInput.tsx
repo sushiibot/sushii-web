@@ -6,15 +6,12 @@ export default function TextInput({
     HTMLInputElement
 >) {
     return (
-        <label className="block">
-            {props.title}
-            <input
-                className={
-                    "block focus:outline-none w-64 rounded bg-gray-700 p-2 my-2 " +
-                    className
-                }
-                {...props}
-            />
-        </label>
+        <input
+            className={
+                "block focus:outline-none w-64 rounded bg-gray-700 p-2 my-2 " +
+                className
+            }
+            {...props}
+        />
     );
 }
