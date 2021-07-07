@@ -16,7 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import TextInputWithLabel from "../../../../../../../components/Form/TextInputWithLabel";
 import ToggleInput from "../../../../../../../components/Form/ToggleInput";
 import SaveBar from "../../../../../../../components/Form/SaveBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NewRuleForm from "../../../../../../../components/Dashboard/Rules/NewRuleForm";
 import Rule from "../../../../../../../components/Dashboard/Rules/Rule";
 
@@ -102,12 +102,23 @@ export default function RuleSetPage() {
             patch: data,
         });
     };
-    const log = (type) => console.log.bind(console, type);
+
+    const [dirtyStates, setDirtyStates] = useState({});
+    const setIsDirty = (ruleId: string, isDirty: boolean) => {
+        setDirtyStates({ ...dirtyStates, [ruleId]: isDirty });
+    };
+
+    console.log(dirtyStates);
+
+    const isAnyDirty =
+        isDirty || Object.values(dirtyStates).some((isDirty) => isDirty);
 
     return (
         <>
             <Head>
-                <title>Rule Settings | sushii 2</title>
+                <title>
+                    {data?.guildRuleSet.name || ""} Rule Set | sushii 2
+                </title>
             </Head>
             <section className="w-full">
                 <h1 className="text-4xl font-medium">Rule Set</h1>
@@ -148,12 +159,12 @@ export default function RuleSetPage() {
                     </form>
                     <NewRuleForm setId={ruleSetId} />
                     <h2 className="text-2xl font-medium mt-4">Rules</h2>
-                    {data?.guildRuleSet.guildRulesBySetId.nodes.map((r) => (
-                        <Rule key={r.id} rule={r} />
+                    {data?.guildRuleSet?.guildRulesBySetId?.nodes.map((r) => (
+                        <Rule setIsDirty={setIsDirty} key={r.id} rule={r} />
                     ))}
 
                     <SaveBar
-                        visible={isDirty}
+                        visible={isAnyDirty}
                         onReset={onReset}
                         onSave={handleSubmit(onSubmit)}
                     />
