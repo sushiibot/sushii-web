@@ -117,8 +117,17 @@ const DefaultFixedArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
 };
 
 const DefaultNormalArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
+    const fieldTitle = props.uiSchema["ui:title"] || props.title;
+
     return (
         <>
+            <ArrayFieldTitle
+                key={`array-field-title-${props.idSchema.$id}`}
+                TitleField={props.TitleField}
+                idSchema={props.idSchema}
+                title={fieldTitle}
+                required={props.required}
+            />
             {(props.uiSchema["ui:description"] || props.schema.description) && (
                 <ArrayFieldDescription
                     key={`array-field-description-${props.idSchema.$id}`}

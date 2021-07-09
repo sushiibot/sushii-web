@@ -1,4 +1,8 @@
-import { GuildRule, useEditGuildRuleMutation } from "@sushii-web/graphql";
+import {
+    GuildRule,
+    useDeleteGuildRuleMutation,
+    useEditGuildRuleMutation,
+} from "@sushii-web/graphql";
 import { useGraphQLQuery } from "../../../lib/useGraphQLQuery";
 import schema from "./schema.json";
 import { IChangeEvent } from "@rjsf/core";
@@ -9,58 +13,45 @@ import { useQueryClient } from "react-query";
 
 interface RuleProps {
     rule: GuildRule;
-    setIsDirty: (key: string, isDirty: boolean) => void;
+    onChange: (id: string, data: GuildRule) => void;
 }
 
-export default function Rule({ rule, setIsDirty }: RuleProps) {
+export default function Rule({ rule, onChange }: RuleProps) {
     const client = useGraphQLQuery();
     const queryClient = useQueryClient();
-    const editGuildRuleMutation = useEditGuildRuleMutation(client, {
+
+    const deleteGuildRuleMutation = useDeleteGuildRuleMutation(client, {
         onSuccess: (data) => {
-            // Invalidate rule set query to refetch (not just current rule)
             queryClient.invalidateQueries(["GuildRuleSet", { id: rule.setId }]);
-            console.log("Edited rule", data);
+            console.log("Deleted rule", data);
         },
         onError: (e) => {
-            console.error("Error editing rule:", editGuildRuleMutation.error);
+            console.error(
+                "Error deleting rule:",
+                deleteGuildRuleMutation.error
+            );
         },
     });
 
-    const [formData, setFormData] = useState<GuildRule>(rule);
-    const isDirty = !isEqual(formData, rule);
-
-    console.log("isDirty", isDirty);
-
-    useEffect(() => {
-        setIsDirty(rule.id, isDirty);
-    }, [isDirty]);
-
-    const onSubmit = async (data: IChangeEvent<GuildRule>) => {
-        console.log(data);
-
-        const { name, enabled, trigger, conditions, actions } = data.formData;
-
-        await editGuildRuleMutation.mutateAsync({
-            id: rule.id,
-            patch: {
-                name,
-                enabled,
-                trigger,
-                conditions,
-                actions,
-            },
-        });
+    const deleteRule = async () => {
+        await deleteGuildRuleMutation.mutateAsync({ id: rule.id });
     };
 
     return (
         <div className="bg-gray-800 rounded-lg p-4 my-2">
-            <h3 className="text-xl font-medium">{rule.name}</h3>
-            {rule.enabled}
+            <div className="flex justify-between">
+                <h3 className="text-xl font-medium">{rule.name}</h3>
+                <button
+                    className="px-2 py-1 rounded bg-red-500"
+                    onClick={() => deleteRule()}
+                >
+                    Delete
+                </button>
+            </div>
             <JsonSchemaForm
                 schema={schema}
-                onSubmit={onSubmit}
-                onChange={(e) => setFormData(e.formData)}
-                formData={formData}
+                onChange={(e) => onChange(rule.id, e.formData)}
+                formData={rule}
             >
                 <></>
             </JsonSchemaForm>
