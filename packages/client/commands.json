@@ -212,12 +212,17 @@
                 },
                 {
                     "name": "tag list",
-                    "description": "Show all available tags in the server"
+                    "description": "Show all available tags in the server."
                 },
                 {
                     "name": "tag search",
-                    "description": "Search for tags containing a query",
+                    "description": "Search for tags containing a query.",
                     "usage": "[query]"
+                },
+                {
+                    "name": "tag author",
+                    "description": "Get tags created by a given author. Defaults to yourself.",
+                    "usage": "(mention or ID)"
                 },
                 {
                     "name": "tag remove",
@@ -226,7 +231,7 @@
                 },
                 {
                     "name": "tag edit",
-                    "description": "Edit a tag's content.  Only the tag owner and users with `MANAGE_GUILD` may edit the tag.",
+                    "description": "Edit a tag's content. Only the tag owner and users with `MANAGE_GUILD` may edit the tag.",
                     "usage": "[tag name] [new content]"
                 },
                 {
@@ -387,6 +392,17 @@
                     "examples": [
                         {
                             "command": "warn 963258741258369 741258963258741 spamming"
+                        }
+                    ]
+                },
+                {
+                    "name": "note",
+                    "description": "Add a note to one or more users. This does not notify the user and is useful to keeping track of information. IDs or mentions can be separated with a space or comma.",
+                    "required_permissions": ["BAN_MEMBERS"],
+                    "usage": "[one or more user IDs or mentions] (reason)",
+                    "examples": [
+                        {
+                            "command": "note 963258741258369 kinda sus"
                         }
                     ]
                 },
