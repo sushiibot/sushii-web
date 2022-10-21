@@ -1,37 +1,39 @@
-# sushii-web
+# Welcome to Remix and Mantine!
 
-Website for sushii-2, built with PostGraphile
+- [Mantine Docs](https://mantine.dev/)
+- [Remix Docs](https://remix.run/docs)
 
-## Docker
+## Development
 
-```bash
-docker build .
+From your terminal:
+
+```sh
+npm run dev
 ```
 
-## Config
+This starts your app in development mode, rebuilding assets on file changes.
 
-Configuration options are set via environment variables.
+## Deployment
 
-```bash
-NODE_ENV=production
-ROOT_URL=https://sushii.xyz
+First, build your app for production:
 
-# Db owner connection string
-DATABASE_URL=
-# Unprivileged connection string
-AUTH_DATABASE_URL=
-
-# Sessions
-REDIS_URL=
-# Session secret
-SECRET= 
-
-# Discord OAuth
-DISCORD_CLIENT_ID=
-DISCORD_CLIENT_SECRET=
-
-NEXT_PUBLIC_INVITE_URL=
-TRUST_PROXY=cloudflare
-# default 3000
-PORT=
+```sh
+npm run build
 ```
+
+Then run the app in production mode:
+
+```sh
+npm start
+```
+
+Now you'll need to pick a host to deploy it to.
+
+### DIY
+
+If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
+
+Make sure to deploy the output of `remix build`
+
+- `build/`
+- `public/build/`

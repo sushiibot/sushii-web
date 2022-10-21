@@ -1,9 +1,0 @@
-query BotStats {
-    botStats {
-        nodes {
-            category
-            name
-            count
-        }
-    }
-}

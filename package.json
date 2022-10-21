@@ -1,21 +1,34 @@
 {
-    "name": "sushii-web",
-    "version": "1.0.7",
-    "main": "index.js",
-    "repository": "git@github.com:sushiibot/sushii-web.git",
-    "author": "drklee3 <derrick@dlee.dev>",
-    "license": "AGPL-3.0",
-    "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
-    "devDependencies": {
-        "eslint": "^7.27.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-graphql": "^4.0.0",
-        "eslint-plugin-prettier": "^3.4.0",
-        "eslint-plugin-react": "^7.23.2",
-        "eslint-plugin-react-hooks": "^4.2.0",
-        "eslint-plugin-simple-import-sort": "^7.0.0"
-    }
+  "name": "sushii-web",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "remix-serve build"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "5.2.6",
+    "@mantine/hooks": "5.2.6",
+    "@mantine/remix": "5.2.6",
+    "@remix-run/node": "^1.7.0",
+    "@remix-run/react": "^1.7.0",
+    "@remix-run/serve": "^1.7.0",
+    "@tabler/icons": "^1.105.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.7.0",
+    "@remix-run/eslint-config": "^1.7.0",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "eslint": "^8.23.0",
+    "typescript": "^4.8.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }

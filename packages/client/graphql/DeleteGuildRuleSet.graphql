@@ -1,5 +1,0 @@
-mutation DeleteGuildRuleSet($id: BigInt!) {
-    deleteGuildRuleSet(input: { id: $id }) {
-        deletedGuildRuleSetNodeId
-    }
-}
