@@ -6,7 +6,6 @@ import Icon from "../Icon";
 import GuildSideBarLayout from "../Layouts/GuildSideBarLayout";
 
 const NAV_DATA: NavItem[] = [
-    /*
     {
         title: "Tools",
         type: NavItemType.NavItemSection,
@@ -26,7 +25,6 @@ const NAV_DATA: NavItem[] = [
         ],
     },
     { type: NavItemType.NavItemDivider },
-    */
     {
         title: "Settings",
         type: NavItemType.NavItemSection,
@@ -51,7 +49,6 @@ const NAV_DATA: NavItem[] = [
             },
         ],
     },
-    /*
     { type: NavItemType.NavItemDivider },
     {
         title: "Content",
@@ -71,7 +68,6 @@ const NAV_DATA: NavItem[] = [
             },
         ],
     },
-    */
 ];
 
 interface DashboardLayoutProps {
