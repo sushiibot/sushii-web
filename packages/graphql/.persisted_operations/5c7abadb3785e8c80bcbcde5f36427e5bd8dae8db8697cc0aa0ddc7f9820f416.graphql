@@ -1,9 +1,0 @@
-query CachedGuild($guildId: BigInt!) {
-  cachedGuild(id: $guildId) {
-    name
-    icon
-    banner
-    splash
-    __typename
-  }
-}
