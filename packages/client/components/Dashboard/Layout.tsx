@@ -1,11 +1,9 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { NavItem, NavItemType } from "./NavItems";
+import SideNav from "./SideNav";
+import Icon from "../Icon";
 import GuildSideBarLayout from "../Layouts/GuildSideBarLayout";
-import {
-    CogIcon,
-    UserAddIcon,
-    NewspaperIcon,
-    CodeIcon,
-} from "@heroicons/react/outline";
 
 const NAV_DATA: NavItem[] = [
     /*
@@ -37,25 +35,19 @@ const NAV_DATA: NavItem[] = [
                 type: NavItemType.NavItemPage,
                 title: "General",
                 path: "settings/general",
-                icon: <CogIcon className="w-6 h-6" />,
+                icon: <Icon type="Cog" />,
             },
             {
                 type: NavItemType.NavItemPage,
                 title: "Welcome",
                 path: "settings/welcome",
-                icon: <UserAddIcon className="w-6 h-6" />,
+                icon: <Icon type="UserAdd" />,
             },
             {
                 type: NavItemType.NavItemPage,
                 title: "Feeds",
                 path: "settings/feeds",
-                icon: <NewspaperIcon className="w-6 h-6" />,
-            },
-            {
-                type: NavItemType.NavItemPage,
-                title: "Rules",
-                path: "settings/rules",
-                icon: <CodeIcon className="w-6 h-6" />,
+                icon: <Icon type="Newspaper" />,
             },
         ],
     },

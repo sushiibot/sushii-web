@@ -97,9 +97,7 @@ export default function handleErrors(
     return errors.map((error) => {
         const { message: rawMessage, locations, path, originalError } = error;
         const code = originalError ? originalError["code"] : null;
-        const localPluck = code
-            ? ERROR_MESSAGE_OVERRIDES[code] || pluck
-            : pluck;
+        const localPluck = code ? ERROR_MESSAGE_OVERRIDES[code] : pluck;
         const exception = localPluck(originalError || error);
         return {
             message: exception.message || rawMessage,

@@ -23,7 +23,7 @@ export default function TextInput(props: TextInputProps) {
                             }
                         >
                             <input
-                                className="focus:outline-none w-full
+                                className="focus:outline-none
                                            rounded-l bg-gray-700 p-2"
                                 {...field}
                             />

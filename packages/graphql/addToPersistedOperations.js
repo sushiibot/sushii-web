@@ -2,11 +2,7 @@ const map = require("./server.json");
 const { promises: fsp } = require("fs");
 
 async function main() {
-    const persisted_dir = `${__dirname}/.persisted_operations/`;
-    try {
-        await fsp.mkdir(persisted_dir);
-    } catch { }
-
+    await fsp.mkdir(`${__dirname}/.persisted_operations/`);
 
     await Promise.all(
         Object.entries(map).map(([hash, query]) =>

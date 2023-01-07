@@ -170,119 +170,6 @@ type CachedUser {
   ): TagsConnection!
 }
 
-"""All input for the create `GuildRule` mutation."""
-input CreateGuildRuleInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `GuildRule` to be created by this mutation."""
-  guildRule: GuildRuleInput!
-}
-
-"""The output of our create `GuildRule` mutation."""
-type CreateGuildRulePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `GuildRule` that was created by this mutation."""
-  guildRule: GuildRule
-
-  """An edge for our `GuildRule`. May be used by Relay 1."""
-  guildRuleEdge(
-    """The method to use when ordering `GuildRule`."""
-    orderBy: [GuildRulesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRulesEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `GuildRuleSet` that is related to this `GuildRule`."""
-  set: GuildRuleSet
-}
-
-"""All input for the create `GuildRuleSetConfig` mutation."""
-input CreateGuildRuleSetConfigInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `GuildRuleSetConfig` to be created by this mutation."""
-  guildRuleSetConfig: GuildRuleSetConfigInput!
-}
-
-"""The output of our create `GuildRuleSetConfig` mutation."""
-type CreateGuildRuleSetConfigPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `GuildRuleSetConfig` that was created by this mutation."""
-  guildRuleSetConfig: GuildRuleSetConfig
-
-  """An edge for our `GuildRuleSetConfig`. May be used by Relay 1."""
-  guildRuleSetConfigEdge(
-    """The method to use when ordering `GuildRuleSetConfig`."""
-    orderBy: [GuildRuleSetConfigsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetConfigsEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """
-  Reads a single `GuildRuleSet` that is related to this `GuildRuleSetConfig`.
-  """
-  set: GuildRuleSet
-}
-
-"""All input for the create `GuildRuleSet` mutation."""
-input CreateGuildRuleSetInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """The `GuildRuleSet` to be created by this mutation."""
-  guildRuleSet: GuildRuleSetInput!
-}
-
-"""The output of our create `GuildRuleSet` mutation."""
-type CreateGuildRuleSetPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `GuildRuleSet` that was created by this mutation."""
-  guildRuleSet: GuildRuleSet
-
-  """An edge for our `GuildRuleSet`. May be used by Relay 1."""
-  guildRuleSetEdge(
-    """The method to use when ordering `GuildRuleSet`."""
-    orderBy: [GuildRuleSetsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetsEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-}
-
 """A `BigInt` edge in the connection."""
 type CurrentUserGuildIdEdge {
   """A cursor for use in pagination."""
@@ -338,120 +225,9 @@ A point in time as described by the [ISO
 """
 scalar Datetime
 
-"""All input for the `deleteGuildRule` mutation."""
-input DeleteGuildRuleInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: BigInt!
-}
-
-"""The output of our delete `GuildRule` mutation."""
-type DeleteGuildRulePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedGuildRuleNodeId: ID
-
-  """The `GuildRule` that was deleted by this mutation."""
-  guildRule: GuildRule
-
-  """An edge for our `GuildRule`. May be used by Relay 1."""
-  guildRuleEdge(
-    """The method to use when ordering `GuildRule`."""
-    orderBy: [GuildRulesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRulesEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `GuildRuleSet` that is related to this `GuildRule`."""
-  set: GuildRuleSet
-}
-
-"""All input for the `deleteGuildRuleSetConfig` mutation."""
-input DeleteGuildRuleSetConfigInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  setId: BigInt!
-}
-
-"""The output of our delete `GuildRuleSetConfig` mutation."""
-type DeleteGuildRuleSetConfigPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedGuildRuleSetConfigNodeId: ID
-
-  """The `GuildRuleSetConfig` that was deleted by this mutation."""
-  guildRuleSetConfig: GuildRuleSetConfig
-
-  """An edge for our `GuildRuleSetConfig`. May be used by Relay 1."""
-  guildRuleSetConfigEdge(
-    """The method to use when ordering `GuildRuleSetConfig`."""
-    orderBy: [GuildRuleSetConfigsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetConfigsEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """
-  Reads a single `GuildRuleSet` that is related to this `GuildRuleSetConfig`.
-  """
-  set: GuildRuleSet
-}
-
-"""All input for the `deleteGuildRuleSet` mutation."""
-input DeleteGuildRuleSetInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: BigInt!
-}
-
-"""The output of our delete `GuildRuleSet` mutation."""
-type DeleteGuildRuleSetPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedGuildRuleSetNodeId: ID
-
-  """The `GuildRuleSet` that was deleted by this mutation."""
-  guildRuleSet: GuildRuleSet
-
-  """An edge for our `GuildRuleSet`. May be used by Relay 1."""
-  guildRuleSetEdge(
-    """The method to use when ordering `GuildRuleSet`."""
-    orderBy: [GuildRuleSetsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetsEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-}
-
 type GuildConfig {
   """Reads a single `CachedGuild` that is related to this `GuildConfig`."""
   cachedGuildById: CachedGuild
-  data: JSON!
   disabledChannels: [BigInt]
   id: BigInt!
   inviteGuard: Boolean!
@@ -557,17 +333,15 @@ enum GuildConfigsOrderBy {
 }
 
 type GuildRule {
-  actions: JSON!
-  conditions: JSON!
+  actions: JSON
+  conditions: JSON
   createdAt: Datetime!
   enabled: Boolean!
-  id: BigInt!
+  guildId: BigInt!
+  id: UUID!
   name: String!
-
-  """Reads a single `GuildRuleSet` that is related to this `GuildRule`."""
-  set: GuildRuleSet
-  setId: BigInt!
-  trigger: JSON!
+  setId: UUID!
+  trigger: JSON
   updatedAt: Datetime!
 }
 
@@ -577,20 +351,7 @@ for equality and combined with a logical ‘and.’
 """
 input GuildRuleCondition {
   """Checks for equality with the object’s `id` field."""
-  id: BigInt
-
-  """Checks for equality with the object’s `setId` field."""
-  setId: BigInt
-}
-
-"""An input for mutations affecting `GuildRule`"""
-input GuildRuleInput {
-  actions: JSON!
-  conditions: JSON!
-  enabled: Boolean!
-  name: String!
-  setId: BigInt!
-  trigger: JSON!
+  id: UUID
 }
 
 """
@@ -607,75 +368,13 @@ input GuildRulePatch {
 type GuildRuleSet {
   author: BigInt
   category: String
+  config: JSON
   createdAt: Datetime!
   description: String
   editable: Boolean!
   enabled: Boolean!
-  guildId: BigInt
-
-  """
-  Reads a single `GuildRuleSetConfig` that is related to this `GuildRuleSet`.
-  """
-  guildRuleSetConfigBySetId: GuildRuleSetConfig
-
-  """Reads and enables pagination through a set of `GuildRuleSetConfig`."""
-  guildRuleSetConfigsBySetId(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: GuildRuleSetConfigCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `GuildRuleSetConfig`."""
-    orderBy: [GuildRuleSetConfigsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetConfigsConnection! @deprecated(reason: "Please use guildRuleSetConfigBySetId instead")
-
-  """Reads and enables pagination through a set of `GuildRule`."""
-  guildRulesBySetId(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: GuildRuleCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `GuildRule`."""
-    orderBy: [GuildRulesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRulesConnection!
-  id: BigInt!
+  guildId: BigInt!
+  id: UUID!
   name: String!
   updatedAt: Datetime!
 }
@@ -685,94 +384,8 @@ A condition to be used against `GuildRuleSet` object types. All fields are
 tested for equality and combined with a logical ‘and.’
 """
 input GuildRuleSetCondition {
-  """Checks for equality with the object’s `guildId` field."""
-  guildId: BigInt
-
   """Checks for equality with the object’s `id` field."""
-  id: BigInt
-}
-
-type GuildRuleSetConfig {
-  config: JSON!
-  createdAt: Datetime!
-  enabled: Boolean!
-
-  """
-  Reads a single `GuildRuleSet` that is related to this `GuildRuleSetConfig`.
-  """
-  set: GuildRuleSet
-  setId: BigInt!
-  updatedAt: Datetime!
-}
-
-"""
-A condition to be used against `GuildRuleSetConfig` object types. All fields are
-tested for equality and combined with a logical ‘and.’
-"""
-input GuildRuleSetConfigCondition {
-  """Checks for equality with the object’s `setId` field."""
-  setId: BigInt
-}
-
-"""An input for mutations affecting `GuildRuleSetConfig`"""
-input GuildRuleSetConfigInput {
-  config: JSON!
-  enabled: Boolean!
-  setId: BigInt!
-}
-
-"""
-Represents an update to a `GuildRuleSetConfig`. Fields that are set will be updated.
-"""
-input GuildRuleSetConfigPatch {
-  config: JSON
-  enabled: Boolean
-}
-
-"""A connection to a list of `GuildRuleSetConfig` values."""
-type GuildRuleSetConfigsConnection {
-  """
-  A list of edges which contains the `GuildRuleSetConfig` and cursor to aid in pagination.
-  """
-  edges: [GuildRuleSetConfigsEdge!]!
-
-  """A list of `GuildRuleSetConfig` objects."""
-  nodes: [GuildRuleSetConfig!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """
-  The count of *all* `GuildRuleSetConfig` you could get from the connection.
-  """
-  totalCount: Int!
-}
-
-"""A `GuildRuleSetConfig` edge in the connection."""
-type GuildRuleSetConfigsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `GuildRuleSetConfig` at the end of the edge."""
-  node: GuildRuleSetConfig!
-}
-
-"""Methods to use when ordering `GuildRuleSetConfig`."""
-enum GuildRuleSetConfigsOrderBy {
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  SET_ID_ASC
-  SET_ID_DESC
-}
-
-"""An input for mutations affecting `GuildRuleSet`"""
-input GuildRuleSetInput {
-  category: String
-  description: String
-  enabled: Boolean!
-  guildId: BigInt
-  name: String!
+  id: UUID
 }
 
 """
@@ -780,6 +393,7 @@ Represents an update to a `GuildRuleSet`. Fields that are set will be updated.
 """
 input GuildRuleSetPatch {
   category: String
+  config: JSON
   description: String
   enabled: Boolean
   name: String
@@ -813,8 +427,6 @@ type GuildRuleSetsEdge {
 
 """Methods to use when ordering `GuildRuleSet`."""
 enum GuildRuleSetsOrderBy {
-  GUILD_ID_ASC
-  GUILD_ID_DESC
   ID_ASC
   ID_DESC
   NATURAL
@@ -855,8 +467,6 @@ enum GuildRulesOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  SET_ID_ASC
-  SET_ID_DESC
 }
 
 """
@@ -879,54 +489,6 @@ type LogoutPayload {
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """Creates a single `GuildRule`."""
-  createGuildRule(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateGuildRuleInput!
-  ): CreateGuildRulePayload
-
-  """Creates a single `GuildRuleSet`."""
-  createGuildRuleSet(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateGuildRuleSetInput!
-  ): CreateGuildRuleSetPayload
-
-  """Creates a single `GuildRuleSetConfig`."""
-  createGuildRuleSetConfig(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: CreateGuildRuleSetConfigInput!
-  ): CreateGuildRuleSetConfigPayload
-
-  """Deletes a single `GuildRule` using a unique key."""
-  deleteGuildRule(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteGuildRuleInput!
-  ): DeleteGuildRulePayload
-
-  """Deletes a single `GuildRuleSet` using a unique key."""
-  deleteGuildRuleSet(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteGuildRuleSetInput!
-  ): DeleteGuildRuleSetPayload
-
-  """Deletes a single `GuildRuleSetConfig` using a unique key."""
-  deleteGuildRuleSetConfig(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteGuildRuleSetConfigInput!
-  ): DeleteGuildRuleSetConfigPayload
-
   """
   Use this mutation to logout from your account. Don't forget to clear the client state!
   """
@@ -955,14 +517,6 @@ type Mutation {
     """
     input: UpdateGuildRuleSetInput!
   ): UpdateGuildRuleSetPayload
-
-  """Updates a single `GuildRuleSetConfig` using a unique key and a patch."""
-  updateGuildRuleSetConfig(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateGuildRuleSetConfigInput!
-  ): UpdateGuildRuleSetConfigPayload
 }
 
 """Information about pagination in a connection."""
@@ -1017,7 +571,6 @@ type Query {
 
   """The currently logged in user (or null if not logged in)."""
   currentUser: WebUser
-  currentUserAdmin: Boolean
   currentUserGuildIds(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
@@ -1056,7 +609,6 @@ type Query {
     """
     offset: Int
   ): CurrentUserManagedGuildIdsConnection
-  currentUserWithPermissions(permissionOneOf: [String]!): Boolean
   guildConfig(id: BigInt!): GuildConfig
 
   """Reads and enables pagination through a set of `GuildConfig`."""
@@ -1087,38 +639,8 @@ type Query {
     """The method to use when ordering `GuildConfig`."""
     orderBy: [GuildConfigsOrderBy!] = [PRIMARY_KEY_ASC]
   ): GuildConfigsConnection
-  guildRule(id: BigInt!): GuildRule
-  guildRuleSet(id: BigInt!): GuildRuleSet
-  guildRuleSetConfig(setId: BigInt!): GuildRuleSetConfig
-
-  """Reads and enables pagination through a set of `GuildRuleSetConfig`."""
-  guildRuleSetConfigs(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: GuildRuleSetConfigCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `GuildRuleSetConfig`."""
-    orderBy: [GuildRuleSetConfigsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetConfigsConnection
+  guildRule(id: UUID!): GuildRule
+  guildRuleSet(id: UUID!): GuildRuleSet
 
   """Reads and enables pagination through a set of `GuildRuleSet`."""
   guildRuleSets(
@@ -1427,6 +949,11 @@ type TimeframeUserLevelsRecord {
   xpDiff: BigInt
 }
 
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
+
 """All input for the `updateGuildConfig` mutation."""
 input UpdateGuildConfigInput {
   """
@@ -1475,7 +1002,7 @@ input UpdateGuildRuleInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: BigInt!
+  id: UUID!
 
   """
   An object where the defined keys will be set on the `GuildRule` being updated.
@@ -1504,52 +1031,6 @@ type UpdateGuildRulePayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """Reads a single `GuildRuleSet` that is related to this `GuildRule`."""
-  set: GuildRuleSet
-}
-
-"""All input for the `updateGuildRuleSetConfig` mutation."""
-input UpdateGuildRuleSetConfigInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `GuildRuleSetConfig` being updated.
-  """
-  patch: GuildRuleSetConfigPatch!
-  setId: BigInt!
-}
-
-"""The output of our update `GuildRuleSetConfig` mutation."""
-type UpdateGuildRuleSetConfigPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-
-  """The `GuildRuleSetConfig` that was updated by this mutation."""
-  guildRuleSetConfig: GuildRuleSetConfig
-
-  """An edge for our `GuildRuleSetConfig`. May be used by Relay 1."""
-  guildRuleSetConfigEdge(
-    """The method to use when ordering `GuildRuleSetConfig`."""
-    orderBy: [GuildRuleSetConfigsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuildRuleSetConfigsEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """
-  Reads a single `GuildRuleSet` that is related to this `GuildRuleSetConfig`.
-  """
-  set: GuildRuleSet
 }
 
 """All input for the `updateGuildRuleSet` mutation."""
@@ -1559,7 +1040,7 @@ input UpdateGuildRuleSetInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: BigInt!
+  id: UUID!
 
   """
   An object where the defined keys will be set on the `GuildRuleSet` being updated.
