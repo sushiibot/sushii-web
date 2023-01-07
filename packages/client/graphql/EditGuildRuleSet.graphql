@@ -11,20 +11,6 @@ mutation EditGuildRuleSet($id: BigInt!, $patch: GuildRuleSetPatch!) {
             id
             name
             updatedAt
-            guildRulesBySetId {
-                nodes {
-                    actions
-                    conditions
-                    createdAt
-                    enabled
-                    id
-                    name
-                    setId
-                    trigger
-                    updatedAt
-                }
-                totalCount
-            }
         }
     }
 }
