@@ -7,18 +7,15 @@ import {
     useEditGuildRuleMutation,
     GuildRuleSetInput,
     GuildRuleSetPatch,
-    useCreateGuildRuleMutation,
 } from "@sushii-web/graphql";
 import { useGraphQLQuery } from "../../../../../../../lib/useGraphQLQuery";
 import { useQueryClient } from "react-query";
 import GuildRuleSetsList from "../../../../../../../components/Dashboard/Rules/GuildRuleSetsList";
 import { Controller, useForm } from "react-hook-form";
-import TextInputWithLabel from "../../../../../../../components/Form/TextInputWithLabel";
+import TextInput from "../../../../../../../components/Form/TextInput";
 import ToggleInput from "../../../../../../../components/Form/ToggleInput";
 import SaveBar from "../../../../../../../components/Form/SaveBar";
 import { useEffect } from "react";
-import NewRuleForm from "../../../../../../../components/Dashboard/Rules/NewRuleForm";
-import Rule from "../../../../../../../components/Dashboard/Rules/Rule";
 
 export default function RuleSetPage() {
     const router = useRouter();
@@ -29,38 +26,18 @@ export default function RuleSetPage() {
 
     const client = useGraphQLQuery();
     const queryClient = useQueryClient();
-    const { status, data, error, isFetching } = useGuildRuleSetQuery(
-        client,
-        {
-            id: ruleSetId,
-        },
-        // Prevent re-fetching and losing editing state
-        { staleTime: Infinity }
-    );
+    const { status, data, error, isFetching } = useGuildRuleSetQuery(client, {
+        id: ruleSetId,
+    });
 
     const editRuleSetMutation = useEditGuildRuleSetMutation(client, {
         onSuccess: (data) => {
-            // Set data returned from mutation (instead of invalidating which
-            // does an extra network request)
-            queryClient.setQueryData(
-                ["GuildRuleSet", { id: ruleSetId }],
-                data.updateGuildRuleSet
-            );
+            // Invalidate guild config query to refetch
+            queryClient.invalidateQueries("GuildRuleSet");
             console.log("edited rule set", data);
-            onReset();
         },
         onError: (e) => {
             console.error("Error editing rule set:", editRuleSetMutation.error);
-        },
-    });
-
-    const createRuleMutation = useCreateGuildRuleMutation(client, {
-        onSuccess: (newData) => {
-            queryClient.invalidateQueries(["GuildRuleSet", { id: ruleSetId }]);
-            onReset();
-        },
-        onError: (e) => {
-            console.error("Error creating rule:", createRuleMutation.error);
         },
     });
 
@@ -117,7 +94,7 @@ export default function RuleSetPage() {
                             control={control}
                             name="name"
                             render={({ field }) => (
-                                <TextInputWithLabel title="Name" {...field} />
+                                <TextInput title="Name" {...field} />
                             )}
                             rules={{
                                 required: {
@@ -131,7 +108,7 @@ export default function RuleSetPage() {
                             control={control}
                             name="description"
                             render={({ field }) => (
-                                <TextInputWithLabel
+                                <TextInput
                                     name="description"
                                     title="Description"
                                     {...field}
@@ -146,17 +123,12 @@ export default function RuleSetPage() {
                             )}
                         />
                     </form>
-                    <NewRuleForm setId={ruleSetId} />
-                    <h2 className="text-2xl font-medium mt-4">Rules</h2>
-                    {data?.guildRuleSet.guildRulesBySetId.nodes.map((r) => (
-                        <Rule key={r.id} rule={r} />
-                    ))}
-
-                    <SaveBar
-                        visible={isDirty}
-                        onReset={onReset}
-                        onSave={handleSubmit(onSubmit)}
-                    />
+                    {isDirty && (
+                        <SaveBar
+                            onReset={onReset}
+                            onSave={handleSubmit(onSubmit)}
+                        />
+                    )}
                 </div>
             </section>
         </>

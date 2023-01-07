@@ -1,23 +1,36 @@
-import { withTheme, FormProps, ThemeProps } from "@rjsf/core";
-import ArrayFieldTemplate from "./ArrayFieldTemplate";
-import FieldTemplate from "./FieldTemplate";
-import ObjectFieldTemplate from "./ObjectFieldTemplate";
-import SelectWidget from "./SelectWidget";
-import TitleField from "./TitleField";
-import TextWidget from "./TextWidget";
-import CheckboxWidget from "./CheckboxWidget";
+import { withTheme, FormProps } from "@rjsf/core";
+import type { JSONSchema7 } from "json-schema"
 
-const theme: ThemeProps = {
-    ArrayFieldTemplate,
-    FieldTemplate,
-    ObjectFieldTemplate,
+const theme = {
     widgets: {
-        SelectWidget,
-        TextWidget,
-        CheckboxWidget,
+        test: () => <div>test</div>,
+        checkbox: (props) => (
+            <label>
+                {props.label}
+                <input
+                    className="ml-2"
+                    type="checkbox"
+                    required={props.required}
+                    value={props.value}
+                    onClick={(e) => props.onChange(!props.value)}
+                />
+            </label>
+        ),
     },
     fields: {
-        TitleField,
+        StringField: (props) => (
+            <label>
+                {props.label}
+
+                <input
+                    className="px-2 py-1 bg-gray-700 rounded"
+                    type="text"
+                    required={props.required}
+                    value={props.value}
+                    onChange={(e) => props.onChange(e.currentTarget.value)}
+                />
+            </label>
+        ),
     },
 };
 
