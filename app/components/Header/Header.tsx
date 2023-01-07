@@ -10,6 +10,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { NavLink } from "@remix-run/react";
 import { IconChevronDown } from "@tabler/icons";
 import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
 
@@ -74,23 +75,21 @@ export function HeaderAction({ links }: HeaderProps) {
   const [opened, { toggle }] = useDisclosure(false);
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
+      <Menu.Item key={item.link} component={NavLink} to={item.link}>
+        {item.label}
+      </Menu.Item>
     ));
 
     if (menuItems) {
       return (
         <Menu key={link.label} trigger="hover" exitTransitionDuration={0}>
           <Menu.Target>
-            <a
-              href={link.link}
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
+            <NavLink to={link.link} className={classes.link}>
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
                 <IconChevronDown size={12} stroke={1.5} />
               </Center>
-            </a>
+            </NavLink>
           </Menu.Target>
           <Menu.Dropdown>{menuItems}</Menu.Dropdown>
         </Menu>
@@ -98,14 +97,9 @@ export function HeaderAction({ links }: HeaderProps) {
     }
 
     return (
-      <a
-        key={link.label}
-        href={link.link}
-        className={classes.link}
-        onClick={(event) => event.preventDefault()}
-      >
+      <NavLink key={link.label} to={link.link} className={classes.link}>
         {link.label}
-      </a>
+      </NavLink>
     );
   });
 
@@ -131,7 +125,13 @@ export function HeaderAction({ links }: HeaderProps) {
             className={classes.burger}
             size="sm"
           />
-          <Title order={2}>sushii</Title>
+          <NavLink
+            to="/"
+            end={true}
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            <Title order={2}>sushii</Title>
+          </NavLink>
         </Group>
         <Group spacing={5} className={classes.links}>
           {items}

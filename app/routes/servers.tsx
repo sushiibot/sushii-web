@@ -9,6 +9,8 @@ import {
   MediaQuery,
   Aside,
   Burger,
+  Container,
+  Group,
 } from "@mantine/core";
 import { IconTrendingUp, IconTag } from "@tabler/icons";
 import ThemeToggleButton from "../components/ThemeToggleButton/ThemeToggleButton";
@@ -66,31 +68,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const headerLinks: HeaderProps["links"] = [
-  {
-    label: "Commands",
-    link: "/commands",
-  },
-  {
-    label: "Documentation",
-    link: "/docs",
-    links: [
-      {
-        label: "Getting Started",
-        link: "/docs/getting-started",
-      },
-      {
-        label: "Moderation",
-        link: "/docs/moderation",
-      },
-      {
-        label: "Role Menus",
-        link: "/docs/role-menu",
-      },
-    ],
-  },
-];
-
 export default function Servers() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
@@ -108,7 +85,7 @@ export default function Servers() {
   ];
 
   return (
-    <AppShell
+    <Group
       styles={{
         main: {
           background:
@@ -117,13 +94,9 @@ export default function Servers() {
               : theme.colors.gray[0],
         },
       }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      fixed
-      navbar={<SideNavbar links={links} hidden={!opened} />}
-      header={<HeaderAction links={headerLinks} />}
     >
+      <SideNavbar links={links} hidden={!opened} />
       <Outlet />
-    </AppShell>
+    </Group>
   );
 }

@@ -18,6 +18,8 @@ import { StylesPlaceholder } from "@mantine/remix";
 import { useState } from "react";
 import { useColorScheme } from "@mantine/hooks";
 import colors from "./colors";
+import type { HeaderProps } from "./components/Header/Header";
+import { HeaderAction } from "./components/Header/Header";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -26,6 +28,31 @@ export const meta: MetaFunction = () => ({
 });
 
 createEmotionCache({ key: "mantine" });
+
+const headerLinks: HeaderProps["links"] = [
+  {
+    label: "Commands",
+    link: "/commands",
+  },
+  {
+    label: "Guides",
+    link: "/guides",
+    links: [
+      {
+        label: "Getting Started",
+        link: "/guides/getting-started",
+      },
+      {
+        label: "Moderation",
+        link: "/guides/moderation",
+      },
+      {
+        label: "Role Menus",
+        link: "/guides/role-menu",
+      },
+    ],
+  },
+];
 
 export default function App() {
   // Default "dark"
@@ -64,6 +91,7 @@ export default function App() {
             <Links />
           </head>
           <body style={{ margin: 0 }}>
+            <HeaderAction links={headerLinks} />
             <Outlet />
             <ScrollRestoration />
             <Scripts />

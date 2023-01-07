@@ -1,6 +1,7 @@
-import { createStyles, Navbar } from "@mantine/core";
+import { createStyles, Divider, Navbar } from "@mantine/core";
 import type { TablerIcon } from "@tabler/icons";
 import { NavLink } from "@remix-run/react";
+import { ServerCard } from "../ServerCard/ServerCard";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -119,6 +120,18 @@ export default function SideNavbar({ hidden, links }: SideNavbarProps) {
       hidden={hidden}
       sx={{ background: "none" }}
     >
+      <Navbar.Section>
+        <ServerCard
+          name="BLACKPINK"
+          avatar="https://cdn.discordapp.com/icons/187450744427773963/a_02c1b447d2444a57afef0c57d993470e.gif"
+          banner="https://cdn.discordapp.com/banners/187450744427773963/a_68f6c4c788588e0966aada251f405bb4.gif?size=1024"
+          stats={[
+            { label: "Members", value: "140k" },
+            { label: "Tags", value: "40" },
+          ]}
+        />
+      </Navbar.Section>
+      <Divider my="lg" />
       <Navbar.Section grow>{linkElements}</Navbar.Section>
     </Navbar>
   );
