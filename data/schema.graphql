@@ -770,7 +770,7 @@ enum GuildRuleSetConfigsOrderBy {
 input GuildRuleSetInput {
   category: String
   description: String
-  enabled: Boolean
+  enabled: Boolean!
   guildId: BigInt
   name: String!
 }

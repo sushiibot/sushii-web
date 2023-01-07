@@ -9,8 +9,7 @@
     "declarationDir": "dist",
     "lib": ["es2018", "esnext.asynciterable"],
     "target": "es2018",
-    "module": "commonjs",
-    "baseUrl": "."
+    "module": "commonjs"
   },
   "include": ["src"],
   "ts-node": {
