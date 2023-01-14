@@ -8,20 +8,26 @@
     "start": "remix-serve build"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/server": "^11.10.0",
+    "@chakra-ui/react": "^2.4.7",
+    "@emotion/react": "^11",
+    "@emotion/server": "^11",
+    "@emotion/styled": "^11",
+    "@fontsource/poppins": "^4.5.10",
     "@mantine/core": "5.2.6",
     "@mantine/hooks": "5.2.6",
     "@mantine/remix": "5.2.6",
-    "@remix-run/node": "^1.7.0",
-    "@remix-run/react": "^1.7.0",
-    "@remix-run/serve": "^1.7.0",
+    "@nikolovlazar/chakra-ui-prose": "^1.2.1",
+    "@remix-run/node": "^1.10.0",
+    "@remix-run/react": "^1.10.0",
+    "@remix-run/serve": "^1.10.0",
     "@tabler/icons": "^1.105.0",
+    "framer-motion": "^6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.7.0",
+    "@remix-run/dev": "^1.10.0",
     "@remix-run/eslint-config": "^1.7.0",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",

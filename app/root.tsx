@@ -1,4 +1,15 @@
-import type { MetaFunction } from "@remix-run/node";
+// root.tsx
+import React, { useContext, useEffect } from "react";
+import { withEmotionCache } from "@emotion/react";
+import {
+  ChakraProvider,
+  Heading,
+  Text,
+  VStack,
+  cookieStorageManagerSSR,
+  localStorageManager,
+  Box,
+} from "@chakra-ui/react";
 import {
   Links,
   LiveReload,
@@ -6,99 +17,183 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
+  useLoaderData,
 } from "@remix-run/react";
-import type { ColorScheme } from "@mantine/core";
-import { Global } from "@mantine/core";
-import {
-  ColorSchemeProvider,
-  createEmotionCache,
-  MantineProvider,
-} from "@mantine/core";
-import { StylesPlaceholder } from "@mantine/remix";
-import { useState } from "react";
-import { useColorScheme } from "@mantine/hooks";
-import colors from "./colors";
-import type { HeaderProps } from "./components/Header/Header";
-import { HeaderAction } from "./components/Header/Header";
+import type {
+  MetaFunction,
+  LinksFunction,
+  LoaderFunction,
+} from "@remix-run/node"; // Depends on the runtime you choose
+
+// Fonts
+import PoppinsCss400 from "@fontsource/poppins/400.css";
+import PoppinsCss600 from "@fontsource/poppins/600.css";
+import PoppinsCss700 from "@fontsource/poppins/700.css";
+
+import { ServerStyleContext, ClientStyleContext } from "./context";
+import theme from "./theme";
+import Navbar from "./components/Navbar/Navbar";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "sushii",
+  title: "sushii.xyz",
   viewport: "width=device-width,initial-scale=1",
 });
 
-createEmotionCache({ key: "mantine" });
+export let links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: PoppinsCss400,
+    },
+    {
+      rel: "stylesheet",
+      href: PoppinsCss600,
+    },
+    {
+      rel: "stylesheet",
+      href: PoppinsCss700,
+    },
+  ];
+};
 
-const headerLinks: HeaderProps["links"] = [
-  {
-    label: "Commands",
-    link: "/commands",
-  },
-  {
-    label: "Guides",
-    link: "/guides",
-    links: [
-      {
-        label: "Getting Started",
-        link: "/guides/getting-started",
-      },
-      {
-        label: "Moderation",
-        link: "/guides/moderation",
-      },
-      {
-        label: "Role Menus",
-        link: "/guides/role-menu",
-      },
-    ],
-  },
-];
+interface DocumentProps {
+  children: React.ReactNode;
+}
 
-export default function App() {
-  // Default "dark"
-  const preferredColorScheme = useColorScheme("dark");
-  const [colorScheme, setColorScheme] =
-    useState<ColorScheme>(preferredColorScheme);
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+const Document = withEmotionCache(
+  ({ children }: DocumentProps, emotionCache) => {
+    const serverStyleData = useContext(ServerStyleContext);
+    const clientStyleData = useContext(ClientStyleContext);
+
+    // Only executed on client
+    useEffect(() => {
+      // re-link sheet container
+      emotionCache.sheet.container = document.head;
+      // re-inject tags
+      const tags = emotionCache.sheet.tags;
+      emotionCache.sheet.flush();
+      tags.forEach((tag) => {
+        (emotionCache.sheet as any)._insertTag(tag);
+      });
+      // reset cache to reapply global styles
+      clientStyleData?.reset();
+    }, []);
+
+    return (
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+          {serverStyleData?.map(({ key, ids, css }) => (
+            <style
+              key={key}
+              data-emotion={`${key} ${ids.join(" ")}`}
+              dangerouslySetInnerHTML={{ __html: css }}
+            />
+          ))}
+        </head>
+        <body>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </html>
+    );
+  }
+);
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <Document>
+      <VStack h="100vh" justify="center">
+        <Heading>There was an error</Heading>
+        <Text>{error.message}</Text>
+        <hr />
+        <Text>
+          Hey, developer, you should replace this with what you want your users
+          to see.
+        </Text>
+      </VStack>
+    </Document>
+  );
+}
+
+export function CatchBoundary() {
+  const cookies = useLoaderData();
+  let caught = useCatch();
+
+  let message;
+  switch (caught.status) {
+    case 401:
+      message = (
+        <Text>
+          Oops! Looks like you tried to visit a page that you do not have access
+          to.
+        </Text>
+      );
+      break;
+    case 404:
+      message = (
+        <Text>
+          Oops! Looks like you tried to visit a page that does not exist.
+        </Text>
+      );
+      break;
+
+    default:
+      throw new Error(caught.data || caught.statusText);
+  }
 
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        theme={{ colorScheme, primaryColor: "blue" }}
-        withGlobalStyles
-        withNormalizeCSS
+    <Document>
+      <ChakraProvider
+        theme={theme}
+        colorModeManager={
+          typeof cookies === "string"
+            ? cookieStorageManagerSSR(cookies)
+            : localStorageManager
+        }
       >
-        <Global
-          styles={(theme) => ({
-            body: {
-              color:
-                theme.colorScheme === "dark"
-                  ? theme.colors.gray[0]
-                  : theme.colors.gray[8],
-              fontSize: 15,
-              margin: 0,
-            },
-          })}
-        />
-        <html lang="en">
-          <head>
-            <StylesPlaceholder />
-            <Meta />
-            <Links />
-          </head>
-          <body style={{ margin: 0 }}>
-            <HeaderAction links={headerLinks} />
-            <Outlet />
-            <ScrollRestoration />
-            <Scripts />
-            <LiveReload />
-          </body>
-        </html>
-      </MantineProvider>
-    </ColorSchemeProvider>
+        <Navbar />
+        <Box>
+          <Heading>
+            {caught.status} {caught.statusText}
+          </Heading>
+          {message}
+        </Box>
+      </ChakraProvider>
+    </Document>
+  );
+}
+
+// Typescript
+// This will return cookies
+export const loader: LoaderFunction = async ({ request }) => {
+  // first time users will not have any cookies and you may not return
+  // undefined here, hence ?? is necessary
+  return request.headers.get("cookie") ?? "";
+};
+
+export default function App() {
+  const cookies = useLoaderData();
+
+  return (
+    <Document>
+      <ChakraProvider
+        theme={theme}
+        colorModeManager={
+          typeof cookies === "string"
+            ? cookieStorageManagerSSR(cookies)
+            : localStorageManager
+        }
+      >
+        <Navbar />
+        <Outlet />
+      </ChakraProvider>
+    </Document>
   );
 }
