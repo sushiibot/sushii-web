@@ -23,7 +23,7 @@ const botStats: StatisticsProps["stats"] = [
   },
   {
     title: "Members",
-    value: "1.65M",
+    value: "69.420M",
     icon: FiUsers,
   },
   {

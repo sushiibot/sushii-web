@@ -24,11 +24,11 @@ function StatsCard(props: StatsCardProps) {
   const { title, value } = props;
   return (
     <Stat
-      px={{ base: 2, md: 4 }}
+      px={{ base: 2, md: 6 }}
       py={"5"}
       shadow={"xl"}
       border={"1px solid"}
-      borderColor={useColorModeValue("gray.300", "gray.700")}
+      borderColor={useColorModeValue("gray.300", "gray.600")}
       rounded={"lg"}
       _hover={{
         background: useColorModeValue("gray.200", "gray.900"),
@@ -37,7 +37,7 @@ function StatsCard(props: StatsCardProps) {
       transition={"all .2s ease"}
     >
       <Flex justifyContent={"space-between"}>
-        <Box pl={{ base: 2, md: 4 }}>
+        <Box>
           <StatLabel fontWeight={"medium"} isTruncated>
             {title}
           </StatLabel>
@@ -50,7 +50,7 @@ function StatsCard(props: StatsCardProps) {
           color={useColorModeValue("gray.400", "gray.200")}
           alignContent={"center"}
         >
-          {<props.icon width="lg" height="lg" />}
+          {<props.icon size={18} />}
         </Box>
       </Flex>
     </Stat>

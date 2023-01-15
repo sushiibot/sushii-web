@@ -15,12 +15,15 @@ import {
   Tab,
   Heading,
   Image,
+  Spacer,
+  useOutsideClick,
 } from "@chakra-ui/react";
 import { FiTrendingUp, FiBook, FiCommand, FiMenu } from "react-icons/fi";
 import ColorModeToggle from "../ColorModeToggle/ColorModeToggle";
 import { Link, NavLink, useMatches } from "@remix-run/react";
 import SushiiIcon from "../../images/sushii.png";
 import { botInviteURL } from "~/consts";
+import { useRef } from "react";
 
 const links = [
   {
@@ -47,6 +50,12 @@ export default function Navbar() {
 
   // First element is root
   const showSubnav = matches.at(1)?.pathname === "/server";
+
+  const ref = useRef<typeof HStack>(null);
+  useOutsideClick({
+    ref: ref,
+    handler: () => mobileNav.onClose(),
+  });
 
   const invitebutton = (
     <a href={botInviteURL} rel="noopener noreferrer" target="_blank">
@@ -88,9 +97,27 @@ export default function Navbar() {
             w="full"
             maxW="8xl"
           >
-            <HStack spacing={4} display="flex" alignItems="center">
-              {/** mobile nav */}
-              <Box display={{ base: "inline-flex", md: "none" }}>
+            <Flex alignItems="center" w="full">
+              <Link to="/" title="Home">
+                <Box display="flex" alignItems="center">
+                  <Image src={SushiiIcon} height="8" marginRight="2" />
+                  <Heading fontSize="2xl" fontWeight="medium">
+                    sushii
+                  </Heading>
+                  <VisuallyHidden>sushii</VisuallyHidden>
+                </Box>
+              </Link>
+              <Spacer />
+              {/** mobile hamburger button */}
+              {mobileNav.isOpen ? (
+                <CloseButton
+                  aria-label="Close menu"
+                  justifySelf="self-start"
+                  onClick={mobileNav.onClose}
+                  size="lg"
+                  variant="ghost"
+                />
+              ) : (
                 <IconButton
                   display={{ base: "flex", md: "none" }}
                   aria-label="Open menu"
@@ -101,10 +128,15 @@ export default function Navbar() {
                   icon={<FiMenu />}
                   onClick={mobileNav.onOpen}
                 />
+              )}
+
+              {/** mobile nav */}
+              <Box display={{ base: "inline-flex", md: "none" }}>
                 {/** mobile nav items */}
                 <VStack
+                  ref={ref}
                   pos="absolute"
-                  top={0}
+                  top="16"
                   left={0}
                   right={0}
                   display={mobileNav.isOpen ? "flex" : "none"}
@@ -112,7 +144,6 @@ export default function Navbar() {
                   width="full"
                   p={4}
                   pb={4}
-                  bg={bg}
                   backdropFilter="auto"
                   backdropBlur="6px"
                   spacing={3}
@@ -122,13 +153,6 @@ export default function Navbar() {
                   borderBottom="1px solid"
                   borderColor={useColorModeValue("gray.200", "gray.600")}
                 >
-                  <CloseButton
-                    aria-label="Close menu"
-                    justifySelf="self-start"
-                    onClick={mobileNav.onClose}
-                    size="lg"
-                    variant="ghost"
-                  />
                   {links.map((link) => (
                     <NavLink
                       key={link.label}
@@ -143,16 +167,7 @@ export default function Navbar() {
                   {invitebutton}
                 </VStack>
               </Box>
-              <Link to="/" title="Home">
-                <Box display="flex" alignItems="center">
-                  <Image src={SushiiIcon} height="8" marginRight="2" />
-                  <Heading fontSize="2xl" fontWeight="medium">
-                    sushii
-                  </Heading>
-                  <VisuallyHidden>sushii</VisuallyHidden>
-                </Box>
-              </Link>
-            </HStack>
+            </Flex>
             <HStack spacing={3} display="flex" alignItems="center">
               {/** desktop nav */}
               <HStack spacing={3} display={{ base: "none", md: "inline-flex" }}>

@@ -7,7 +7,7 @@ export interface SidebarLinkProps {
 }
 
 export default function SidebarLink({ href, label }: SidebarLinkProps) {
-  const linkActive = useColorModeValue("blue.200", "blue.800");
+  const linkActive = useColorModeValue("blue.200", "blue.400");
   const linkhover = useColorModeValue("blue.200", "blue.400");
 
   return (

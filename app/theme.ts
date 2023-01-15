@@ -38,6 +38,7 @@ const headingStyle = defineStyle({
 
 const theme = extendTheme(
   {
+    initialColorMode: "dark",
     colors,
     fonts: {
       heading: `'Poppins', sans-serif`,
