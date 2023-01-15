@@ -60,7 +60,7 @@ export default function Commands() {
   return (
     <Container mx="auto" w="full" maxW="8xl">
       <HStack alignItems="start">
-        <Sidebar title="Categories" routes={routes} />
+        <Sidebar routes={routes} />
         <Box p={4}>
           <Heading marginY="3">Commands</Heading>
           <Container marginLeft={0} paddingLeft={0} marginBottom="10">

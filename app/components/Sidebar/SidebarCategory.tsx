@@ -1,76 +1,75 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { chakra, Stack } from "@chakra-ui/react";
-import type { ReactNode, RefObject } from "react";
-import { useEffect, useRef, useState } from "react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  HStack,
+  Spacer,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import type { SidebarLinkProps } from "./SidebarLink";
+import SidebarLink from "./SidebarLink";
 
-interface SidebarCategoryProps extends BoxProps {
-  isMobile?: boolean;
-  title: string;
-  opened?: boolean;
-  selected?: boolean;
-  children: ReactNode;
-  contentRef?: RefObject<any>;
+export interface SidebarCategoryProps {
+  label: string;
+  // Only 1 layer deep, no additional nesting
+  links: SidebarLinkProps[];
 }
 
-interface SidebarState {
-  toggle?: boolean;
-  shouldScroll?: boolean;
+export function isCategory(
+  item: SidebarCategoryProps | SidebarLinkProps
+): item is SidebarCategoryProps {
+  return "links" in item;
 }
 
-function SidebarCategory(props: SidebarCategoryProps) {
-  const { isMobile, title, selected, opened, children, contentRef, ...rest } =
-    props;
-
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  const [{ toggle, shouldScroll = false }, setToggle] = useState<SidebarState>({
-    toggle: selected || opened,
-  });
-
-  // If a category is selected indirectly, open it. This can happen when using the search input
-  useEffect(() => {
-    if (selected) {
-      setToggle({ toggle: true, shouldScroll: true });
-    }
-  }, [selected]);
-
-  // Navigate to the start of the category when manually opened
-  useEffect(() => {
-    if (!ref.current || !contentRef?.current) return;
-    if (toggle && shouldScroll) {
-      const contentEl = contentRef.current;
-
-      if (toggle == true && contentEl) {
-        // 10 is added for better margin
-        const height =
-          ref.current.offsetTop - (isMobile ? 10 : contentEl.offsetTop);
-        contentEl.scrollTop = height;
-        setToggle({ toggle });
-      }
-    }
-  }, [toggle, shouldScroll, isMobile, contentRef]);
-
+export default function SidebarCategory({
+  label,
+  links,
+}: SidebarCategoryProps) {
   return (
-    <chakra.div mt="8" ref={ref} {...rest}>
-      <chakra.p
-        width="full"
-        textTransform="uppercase"
-        letterSpacing="wider"
-        fontSize="xs"
-        fontWeight="bold"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        userSelect="none"
-        color="accent"
-      >
-        {title}
-      </chakra.p>
-      <Stack role="group" hidden={!toggle} mt="16px" mx="-3">
-        {children}
-      </Stack>
-    </chakra.div>
+    <Box marginBottom="4">
+      <Accordion allowToggle defaultIndex={0}>
+        <AccordionItem border="none">
+          {/** category label or link */}
+          <Box marginBottom={1}>
+            <AccordionButton padding={0}>
+              <HStack
+                w="full"
+                _hover={{
+                  bg: useColorModeValue("gray.200", "gray.800"),
+                }}
+                transition="background-color 0.1s ease"
+                paddingY="1"
+                paddingX="3"
+                margin={0}
+                borderRadius="md"
+              >
+                <Text>{label}</Text>
+                <Spacer />
+                <AccordionIcon />
+              </HStack>
+            </AccordionButton>
+          </Box>
+          {/** category links */}
+          <AccordionPanel padding="0">
+            <Box
+              marginLeft={4}
+              paddingLeft={4}
+              borderLeft="1px solid"
+              borderColor={useColorModeValue("gray.200", "gray.600")}
+            >
+              {links.map((link) => (
+                <Box key={link.href} marginTop="2">
+                  <SidebarLink href={link.href} label={link.label} />
+                </Box>
+              ))}
+            </Box>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+    </Box>
   );
 }
-
-export default SidebarCategory;

@@ -11,17 +11,24 @@ const routes: SidebarProps["routes"] = [
   },
   {
     label: "Moderation",
-    href: "/help/moderation",
     links: [
       {
         label: "Setup",
         href: "/help/moderation/setup",
       },
+      {
+        label: "Usage",
+        href: "/help/moderation/usage",
+      },
     ],
   },
   {
-    label: "Roles",
+    label: "Role Menus",
     href: "/help/roles",
+  },
+  {
+    label: "XP and Levels",
+    href: "/help/levels",
   },
 ];
 
@@ -29,11 +36,9 @@ export default function Help() {
   return (
     <Container mx="auto" w="full" maxW="8xl">
       <HStack alignItems="start">
-        <Sidebar title="Categories" routes={routes} />
-        <Box p="4">
-          <Prose>
-            <Outlet />
-          </Prose>
+        <Sidebar routes={routes} />
+        <Box p={8} as="main" className="main-content">
+          <Outlet />
         </Box>
       </HStack>
     </Container>

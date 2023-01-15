@@ -1,9 +1,9 @@
-import { Container, Text, Title } from "@mantine/core";
+import { Container, Text, Heading } from "@chakra-ui/react";
 
 export default function Tags() {
   return (
     <Container>
-      <Title>Tags</Title>
+      <Heading>Tags</Heading>
       <Text>meow</Text>
     </Container>
   );

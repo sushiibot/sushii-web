@@ -1,13 +1,40 @@
-import { extendTheme } from "@chakra-ui/react";
+import { defineStyle, extendTheme } from "@chakra-ui/react";
 import { withProse } from "@nikolovlazar/chakra-ui-prose";
+import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
+import { mode } from "@chakra-ui/theme-tools";
 
 const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
+  gray: {
+    50: "#cdd6f4",
+    100: "#bac2de",
+    200: "#a6adc8",
+    300: "#9399b2",
+    400: "#7f849c",
+    500: "#6c7086",
+    600: "#313244",
+    700: "#1e1e2e",
+    800: "#181825",
+    900: "#11111b",
+  },
+  blue: {
+    "50": "#EBF0FA",
+    "100": "#C6D6F1",
+    "200": "#A1BCE7",
+    "300": "#7DA1DE",
+    "400": "#5887D5",
+    "500": "#336DCC",
+    "600": "#2957A3",
+    "700": "#1F417A",
+    "800": "#152C51",
+    "900": "#0A1629",
   },
 };
+
+const headingStyle = defineStyle({
+  baseStyle: {
+    fontWeight: "medium",
+  },
+});
 
 const theme = extendTheme(
   {
@@ -15,6 +42,16 @@ const theme = extendTheme(
     fonts: {
       heading: `'Poppins', sans-serif`,
       body: `'Poppins', sans-serif`,
+    },
+    components: {
+      Heading: headingStyle,
+    },
+    styles: {
+      global: (props: StyleFunctionProps) => ({
+        body: {
+          bg: mode("gray.100", "gray.800")(props),
+        },
+      }),
     },
   },
   withProse()

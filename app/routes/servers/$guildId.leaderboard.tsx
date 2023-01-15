@@ -1,10 +1,10 @@
-import { Container, Text, Title } from "@mantine/core";
+import { Container, Text, Heading } from "@chakra-ui/react";
 
 export default function Leaderboard() {
   return (
     <Container>
-      <Title>Leaderboard</Title>
-      <Text>woof</Text>
+      <Heading>Leaderboard</Heading>
+      <Text>meow</Text>
     </Container>
   );
 }

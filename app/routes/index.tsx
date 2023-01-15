@@ -1,4 +1,3 @@
-import type { IconProps } from "@chakra-ui/react";
 import {
   Container,
   Stack,
@@ -14,6 +13,7 @@ import { Link } from "@remix-run/react";
 import { FiHome, FiCommand, FiUsers } from "react-icons/fi";
 import type { StatisticsProps } from "~/components/Statistics/Staticstic";
 import Statistics from "~/components/Statistics/Staticstic";
+import { botInviteURL } from "~/consts";
 
 const botStats: StatisticsProps["stats"] = [
   {
@@ -44,7 +44,6 @@ export default function CallToActionWithVideo() {
       >
         <Stack flex={1} spacing={{ base: 5, md: 10 }}>
           <Heading
-            fontWeight="bold"
             fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
             lineHeight="3"
           >
@@ -64,7 +63,7 @@ export default function CallToActionWithVideo() {
             as="h2"
             size="md"
             fontWeight="medium"
-            color={useColorModeValue("gray.700", "gray.200")}
+            color={useColorModeValue("gray.700", "white")}
           >
             Multi-purpose bot with essential features for moderating Discord
             servers.
@@ -73,19 +72,19 @@ export default function CallToActionWithVideo() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
           >
-            <Button
-              rounded={"full"}
-              size={"lg"}
-              fontWeight={"normal"}
-              px={6}
-              bg={useColorModeValue("blue.200", "blue.400")}
-              _hover={{ bg: "blue.200" }}
-            >
-              Add to Discord
-            </Button>
+            <a href={botInviteURL} rel="noopener noreferrer" target="_blank">
+              <Button
+                size={"lg"}
+                fontWeight={"normal"}
+                px={6}
+                bg={useColorModeValue("blue.200", "blue.400")}
+                _hover={{ bg: useColorModeValue("blue.300", "blue.500") }}
+              >
+                Add to Discord
+              </Button>
+            </a>
             <Link to="/commands">
               <Button
-                rounded={"full"}
                 size={"lg"}
                 fontWeight={"normal"}
                 px={6}
