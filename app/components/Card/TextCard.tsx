@@ -1,15 +1,12 @@
 import type { LayoutProps } from "@chakra-ui/react";
 import {
   Box,
-  Center,
   useColorModeValue,
   Heading,
   Text,
-  Stack,
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
 } from "@chakra-ui/react";
 import type { IconType } from "react-icons/lib";
 
@@ -40,9 +37,15 @@ export default function TextCard({
       zIndex={1}
       {...layoutProps}
     >
-      <CardHeader paddingX={2} paddingY={0} marginBottom="1">
-        <Box marginBottom="4">
-          <props.icon size={36} />
+      <CardHeader paddingX={2} paddingY={0} marginBottom="4">
+        <Box
+          display="inline-block"
+          marginBottom="4"
+          borderRadius="full"
+          padding="4"
+          backgroundColor={useColorModeValue("gray.200", "gray.800")}
+        >
+          <props.icon size={24} />
         </Box>
         <Heading size="md">{title}</Heading>
       </CardHeader>

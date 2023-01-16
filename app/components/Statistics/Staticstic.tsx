@@ -1,6 +1,5 @@
 import {
   Box,
-  chakra,
   Flex,
   SimpleGrid,
   Stat,
@@ -8,11 +7,7 @@ import {
   StatNumber,
   useColorModeValue,
 } from "@chakra-ui/react";
-import type { ReactNode } from "react";
 import type { IconType } from "react-icons";
-import { BsPerson } from "react-icons/bs";
-import { FiServer } from "react-icons/fi";
-import { GoLocation } from "react-icons/go";
 
 export interface StatsCardProps {
   title: string;
@@ -31,7 +26,7 @@ function StatsCard(props: StatsCardProps) {
       borderColor={useColorModeValue("gray.300", "gray.600")}
       rounded={"lg"}
       _hover={{
-        background: useColorModeValue("gray.200", "gray.900"),
+        background: useColorModeValue("gray.200", "gray.600"),
         shadow: "2xl",
       }}
       transition={"all .2s ease"}

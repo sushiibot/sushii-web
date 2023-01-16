@@ -8,12 +8,30 @@ import {
   Button,
   Image,
   useColorModeValue,
+  SimpleGrid,
+  Center,
 } from "@chakra-ui/react";
+import SvgBlurryBackground from "../images/blurry-gradient-haikei.svg";
+import SvgBlobTopRight from "../images/blob-scene-haikei.svg";
+import SvgBlobBottomLeft from "../images/blob-bottom-left.svg";
+import SvgWaveDivider from "../images/stacked-waves.svg";
 import { Link } from "@remix-run/react";
-import { FiHome, FiCommand, FiUsers } from "react-icons/fi";
+import {
+  FiHome,
+  FiCommand,
+  FiUsers,
+  FiChevronsUp,
+  FiMessageSquare,
+} from "react-icons/fi";
+import TextCard from "~/components/Card/TextCard";
 import type { StatisticsProps } from "~/components/Statistics/Staticstic";
 import Statistics from "~/components/Statistics/Staticstic";
 import { botInviteURL } from "~/consts";
+import DotDivider from "~/components/Landing/DotDivider";
+import Footer from "~/components/Footer/Footer";
+
+const IMAGE =
+  "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80";
 
 const botStats: StatisticsProps["stats"] = [
   {
@@ -33,99 +51,182 @@ const botStats: StatisticsProps["stats"] = [
   },
 ];
 
-export default function CallToActionWithVideo() {
+export default function Index() {
   return (
-    <Container maxW={"5xl"}>
-      <Stack
-        align={"center"}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
-        direction={{ base: "column", md: "row" }}
-      >
-        <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-          <Heading
-            fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
-            lineHeight="3"
-          >
-            <Text
-              as={"span"}
-              color="white"
-              bgClip="text"
-              bgGradient={useColorModeValue(
-                "linear(to-tr, blue.200, purple.300)",
-                "linear(to-tr, blue.200, purple.300)"
-              )}
-            >
-              sushii
-            </Text>
-          </Heading>
-          <Heading
-            as="h2"
-            size="md"
-            fontWeight="medium"
-            color={useColorModeValue("gray.700", "white")}
-          >
-            Multi-purpose bot with essential features for moderating Discord
-            servers.
-          </Heading>
+    <Box minHeight="full">
+      <Box position="relative">
+        <Container maxW={"5xl"}>
           <Stack
-            spacing={{ base: 4, sm: 6 }}
-            direction={{ base: "column", sm: "row" }}
+            align={"center"}
+            spacing={{ base: 8, md: 10 }}
+            py={{ base: 20, md: 28 }}
+            direction={{ base: "column", md: "row" }}
           >
-            <a href={botInviteURL} rel="noopener noreferrer" target="_blank">
-              <Button
-                size={"lg"}
-                fontWeight={"normal"}
-                px={6}
-                bg={useColorModeValue("blue.200", "blue.400")}
-                _hover={{ bg: useColorModeValue("blue.300", "blue.500") }}
+            <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+              <Heading
+                fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+                lineHeight="3"
               >
-                Add to Discord
-              </Button>
-            </a>
-            <Link to="/commands">
-              <Button
-                size={"lg"}
-                fontWeight={"normal"}
-                px={6}
-                leftIcon={<FiCommand color={"gray.300"} />}
+                <Text
+                  as={"span"}
+                  color="white"
+                  bgClip="text"
+                  bgGradient={useColorModeValue(
+                    "linear(to-tr, blue.200, purple.300)",
+                    "linear(to-tr, blue.200, purple.300)"
+                  )}
+                >
+                  sushii
+                </Text>
+              </Heading>
+              <Heading
+                as="h2"
+                size="md"
+                fontWeight="medium"
+                lineHeight="normal"
+                color={useColorModeValue("gray.700", "white")}
               >
-                View Commands
-              </Button>
-            </Link>
-          </Stack>
-        </Stack>
-        <Flex
-          flex={1}
-          justify={"center"}
-          align={"center"}
-          position={"relative"}
-          w={"full"}
-        >
-          <Box
-            position={"relative"}
-            height={"300px"}
-            rounded={"2xl"}
-            boxShadow={"2xl"}
-            width={"full"}
-            overflow={"hidden"}
-          >
-            <Image
-              alt={"Hero Image"}
-              fit={"cover"}
+                Essential features for moderating Discord servers.
+              </Heading>
+              <Stack
+                spacing={{ base: 4, sm: 6 }}
+                direction={{ base: "column", sm: "row" }}
+              >
+                <a
+                  href={botInviteURL}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Button
+                    size={"lg"}
+                    fontWeight={"normal"}
+                    px={6}
+                    bg={useColorModeValue("blue.200", "blue.400")}
+                    _hover={{ bg: useColorModeValue("blue.300", "blue.500") }}
+                    boxShadow={"0 8px 15px 0px rgb(66 153 225 / 43%)"}
+                  >
+                    Add to Discord
+                  </Button>
+                </a>
+                <Link to="/commands">
+                  <Button
+                    size={"lg"}
+                    fontWeight={"normal"}
+                    px={6}
+                    leftIcon={<FiCommand color={"gray.300"} />}
+                  >
+                    View Commands
+                  </Button>
+                </Link>
+              </Stack>
+            </Stack>
+            <Flex
+              flex={1}
+              justify={"center"}
               align={"center"}
-              w={"100%"}
-              h={"100%"}
-              src={
-                "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
-              }
-            />
+              position={"relative"}
+              w={"full"}
+            >
+              <Box
+                position={"relative"}
+                height={"300px"}
+                rounded={"2xl"}
+                boxShadow={"2xl"}
+                width={"full"}
+                _after={{
+                  transition: "all .3s ease",
+                  content: '""',
+                  w: "full",
+                  h: "full",
+                  pos: "absolute",
+                  top: 5,
+                  left: 0,
+                  backgroundImage: `url(${IMAGE})`,
+                  filter: "blur(36px)",
+                  opacity: 0.3,
+                  zIndex: -1,
+                }}
+              >
+                <Image
+                  alt={"Hero Image"}
+                  fit={"cover"}
+                  align={"center"}
+                  w={"100%"}
+                  h={"100%"}
+                  src={IMAGE}
+                  rounded={"2xl"}
+                />
+              </Box>
+            </Flex>
+          </Stack>
+          <Box marginBottom="32">
+            <Statistics stats={botStats} />
           </Box>
-        </Flex>
-      </Stack>
-      <Box>
-        <Statistics stats={botStats} />
+        </Container>
+        <Image
+          position="absolute"
+          top={0}
+          left={0}
+          bottom={0}
+          width="full"
+          height="full"
+          zIndex={-5}
+          filter="blur(64px)"
+          src={SvgBlurryBackground}
+        />
       </Box>
-    </Container>
+      {/** outside of box to be absolute to doc, not parent */}
+      <Image
+        position="absolute"
+        top={0}
+        left={0}
+        bottom={0}
+        width="100vw"
+        zIndex={-4}
+        src={SvgBlobTopRight}
+      />
+      <Box position="relative">
+        {/** waves divider */}
+        <Image
+          position="absolute"
+          top="-36"
+          left={0}
+          width="full"
+          zIndex={-3}
+          src={SvgWaveDivider}
+        />
+        <Container maxW={"5xl"}>
+          <Center marginBottom="6">
+            <DotDivider count={3} />
+          </Center>
+          <SimpleGrid spacing="6" columns={3}>
+            <TextCard
+              title="Moderation tools"
+              description="The basics you expect, with a few extras."
+              icon={FiMessageSquare}
+            />
+            <TextCard
+              title="XP and Levels"
+              description="Encourage your members to chat."
+              icon={FiChevronsUp}
+            />
+            <TextCard
+              title="Role Menus"
+              description="Easy self-assigned roles with buttons or select-menus."
+              icon={FiUsers}
+            />
+          </SimpleGrid>
+        </Container>
+      </Box>
+      <Footer />
+      <Image
+        position="absolute"
+        left={0}
+        bottom={0}
+        width="100vw"
+        zIndex={-2}
+        src={SvgBlobBottomLeft}
+      />
+    </Box>
   );
 }

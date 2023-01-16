@@ -79,10 +79,15 @@ const Document = withEmotionCache(
       });
       // reset cache to reapply global styles
       clientStyleData?.reset();
-    }, []);
+    }, [clientStyleData, emotionCache.sheet]);
 
     return (
-      <html lang="en">
+      <html
+        lang="en"
+        style={{
+          height: "100%",
+        }}
+      >
         <head>
           <Meta />
           <Links />
@@ -94,7 +99,7 @@ const Document = withEmotionCache(
             />
           ))}
         </head>
-        <body>
+        <body style={{ minHeight: "100%", overflowY: "scroll" }}>
           {children}
           <ScrollRestoration />
           <Scripts />
