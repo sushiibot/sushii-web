@@ -23,14 +23,18 @@ export default function Footer() {
           <ButtonGroup variant="ghost">
             <IconButton
               as="a"
-              href="#"
+              href="https://github.com/sushiibot"
               aria-label="GitHub"
+              rel="noopener noreferrer"
+              target="_blank"
               icon={<FaGithub fontSize="1.25rem" />}
             />
             <IconButton
               as="a"
-              href="#"
+              href="https://discord.gg/PjDRRXSSAF"
               aria-label="Discord"
+              rel="noopener noreferrer"
+              target="_blank"
               icon={<FaDiscord fontSize="1.25rem" />}
             />
           </ButtonGroup>

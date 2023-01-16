@@ -22,6 +22,7 @@ import {
   FiUsers,
   FiChevronsUp,
   FiMessageSquare,
+  FiTag,
 } from "react-icons/fi";
 import TextCard from "~/components/Card/TextCard";
 import type { StatisticsProps } from "~/components/Statistics/Staticstic";
@@ -179,7 +180,7 @@ export default function Index() {
       <Image
         position="absolute"
         top={0}
-        left={0}
+        right={0}
         bottom={0}
         width="100vw"
         zIndex={-4}
@@ -195,25 +196,53 @@ export default function Index() {
           zIndex={-3}
           src={SvgWaveDivider}
         />
-        <Container maxW={"5xl"}>
+        <Container maxW={"8xl"}>
           <Center marginBottom="6">
             <DotDivider count={3} />
           </Center>
-          <SimpleGrid spacing="6" columns={3}>
+          <Heading
+            as="h2"
+            size="md"
+            color={useColorModeValue("blue.200", "blue.200")}
+            marginBottom="4"
+            fontWeight="medium"
+          >
+            Features
+          </Heading>
+          <Heading as="h2" marginBottom="4">
+            Why sushii?
+          </Heading>
+          <Container margin={0} marginBottom="16" padding={0}>
+            <Text fontSize="xl">
+              A bundle of features that are essential to any server along with a
+              few extras.
+            </Text>
+          </Container>
+          {/** feature cards */}
+          <SimpleGrid
+            spacing="6"
+            columns={{ base: 2, md: 4 }}
+            marginBottom="24"
+          >
             <TextCard
               title="Moderation tools"
-              description="The basics you expect, with a few extras."
+              description="Logging for moderation actions, deleted messages, etc. Keep track of past infractions for users."
               icon={FiMessageSquare}
             />
             <TextCard
               title="XP and Levels"
-              description="Encourage your members to chat."
+              description="Encourage your members to chat with activity rankings and leaderboard. Reward active users with roles given at certain levels."
               icon={FiChevronsUp}
             />
             <TextCard
               title="Role Menus"
               description="Easy self-assigned roles with buttons or select-menus."
               icon={FiUsers}
+            />
+            <TextCard
+              title="Custom Tags"
+              description="Create your own tags for quick access to your favorite messages."
+              icon={FiTag}
             />
           </SimpleGrid>
         </Container>

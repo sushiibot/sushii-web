@@ -47,7 +47,9 @@ export default function TextCard({
         >
           <props.icon size={24} />
         </Box>
-        <Heading size="md">{title}</Heading>
+        <Heading size="md" fontWeight="semibold">
+          {title}
+        </Heading>
       </CardHeader>
       <CardBody paddingX={2} paddingY={0}>
         <Text>{description}</Text>
