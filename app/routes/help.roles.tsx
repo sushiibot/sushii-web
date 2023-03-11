@@ -8,7 +8,7 @@ import {
 export default function Roles() {
   return (
     <Container p={0}>
-      <Heading mb="4">Roles Menus</Heading>
+      <Heading mb="4">Role Menus</Heading>
       <Text marginBottom="4">
         Allow your users to self-assign roles with sushii's role menus. This
         supports both buttons and select menus.
