@@ -30,7 +30,7 @@ export default function SidebarCategory({
   links,
 }: SidebarCategoryProps) {
   return (
-    <Box marginBottom="4">
+    <Box>
       <Accordion allowToggle defaultIndex={0}>
         <AccordionItem border="none">
           {/** category label or link */}

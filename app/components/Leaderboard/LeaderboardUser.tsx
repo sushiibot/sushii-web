@@ -9,19 +9,23 @@ import {
 } from "@chakra-ui/react";
 
 export interface LeaderboardUserProps {
+  userId: string;
   rank: number;
   username: string;
   avatarHash?: string;
   discriminator: string;
+  level: string;
   xpProgress: number;
   xpTotal: number;
 }
 
 export default function LeaderboardUser({
+  userId,
   rank,
   username,
   avatarHash,
   discriminator,
+  level,
   xpProgress,
   xpTotal,
 }: LeaderboardUserProps) {
@@ -52,7 +56,7 @@ export default function LeaderboardUser({
               size="lg"
               src={
                 avatarHash
-                  ? `https://cdn.discordapp.com/avatars/985996879831650304/${avatarHash}.webp?size=4096`
+                  ? `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.webp?size=4096`
                   : `https://cdn.discordapp.com/embed/avatars/${
                       parseInt(discriminator) % 5
                     }.png`
@@ -82,7 +86,7 @@ export default function LeaderboardUser({
           <Text>
             Level
             <br />
-            103
+            {level}
           </Text>
         </Box>
       </HStack>

@@ -4,6 +4,7 @@ import LeaderboardUser from "./LeaderboardUser";
 
 export interface LeaderboardProps {
   items: LeaderboardUserProps[];
+  bottomRef: (node?: Element | null) => void;
 }
 
 export default function Leaderboard({ items }: LeaderboardProps) {

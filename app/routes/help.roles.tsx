@@ -13,6 +13,11 @@ export default function Roles() {
         Allow your users to self-assign roles with sushii's role menus. This
         supports both buttons and select menus.
       </Text>
+      <Text marginBottom="4">
+        Why use these instead of Discord native role customize menu? You can set
+        a limit on how many roles a user can have, and you can also add required
+        roles needed for the menu.
+      </Text>
 
       <DiscordMessages
         style={{

@@ -11,13 +11,12 @@ import {
   SimpleGrid,
   Center,
 } from "@chakra-ui/react";
-import SvgBlurryBackground from "../images/blurry-gradient-haikei.svg";
-import SvgBlobTopRight from "../images/blob-scene-haikei.svg";
-import SvgBlobBottomLeft from "../images/blob-bottom-left.svg";
-import SvgWaveDivider from "../images/stacked-waves.svg";
-import { Link } from "@remix-run/react";
+import SvgBlurryBackground from "../../images/blurry-gradient-haikei.svg";
+import SvgBlobTopRight from "../../images/blob-scene-haikei.svg";
+import SvgBlobBottomLeft from "../../images/blob-bottom-left.svg";
+import SvgWaveDivider from "../../images/stacked-waves.svg";
+import { Link, useLoaderData } from "@remix-run/react";
 import {
-  FiHome,
   FiCommand,
   FiUsers,
   FiChevronsUp,
@@ -25,34 +24,33 @@ import {
   FiTag,
 } from "react-icons/fi";
 import TextCard from "~/components/Card/TextCard";
-import type { StatisticsProps } from "~/components/Statistics/Staticstic";
+import type { StatsCardProps } from "~/components/Statistics/Staticstic";
 import Statistics from "~/components/Statistics/Staticstic";
 import { botInviteURL } from "~/consts";
 import DotDivider from "~/components/Landing/DotDivider";
 import Footer from "~/components/Footer/Footer";
+import { getStatistics } from "./getStatistics.queries";
+import { client } from "~/database.server";
+import type { TypedResponse } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { parseStatistics } from "./statistics";
+import logger from "~/logger";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80";
 
-const botStats: StatisticsProps["stats"] = [
-  {
-    title: "Servers",
-    value: "4,321",
-    icon: FiHome,
-  },
-  {
-    title: "Members",
-    value: "69.420M",
-    icon: FiUsers,
-  },
-  {
-    title: "Commands run",
-    value: "1.8M",
-    icon: FiCommand,
-  },
-];
+export async function loader(): Promise<TypedResponse<StatsCardProps[]>> {
+  const rawStats = await getStatistics.run(undefined, client);
+  const stats = parseStatistics(rawStats);
+
+  logger.info({ stats, rawStats }, "Stats");
+
+  return json(stats);
+}
 
 export default function Index() {
+  const stats = useLoaderData<typeof loader>();
+
   return (
     <Box minHeight="full">
       <Box position="relative">
@@ -161,7 +159,7 @@ export default function Index() {
             </Flex>
           </Stack>
           <Box marginBottom="32">
-            <Statistics stats={botStats} />
+            <Statistics stats={stats} />
           </Box>
         </Container>
         <Image
@@ -214,8 +212,8 @@ export default function Index() {
           </Heading>
           <Container margin={0} marginBottom="16" padding={0}>
             <Text fontSize="xl">
-              A bundle of features that are essential to any server along with a
-              few extras.
+              A bundle of features that are essential to any server, along with
+              a few extras.
             </Text>
           </Container>
           {/** feature cards */}

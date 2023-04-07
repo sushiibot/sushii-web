@@ -1,16 +1,9 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
+import { ChakraProvider, Heading, Text, VStack, Box } from "@chakra-ui/react";
 import {
-  ChakraProvider,
-  Heading,
-  Text,
-  VStack,
-  cookieStorageManagerSSR,
-  localStorageManager,
-  Box,
-} from "@chakra-ui/react";
-import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
@@ -18,13 +11,12 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-  useLoaderData,
+  useNavigation,
+  useRouteError,
 } from "@remix-run/react";
-import type {
-  MetaFunction,
-  LinksFunction,
-  LoaderFunction,
-} from "@remix-run/node"; // Depends on the runtime you choose
+import type { V2_MetaFunction, LinksFunction } from "@remix-run/node"; // Depends on the runtime you choose
+import NProgress from "nprogress";
+import nProgressStyles from "./nprogress.css";
 
 // Fonts
 import PoppinsCss400 from "@fontsource/poppins/400.css";
@@ -35,11 +27,13 @@ import { ServerStyleContext, ClientStyleContext } from "./context";
 import theme from "./theme";
 import Navbar from "./components/Navbar/Navbar";
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "sushii.xyz",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: V2_MetaFunction = () => {
+  return [
+    { charset: "utf-8" },
+    { title: "sushii.xyz" },
+    { viewport: "width=device-width,initial-scale=1" },
+  ];
+};
 
 export let links: LinksFunction = () => {
   return [
@@ -54,6 +48,10 @@ export let links: LinksFunction = () => {
     {
       rel: "stylesheet",
       href: PoppinsCss700,
+    },
+    {
+      rel: "stylesheet",
+      href: nProgressStyles,
     },
   ];
 };
@@ -79,7 +77,7 @@ const Document = withEmotionCache(
       });
       // reset cache to reapply global styles
       clientStyleData?.reset();
-    }, [clientStyleData, emotionCache.sheet]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
       <html
@@ -110,25 +108,37 @@ const Document = withEmotionCache(
   }
 );
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return (
-    <Document>
-      <VStack h="100vh" justify="center">
-        <Heading>There was an error</Heading>
-        <Text>{error.message}</Text>
-        <hr />
-        <Text>
-          Hey, developer, you should replace this with what you want your users
-          to see.
-        </Text>
-      </VStack>
-    </Document>
-  );
+export function ErrorBoundary() {
+  let error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Document>
+        <VStack h="100vh" justify="center">
+          <h1>
+            {error.status} {error.statusText}
+          </h1>
+          <p>{error.data}</p>
+        </VStack>
+      </Document>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <Document>
+        <VStack h="100vh" justify="center">
+          <h1>Error</h1>
+          <p>{error.message}</p>
+          <p>The stack trace is:</p>
+          <pre>{error.stack}</pre>
+        </VStack>
+      </Document>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
 }
 
 export function CatchBoundary() {
-  const cookies = useLoaderData();
   let caught = useCatch();
 
   let message;
@@ -155,14 +165,7 @@ export function CatchBoundary() {
 
   return (
     <Document>
-      <ChakraProvider
-        theme={theme}
-        colorModeManager={
-          typeof cookies === "string"
-            ? cookieStorageManagerSSR(cookies)
-            : localStorageManager
-        }
-      >
+      <ChakraProvider theme={theme}>
         <Navbar />
         <Box>
           <Heading>
@@ -175,27 +178,20 @@ export function CatchBoundary() {
   );
 }
 
-// Typescript
-// This will return cookies
-export const loader: LoaderFunction = async ({ request }) => {
-  // first time users will not have any cookies and you may not return
-  // undefined here, hence ?? is necessary
-  return request.headers.get("cookie") ?? "";
-};
-
 export default function App() {
-  const cookies = useLoaderData();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // when the state is idle then we can to complete the progress bar
+    if (navigation.state === "idle") NProgress.done();
+    // and when it's something else it means it's either submitting a form or
+    // waiting for the loaders of the next location so we start it
+    else NProgress.start();
+  }, [navigation.state]);
 
   return (
     <Document>
-      <ChakraProvider
-        theme={theme}
-        colorModeManager={
-          typeof cookies === "string"
-            ? cookieStorageManagerSSR(cookies)
-            : localStorageManager
-        }
-      >
+      <ChakraProvider theme={theme}>
         <Navbar />
         <Outlet />
       </ChakraProvider>

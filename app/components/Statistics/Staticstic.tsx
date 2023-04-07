@@ -8,15 +8,31 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
+import { FiHome, FiCommand, FiUsers } from "react-icons/fi";
+
+const ICON_MAP: Record<string, IconType> = {
+  guild_count: FiHome,
+  member_count: FiUsers,
+  command_count: FiCommand,
+};
+
+const TITLE_MAP: Record<string, string> = {
+  guild_count: "Servers",
+  member_count: "Members",
+  command_count: "Commands run",
+};
 
 export interface StatsCardProps {
-  title: string;
+  name: string;
   value: string;
-  icon: IconType;
 }
 
 function StatsCard(props: StatsCardProps) {
-  const { title, value } = props;
+  const { name, value } = props;
+
+  const displayName = TITLE_MAP[name];
+  const CardIcon = ICON_MAP[name];
+
   return (
     <Stat
       px={{ base: 2, md: 6 }}
@@ -34,7 +50,7 @@ function StatsCard(props: StatsCardProps) {
       <Flex justifyContent={"space-between"}>
         <Box>
           <StatLabel fontWeight={"medium"} isTruncated>
-            {title}
+            {displayName}
           </StatLabel>
           <StatNumber fontSize={"2xl"} fontWeight={"medium"}>
             {value}
@@ -45,7 +61,7 @@ function StatsCard(props: StatsCardProps) {
           color={useColorModeValue("gray.400", "gray.200")}
           alignContent={"center"}
         >
-          {<props.icon size={18} />}
+          {<CardIcon size={18} />}
         </Box>
       </Flex>
     </Stat>
