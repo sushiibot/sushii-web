@@ -7,7 +7,7 @@
     "dev": "run-p dev:*",
     "dev:build": "cross-env NODE_ENV=development remix dev | pino-pretty -c -t",
     "dev:serve": "cross-env NODE_ENV=development nodemon --watch build node_modules/.bin/remix-serve build | pino-pretty -c -t",
-    "dev:pgtyped": "cross-env NODE_ENV=development pgtyped -w -c pgtyped.config.json",
+    "dev:pgtyped": "cross-env NODE_ENV=development dotenv -- pgtyped -w -c pgtyped.config.json",
     "start": "remix-serve build",
     "test": "jest"
   },
@@ -45,6 +45,7 @@
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.23.0",
     "jest": "^29.5.0",
     "nodemon": "^2.0.21",
