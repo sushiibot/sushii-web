@@ -20,7 +20,7 @@ export default function Guide() {
         Still need some help?
       </Heading>
       <Link to="https://discord.gg/PjDRRXSSAF">
-        <ChakraLink>Join the support server</ChakraLink>
+        <ChakraLink color="blue.200">Join the support server</ChakraLink>
       </Link>
     </Container>
   );

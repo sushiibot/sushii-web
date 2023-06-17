@@ -37,7 +37,7 @@ import { parseStatistics } from "./statistics";
 import logger from "~/logger";
 
 const IMAGE =
-  "https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80";
+  "https://cdn.discordapp.com/attachments/740618628285857843/1085621666605965432/PXL_20230228_204948938.jpg";
 
 export async function loader(): Promise<TypedResponse<StatsCardProps[]>> {
   const rawStats = await getStatistics.run(undefined, client);

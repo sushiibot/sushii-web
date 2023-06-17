@@ -6,6 +6,7 @@ import {
   IconButton,
   Stack,
   Text,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { Link } from "@remix-run/react";
 import { FaDiscord, FaGithub } from "react-icons/fa";
@@ -49,10 +50,14 @@ export default function Footer() {
           </Text>
         </Stack>
         <Stack spacing={{ base: "4", md: "5" }}>
-          <Text fontSize="sm" color="subtle">
-            Terms of Service
+          <Text color="subtle">
+            <Link to="/terms">
+              <ChakraLink color="blue.200">Terms of Service</ChakraLink>
+            </Link>
             <br />
-            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/privacy">
+              <ChakraLink color="blue.200">Privacy Policy</ChakraLink>
+            </Link>
           </Text>
         </Stack>
         <Box />

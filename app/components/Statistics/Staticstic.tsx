@@ -16,9 +16,12 @@ const ICON_MAP: Record<string, IconType> = {
   command_count: FiCommand,
 };
 
+const SORT_ORDER = ["guild_count", "member_count", "command_count"];
+
 const TITLE_MAP: Record<string, string> = {
   guild_count: "Servers",
-  member_count: "Members",
+  // TODO: Change to "user_count"
+  member_count: "Users",
   command_count: "Commands run",
 };
 
@@ -73,10 +76,14 @@ export interface StatisticsProps {
 }
 
 export default function Statistics({ stats }: StatisticsProps) {
+  const sorted = stats.sort((a, b) => {
+    return SORT_ORDER.indexOf(a.name) - SORT_ORDER.indexOf(b.name);
+  });
+
   return (
     <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-        {stats.map((stat, index) => (
+        {sorted.map((stat, index) => (
           <StatsCard key={index} {...stat} />
         ))}
       </SimpleGrid>
