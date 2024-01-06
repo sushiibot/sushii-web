@@ -24,6 +24,7 @@
     "@skyra/discord-components-react": "^3.5.0",
     "@tabler/icons": "^1.105.0",
     "framer-motion": "^6",
+    "kysely": "^0.27.2",
     "node-cache": "^5.1.2",
     "nprogress": "^0.2.0",
     "pg": "^8.10.0",
