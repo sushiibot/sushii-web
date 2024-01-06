@@ -3,8 +3,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const schema = z.object({
-  DATABASE_URL: z.string(),
   LOG_LEVEL: z.string().optional().default("info"),
+
+  DATABASE_URL: z.string(),
 });
 
 const parsed = schema.safeParse(process.env);

@@ -10,11 +10,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
   useNavigation,
   useRouteError,
 } from "@remix-run/react";
-import type { V2_MetaFunction, LinksFunction } from "@remix-run/node"; // Depends on the runtime you choose
+import type { MetaFunction, LinksFunction } from "@remix-run/node"; // Depends on the runtime you choose
 import NProgress from "nprogress";
 import nProgressStyles from "./nprogress.css";
 
@@ -27,7 +26,7 @@ import { ServerStyleContext, ClientStyleContext } from "./context";
 import theme from "./theme";
 import Navbar from "./components/Navbar/Navbar";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     { charset: "utf-8" },
     { title: "sushii.xyz" },
@@ -35,7 +34,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
@@ -109,7 +108,7 @@ const Document = withEmotionCache(
 );
 
 export function ErrorBoundary() {
-  let error = useRouteError();
+  const error = useRouteError();
 
   if (isRouteErrorResponse(error)) {
     return (
@@ -136,46 +135,6 @@ export function ErrorBoundary() {
   } else {
     return <h1>Unknown Error</h1>;
   }
-}
-
-export function CatchBoundary() {
-  let caught = useCatch();
-
-  let message;
-  switch (caught.status) {
-    case 401:
-      message = (
-        <Text>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </Text>
-      );
-      break;
-    case 404:
-      message = (
-        <Text>
-          Oops! Looks like you tried to visit a page that does not exist.
-        </Text>
-      );
-      break;
-
-    default:
-      throw new Error(caught.data || caught.statusText);
-  }
-
-  return (
-    <Document>
-      <ChakraProvider theme={theme}>
-        <Navbar />
-        <Box>
-          <Heading>
-            {caught.status} {caught.statusText}
-          </Heading>
-          {message}
-        </Box>
-      </ChakraProvider>
-    </Document>
-  );
 }
 
 export default function App() {

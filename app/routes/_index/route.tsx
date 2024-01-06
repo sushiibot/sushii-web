@@ -29,23 +29,28 @@ import Statistics from "~/components/Statistics/Staticstic";
 import { botInviteURL } from "~/consts";
 import DotDivider from "~/components/Landing/DotDivider";
 import Footer from "~/components/Footer/Footer";
-import { getStatistics } from "./getStatistics.queries";
-import { client } from "~/database.server";
+import db from "~/database.server";
 import type { TypedResponse } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { parseStatistics } from "./statistics";
 import logger from "~/logger";
+import { getAllBotStats } from "../../db/BotStats/BotStat.repository";
 
 const IMAGE =
   "https://cdn.discordapp.com/attachments/740618628285857843/1085621666605965432/PXL_20230228_204948938.jpg";
 
 export async function loader(): Promise<TypedResponse<StatsCardProps[]>> {
-  const rawStats = await getStatistics.run(undefined, client);
-  const stats = parseStatistics(rawStats);
+  const stats = await getAllBotStats(db);
 
-  logger.info({ stats, rawStats }, "Stats");
+  logger.info({ stats }, "Stats");
 
-  return json(stats);
+  const minStats = stats.map((stat): StatsCardProps => {
+    return {
+      name: stat.name,
+      value: stat.count,
+    };
+  });
+
+  return json(minStats);
 }
 
 export default function Index() {
