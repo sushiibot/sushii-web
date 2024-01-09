@@ -12,9 +12,9 @@ export interface LeaderboardUserProps {
   userId: string;
   rank: number;
   username: string;
-  avatarHash?: string;
-  discriminator: string;
-  level: string;
+  avatarUrl: string | null;
+  discriminator: number;
+  level: number;
   xpProgress: number;
   xpTotal: number;
 }
@@ -23,7 +23,7 @@ export default function LeaderboardUser({
   userId,
   rank,
   username,
-  avatarHash,
+  avatarUrl,
   discriminator,
   level,
   xpProgress,
@@ -55,19 +55,14 @@ export default function LeaderboardUser({
             <Avatar
               size="lg"
               src={
-                avatarHash
-                  ? `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.webp?size=4096`
+                avatarUrl
+                  ? avatarUrl
                   : `https://cdn.discordapp.com/embed/avatars/${
-                      parseInt(discriminator) % 5
+                      parseInt(userId) % 5
                     }.png`
               }
             />
-            <Text>
-              {username}
-              <Text as="span" color={useColorModeValue("gray.300", "gray.500")}>
-                #{discriminator}
-              </Text>
-            </Text>
+            <Text>{username}</Text>
           </HStack>
         </Box>
         <VStack width="full" alignItems="start">

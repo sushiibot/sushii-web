@@ -7,7 +7,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link } from "@remix-run/react";
-import { FiBell, FiClock, FiInfo, FiSettings, FiUser } from "react-icons/fi";
+import {
+  FiBell,
+  FiClock,
+  FiInfo,
+  FiSettings,
+  FiUser,
+} from "react-icons/fi/index.js";
 import TextCard from "~/components/Card/TextCard";
 import type { SidebarProps } from "~/components/Sidebar/Sidebar";
 import Sidebar from "~/components/Sidebar/Sidebar";

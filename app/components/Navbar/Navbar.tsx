@@ -18,7 +18,12 @@ import {
   Spacer,
   useOutsideClick,
 } from "@chakra-ui/react";
-import { FiTrendingUp, FiBook, FiCommand, FiMenu } from "react-icons/fi";
+import {
+  FiTrendingUp,
+  FiBook,
+  FiCommand,
+  FiMenu,
+} from "react-icons/fi/index.js";
 import ColorModeToggle from "../ColorModeToggle/ColorModeToggle";
 import { Link, NavLink, useMatches } from "@remix-run/react";
 import SushiiIcon from "../../images/sushii.png";

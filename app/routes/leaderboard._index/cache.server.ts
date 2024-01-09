@@ -1,18 +1,22 @@
 import NodeCache from "node-cache";
-import type { IGetLeaderboardResult } from "./getLeadboard.queries";
+import type { UserRank } from "~/db/Leaderboard/Leaderboard.server";
 
 export class LeaderboardCache {
-  constructor(public cache: NodeCache) {}
+  private cache = new NodeCache();
 
-  set(key: string, value: IGetLeaderboardResult[]): boolean {
+  constructor() {
+    this.cache = new NodeCache();
+  }
+
+  set(key: string, value: UserRank[]): boolean {
     return this.cache.set(key, value, 5 * 60);
   }
 
-  get(key: string): IGetLeaderboardResult[] | undefined {
-    return this.cache.get<IGetLeaderboardResult[]>(key);
+  get(key: string): UserRank[] | undefined {
+    return this.cache.get<UserRank[]>(key);
   }
 }
 
-const leaderboardCache = new LeaderboardCache(new NodeCache());
+const leaderboardCache = new LeaderboardCache();
 
 export default leaderboardCache;

@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
-import { FiHome, FiCommand, FiUsers } from "react-icons/fi";
+import { FiHome, FiCommand, FiUsers } from "react-icons/fi/index.js";
 
 const ICON_MAP: Record<string, IconType> = {
   guild_count: FiHome,

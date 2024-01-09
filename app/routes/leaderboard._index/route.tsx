@@ -1,56 +1,49 @@
 import { Container, Heading, Text } from "@chakra-ui/react";
-import { useLoaderData } from "@remix-run/react";
-import type { LoaderArgs } from "@remix-run/node";
-import type { LeaderboardProps } from "~/components/Leaderboard/Leaderboard";
+import { json, useLoaderData } from "@remix-run/react";
+import type { LoaderFunctionArgs, TypedResponse } from "@remix-run/node";
 import Leaderboard from "~/components/Leaderboard/Leaderboard";
-import { client } from "~/database.server";
 import logger from "~/logger";
-import { getLeaderboard } from "./getLeadboard.queries";
 import leaderboardCache from "./cache.server";
+import { getGlobalRanks } from "~/db/Leaderboard/Leaderboard.server";
+import db from "~/db/database.server";
+import type { LeaderboardUserProps } from "~/components/Leaderboard/LeaderboardUser";
+import { mixedBigIntToNumber } from "~/utils/mixedBigInt";
+import UserLevelProgress from "~/user/UserLevelProgress";
 
 export const loader = async ({
   params,
-}: LoaderArgs): Promise<LeaderboardProps> => {
+}: LoaderFunctionArgs): Promise<TypedResponse<LeaderboardUserProps[]>> => {
   // Check cache first
   let data = leaderboardCache.get("global");
 
   if (data) {
     logger.debug({ len: data.length }, "got global leaderboard from cache");
-  }
-
-  if (!data) {
+  } else {
     // Not cached, query db
-    data = await getLeaderboard.run(
-      {
-        // Global
-        guildId: null,
-        timeframe: "ALL_TIME",
-        offset: 0,
-      },
-      client
-    );
+    data = await getGlobalRanks(db, "all_time", 100, 0);
 
     // Cache for 5 minutes
     logger.debug({ len: data.length }, "queried global leaderboard, caching");
     leaderboardCache.set("global", data);
   }
 
-  const items = data.map((row, i) => {
+  const items = data.map((row, i): LeaderboardUserProps => {
+    const xpTotal = mixedBigIntToNumber(row.xpTotal);
+    const userLevel = new UserLevelProgress(xpTotal);
+
     return {
       rank: i,
-      userId: row.user_id || "0",
-      avatarHash: row.avatar_url || undefined,
+      userId: row.userId || "0",
+      avatarUrl: row.avatarUrl,
       username: row.username || "Unknown",
-      discriminator: row.discriminator?.toString() || "0000",
-      level: row.current_level || "0",
-      xpProgress: parseInt(row.next_level_xp_progress || "0", 10),
-      xpTotal: parseInt(row.xp || "0", 10),
+      discriminator: row.discriminator || 0,
+      xpTotal: xpTotal,
+      level: userLevel.level,
+      xpProgress: userLevel.nextLevelXpProgress,
     };
   });
 
-  return {
-    items,
-  };
+  return json(items);
 };
 
 export default function GlobalLeaderboard() {
@@ -64,7 +57,7 @@ export default function GlobalLeaderboard() {
         servers sushii is in.
       </Text>
       <br />
-      <Leaderboard items={leaderboardData.items} />
+      <Leaderboard items={leaderboardData} />
     </Container>
   );
 }

@@ -22,18 +22,18 @@ import {
   FiChevronsUp,
   FiMessageSquare,
   FiTag,
-} from "react-icons/fi";
+} from "react-icons/fi/index.js";
 import TextCard from "~/components/Card/TextCard";
 import type { StatsCardProps } from "~/components/Statistics/Staticstic";
 import Statistics from "~/components/Statistics/Staticstic";
 import { botInviteURL } from "~/consts";
 import DotDivider from "~/components/Landing/DotDivider";
 import Footer from "~/components/Footer/Footer";
-import db from "~/database.server";
+import db from "~/db/database.server";
 import type { TypedResponse } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import logger from "~/logger";
-import { getAllBotStats } from "../../db/BotStats/BotStat.repository";
+import { getAllBotStats } from "../../db/BotStats/BotStat.repository.server";
 
 const IMAGE =
   "https://cdn.discordapp.com/attachments/740618628285857843/1085621666605965432/PXL_20230228_204948938.jpg";

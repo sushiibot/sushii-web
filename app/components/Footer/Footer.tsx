@@ -9,7 +9,7 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { Link } from "@remix-run/react";
-import { FaDiscord, FaGithub } from "react-icons/fa";
+import { FaDiscord, FaGithub } from "react-icons/fa/index.js";
 
 export default function Footer() {
   return (

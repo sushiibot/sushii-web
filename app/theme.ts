@@ -1,7 +1,9 @@
 import { defineStyle, extendTheme } from "@chakra-ui/react";
-import { withProse } from "@nikolovlazar/chakra-ui-prose";
+// import * as chakraUIProse from "@nikolovlazar/chakra-ui-prose";
 import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { mode } from "@chakra-ui/theme-tools";
+
+// const { withProse } = chakraUIProse.default;
 
 const colors = {
   gray: {
@@ -39,8 +41,10 @@ const headingStyle = defineStyle({
 
 const theme = extendTheme(
   {
-    initialColorMode: "dark",
-    useSystemColorMode: false,
+    config: {
+      initialColorMode: "dark",
+      useSystemColorMode: false,
+    },
     colors,
     fonts: {
       heading: `'Poppins', sans-serif`,
@@ -56,8 +60,8 @@ const theme = extendTheme(
         },
       }),
     },
-  },
-  withProse()
+  }
+  // withProse()
 );
 
 export default theme;

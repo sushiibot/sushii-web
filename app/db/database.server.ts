@@ -1,12 +1,13 @@
-import { Pool } from "pg";
-import config from "./config";
-import logger from "./logger";
+import pg from "pg";
+import config from "../config";
+import logger from "../logger";
 import { Kysely, PostgresDialect } from "kysely";
 import Cursor from "pg-cursor";
-import type { DB } from "./db/types";
+import type { DB } from "./types";
 
 const dbLogger = logger.child({ component: "db" });
 
+const { Pool } = pg;
 const pool = new Pool({
   connectionString: config.DATABASE_URL,
   // Don't really need that many connections

@@ -1,7 +1,14 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
-import { ChakraProvider, Heading, Text, VStack, Box } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Heading,
+  Text,
+  VStack,
+  Box,
+  ColorModeScript,
+} from "@chakra-ui/react";
 import {
   isRouteErrorResponse,
   Links,
@@ -97,6 +104,7 @@ const Document = withEmotionCache(
           ))}
         </head>
         <body style={{ minHeight: "100%", overflowY: "scroll" }}>
+          <ColorModeScript initialColorMode="dark" />
           {children}
           <ScrollRestoration />
           <Scripts />

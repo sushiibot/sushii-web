@@ -3,8 +3,10 @@ meta:
   - title: Privacy Policy
 ---
 
-import { Prose } from "@nikolovlazar/chakra-ui-prose";
+import * as chakraUIProse from "@nikolovlazar/chakra-ui-prose";
 import { Container } from "@chakra-ui/react";
+
+const { withProse } = chakraUIProse;
 
 <Container marginTop="8" maxW="4xl">
 <Prose>

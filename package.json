@@ -2,6 +2,7 @@
   "name": "sushii-web",
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "remix build",
     "dev": "run-p dev:*",

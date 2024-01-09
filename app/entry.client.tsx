@@ -1,33 +1,34 @@
 // entry.client.tsx
-import React, { useState } from 'react'
-import { hydrate } from 'react-dom'
-import { CacheProvider } from '@emotion/react'
-import { RemixBrowser } from '@remix-run/react'
+import React, { useState } from "react";
+import { hydrate } from "react-dom";
+import { CacheProvider } from "@emotion/react";
+import { RemixBrowser } from "@remix-run/react";
 
-import { ClientStyleContext } from './context'
-import createEmotionCache, { defaultCache } from './createEmotionCache'
+import { ClientStyleContext } from "./context";
+import createEmotionCache, { defaultCache } from "./createEmotionCache";
 
 interface ClientCacheProviderProps {
   children: React.ReactNode;
 }
 
 function ClientCacheProvider({ children }: ClientCacheProviderProps) {
-  const [cache, setCache] = useState(defaultCache)
+  const [cache, setCache] = useState(defaultCache);
 
   function reset() {
-    setCache(createEmotionCache())
+    setCache(createEmotionCache());
   }
 
   return (
     <ClientStyleContext.Provider value={{ reset }}>
       <CacheProvider value={cache}>{children}</CacheProvider>
     </ClientStyleContext.Provider>
-  )
+  );
 }
 
+// https://github.com/remix-run/remix/issues/2947
 hydrate(
   <ClientCacheProvider>
     <RemixBrowser />
   </ClientCacheProvider>,
-  document,
-)
+  document
+);

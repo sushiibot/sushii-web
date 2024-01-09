@@ -11,7 +11,7 @@ export default function Leaderboard({ items }: LeaderboardProps) {
   return (
     <Box>
       {items.map((item, index) => (
-        <LeaderboardUser key={item.username} {...item} />
+        <LeaderboardUser key={item.userId} {...item} />
       ))}
     </Box>
   );
